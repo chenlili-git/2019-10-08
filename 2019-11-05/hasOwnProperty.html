@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+/*
+    hasOwnProperty: 
+        查看某个属性是不是对象本身，返回值是布尔值(true/false)
+        用法：
+            for in 枚举原型，把自定的属性或者方法枚举出来
+            查看某个属性或者方法是否是对象的本身的（面向对象中），即查看某个属性是公有的还是私有的
+        注意：在for in的过程中，不确定构造函数的原型下是否有自定义的属性或者方法 最好先用if判断下
+    
+    function Person(name,age){
+        this.name=name;
+        this.age=age;
+    }
+    Person.prototype.sex='未知'
+    let p1=new Person('张三',20)
+    for(let attr in obj){
+        if(obj.hasOwnProperty(attr)){
+            console.log(attr);
+        }
+    }
+    封装公共属性
+    function hasPubProperty(obj,attr){
+        return obj.hasOwnProperty(attr)
+    }
+*/
+</html>

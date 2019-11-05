@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    /*
+    1.window
+      全局打印this
+      函数名+()
+      定时器（只要有定时器 里面的指向都是this 不要被迷惑）
+    2.事件触发的元素
+      只要是事件函数内的this 都指向的是触发该事件的元素  
+    3.点前面的主
+    4.实例
+        构造函数下的this是实例（实例调用）
+        构造函数原型的this也是实例（实例调用）
+    5.箭头函数
+        指向的是声明箭头函数的上下文this
+
+        没有arguments,不能new
+    
+    */
+    //改写this的指向方法
+        /*
+        当一个函数创建的时候，天生带有的方法，其中有call,apply,bind方法
+        call:
+            有若干个参数：
+              第一个参数：修改this指向
+              第二个参数及之后：函数的实参
+        apply:
+            有2个参数：
+              第一个参数是：修改this指向
+              第二个参数：数组，数组里面放的是实参
+        bind:(惰性函数，柯里化函数，高阶函数))
+            多个参数
+               第一个参数：修改this指向
+               第二个参数：函数的实参
+
+        他返回的是新函数，只要调用返回的函数才能执行函数内部的代码
+        */
+        function fn(a,b){
+            console.log(this,a,b)
+        }
+        fn.call(document,1,2)
+        fn.apply(document,[1,1])
+        fn.bind(document)(1,2)
+</script>
+</html>
