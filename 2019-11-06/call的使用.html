@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    /*
+        所有的数据都有一个toString的方法，但是写法是不一样的
+        唯独object的toString能够去检测当前的数据类型，所以可以把this改变，达到我们的目的
+       
+    */
+    let obj={a:1,b:3}
+    console.log(Object.prototype.toString())//[object Object]
+    
+    console.log(String.prototype.toString)//ƒ toString() { [native code] }
+    console.log(Array.prototype.toString())//空
+    /*
+    Array的toString除了数组本身其他的都能检测数据类型
+    */  
+   // console.log(Array.prototype.toString.call())//报错
+    console.log(Array.prototype.toString.call('234234'))//[object String]
+
+    //slice返回一个新数组，不传参就是把整个数组返回
+    let ary2 = [1,2,3,4];
+
+    console.log(ary2.slice());
+
+    Array.prototype.mySlice=function(){
+        return [...this]
+    }
+    console.log(ary2.mySlice());
+    //求最大值
+    console.log(Math.max.apply(null,[1,4,5]))
+   
+
+</script>
+</html>

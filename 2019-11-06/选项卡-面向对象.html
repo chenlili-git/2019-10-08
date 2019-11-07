@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .active {
+            background: yellow;
+        }
+
+        #box div,
+        #box2 div {
+            width: 200px;
+            height: 100px;
+            border: 1px solid #000;
+            display: none;
+        }
+
+        #box div.show,
+        #box2 div.show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <button class="active" index="0">按钮一</button>
+        <button index="1">按钮二</button>
+        <button index="2">按钮三</button>
+        <div class="show">11111</div>
+        <div>22222</div>
+        <div>33333</div>
+    </div>
+    <div id="box2">
+        <button class="active" index="0">按钮一</button>
+        <button index="1">按钮二</button>
+        <button index="2">按钮三</button>
+        <div class="show">11111</div>
+        <div>22222</div>
+        <div>33333</div>
+    </div>
+    <button id="btn1">让第二个停</button>
+    <button id="btn2">让第一个开</button>
+    <button id="btn3">让开的关，关的开</button>
+</body>
+<script>
+    function Tab(id) {
+        this.boxs = document.getElementById(id);
+        this.btns = this.boxs.querySelectorAll('button');
+        this.divs = this.boxs.querySelectorAll('div');
+        this.preIndex = 0;
+        this.timer;
+        this.num = 0;
+    }
+    Tab.prototype.events = function () {
+        let _this = this;
+        for (let i = 0; i < this.btns.length; i++) {
+            this.btns[i].onclick = function () {
+                _this.change(i);
+            }
+        }
+    }
+    Tab.prototype.change = function (i) {
+        console.log(i, this.preIndex)
+        this.btns[this.preIndex].className = '';
+
+        this.divs[this.preIndex].className = '';
+        this.btns[i].className = 'active';
+        this.divs[i].className = 'show';
+
+        this.preIndex = i;
+       
+    }
+
+    Tab.prototype.play = function () {
+        this.timer = setInterval(() => {
+            this.num++;
+            this.num %= this.btns.length;
+            this.change(this.num);
+        }, 500);
+    }
+
+    Tab.prototype.stop = function () {
+        clearInterval(this.timer);
+        this.timer = null;
+    }
+
+    Tab.prototype.isAutoPlay = function () {
+        return this.timer;
+    }
+    let t = new Tab('box');
+    let t2 = new Tab('box2');
+    t.events();
+    t2.events();
+    btn1.onclick = function () {
+        t2.stop();
+    }
+    btn2.onclick = function () {
+        if (t.isAutoPlay()) {
+            t.stop();
+        } //连续点击  事件必须要清空上一次的  否则会出现定时器累计
+        t.play();
+    }
+    btn3.onclick = function () {
+        if (t.isAutoPlay()) {
+            t.stop();
+        } else {
+            t.play();
+        }
+
+        if (t2.isAutoPlay()) {
+            t2.stop();
+        } else {
+            t2.play();
+        }
+    }
+
+</script>
+
+</html>

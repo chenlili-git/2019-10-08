@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+/*
+数组的解析赋值：
+    let [x,y]=[a]
+    声明的时候一定要是数组，左右两边的解构都要保持一致
+    
+    //错误写法  报错
+    let [foo]=1;
+    let [foo]=false;
+    let [foo] = NaN;
+    let [foo] = undefined;
+    let [foo] = null;
+    let [foo] = {};
+*/
+    // let [x=2,y=3]=[1];
+    // console.log(x,y)//1 3
+
+    let [a,[b,[[c,[[d,e]],f,g]],h]]=[2,[3,[[5,[[6,8]],1,2]],3]]
+    console.log(d,h)
+
+    // let [x=y,y=0]=[]
+    // console.log(x,y)//报错 因为let定义没有变量提升 x=y y不出存在  所以报错
+    // var [x=y,y=0]=[]
+    // console.log(x,y)//undefined 0
+
+    function fn(){
+        console.log('aaa');
+    }
+    // let [x=fn()]=[1];
+    // console.log(x)//1
+    let [x=fn()]=[];
+    console.log(x)//aaa undefined
+
+    let m;
+    if([1][0]===undefined){//数组[1]的第0项是1 1不等于undefined 所有就走else
+        x=fn();
+    }else{
+        x=[1][0]
+    }
+    console.log(x)//1
+
+//两个值互换
+    var a1=10;
+    var b1=3;
+    //解构赋值互换
+    // var [b1,a1]=[a1,b1]
+    // console.log(a1,b1)//3 10
+    //常规方法互换
+    // a1=a1+b1;
+    // b1=a1-b1;
+    // a1=a1-b1;
+    // console.log(a1,b1)//3 10
+
+
+</script>
+</html>

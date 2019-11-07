@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    /*new的特性
+        1.this是实例
+        2.默认return实例，如果return为引用类型就为引用类型
+        3.实例的原型链===构造函数的原型
+        4.可以不加括号调用
+    
+    */
+    function Fn(name){
+        this.name=name;
+    }
+    Fn.prototype.age='25';
+    let f=New(Fn,'chenli');
+    console.log(f.name)
+    console.log(f.age)
+    console.log(f)
+    function New(fn,...arg){
+        let obj={};
+        let callback=fn.call(obj,...arg);//把构造函数的this改成实例obj
+        //实例的原型链===构造函数的原型
+        obj.__proto__=fn.prototype;
+        
+        if(callback!==null && typeof callback==='object'||typeof callback==='function'){
+            return callback;
+        }
+        return obj;
+    }
+</script>
+</html>
