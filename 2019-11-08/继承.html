@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /*
+    面向对象的特征：封装，继承，多态
+    继承：子类继承父类的一部分特征，自己也有自己特有的特征
+    比如: 人 和 警察
+        父类-人：名字  年龄  性别  有情感   会说高级语言
+        子类-警察：配枪  穿警服  开警察 抓坏人
+    */
+
+    // function Person(name,age){
+    //     this.name=name;
+    //     this.age=age;
+    // }
+    // Person.prototype.say=function(){
+
+    //     alert('我的名字叫'+this.name)
+    // }
+    // let p1=new Person('chenli',28);
+
+    // //警察
+    // function Police(name,age){
+    //     this.name=name;
+    //     this.age=age;
+    //     this.job='警察';
+
+    // }
+    // Police.prototype.say=function(){
+    //     alert('我的名字叫'+this.name);
+    // }
+    // Police.prototype.kongfu=function(){
+    //     console.log(this.name+'抓坏人')
+    // }
+    // let p2=new Police('chenli',20);
+    // p2.say();
+    // p2.kongfu();
+
+    /*
+    警察也有人类的特性，但是人类已经写过一遍了，在警察里面其实是不用写的
+    继承的写法可以让子类的代码量减少很多，从而达到高内聚，低耦合的目的，减少开发成本
+    
+    继承方式：
+    1.类式继承（call继承）
+    2.原型继承
+    3.寄生式组合继承
+    4.拷贝继承(Object.assigin)
+    5.对象继承
+    6.class继承
+    。。。
+    
+    
+    
+    继承的目的：能够继承父类的属性和方法
+    
+    继承父类的属性：
+        调用父类，通过call把this变成为子类的实例即可（call继承）
+        function Police(name,age){
+            //this->实例
+            Person.call(this,name,age);
+            console.log(this)
+        }
+    
+    继承方法：
+        通过浅拷贝，把父类上原型的方法或者属性都赋值给子类的原型
+        Object.assigin(子类,prototype,父类.prototype)
+    */
+
+    // function Person(name, age) {
+    //     this.name = name;
+    //     this.age = age;
+    // }
+    // Person.prototype.say = function () {
+
+    //     alert('我的名字叫' + this.name)
+    // }
+    // let p1 = new Person('chenli', 28);
+
+    // //警察  
+    // function Police(name, age) {
+
+    //     Person.call(this, name, age);//继承person的属性
+
+    // }
+
+    // Object.assign(Police.prototype, Person.prototype);//继承person的方法
+
+    // // Police.prototype.say = function () {
+    // //     alert('我的名字叫dddd' + this.name);
+    // // }
+    // let p2 = new Police('chenli', 20);
+    // let p = new Person('haha', 100)
+    // p2.say();
+    // p.say();
+
+
+    //原型继承 原型继承 原型继承 
+    // function Person(name, age) {
+    //     this.name = name;
+    //     this.age = age;
+    //     console.log('此处会有一万行代码');
+    // }
+    // Person.prototype.say = function () {
+
+    //     alert('我的名字叫' + this.name)
+    // }
+    // //警察  
+    // function Police(name, age) {
+
+    //     Person.call(this, name, age);//继承person的属性
+
+    // }
+    // //console.log(Police.prototype)//{constructor: ƒ}
+   // Police.prototype = new Person;//police的constructor变成了
+    // console.log(Police.prototype.constructor)//ƒ Person(name, age)
+   //Police.prototype.constructor = Police;
+    //console.dir(Police.prototype.constructor)//ƒ Police(name, age)
+
+    //原型继承的第二种方法
+    // function Paohui(){}
+    // Paohui.prototype = Person.prototype;
+    // Police.prototype = new Paohui;
+
+
+    /*
+           p2.say -> p2.__proto__ -> Police.prototype ->
+
+           new Person ->new Person().__proto__ ->
+
+           Person.prototype
+       */
+
+
+    /*
+        p2.say  -> p2.__proto__ -> Police.prototype
+
+        new Paohui() -> new Paohui().__proto__ ->
+
+        Paohui.prototype -> Person.prototype
+
+        Person.prototype.say  √
+
+
+    */
+    //console.log(new Police().constructor)
+    // console.log(Police.prototype)
+
+    // let p2 = new Police('chenli', 20);
+    // let p = new Person('haha', 100)
+    // p2.say();
+    // p.say();
+    // console.log(p2)
+
+
+
+    /*
+    
+    寄生继承
+    寄生继承
+    寄生继承
+    寄生继承
+    寄生继承
+    */
+    // function Person(name, age) {
+    //     this.name = name;
+    //     this.age = age;
+    // }
+    // Person.prototype.say = function () {
+    //     alert(`我的名字叫` + this.name);
+    // }
+
+    // function Police(name, age) {
+    //     Person.call(this, name, age);
+    // }
+    // Police.prototype = Object.create(Person.prototype); //寄生式组合
+    // // // Police.prototype.constructor = Police;
+
+
+
+    // Police.prototype.say = function () {
+    //     alert(`我是警察` + this.name);
+    // }
+
+    // let p2 = new Police('赵炎', 100);
+    // let p1 = new Person('刘成', 19);
+
+    // p2.say();
+    // p1.say();
+
+
+    /*
+    class继承
+    class继承
+    class继承
+    class继承
+    class继承
+    */
+    /*
+        Array.isArray
+        Object.assigin
+        Objest.creat
+        Array.from
+        ...
+    通过class中static 可以创建静态方法，只有类才能调用
+    实例是调用不到的就算是继承也只是继承子类去调用，子类的实例是调用不到
+*/
+    class Person{
+        static eat(){
+            console.log('吃饭')
+        }
+        constructor(name,age){
+            this.name=name;
+            this.age=age;
+        }
+        say(){
+            alert('我的名字叫'+this.name)
+        }
+    }
+    class Police extends Person{
+        //在继承的constructor中，如果要使用this，一定要写super
+        constructor(job,...arg){//剩余运算符['xxx',19]
+            //console.log(this);//super的上面是调用不到this的
+            super(...arg)
+            this.job=job;
+        }
+        say(){
+            console.log('我是chenli');
+        }
+    }
+    let p2 =new Police('警察','xxx',19)
+    let p1=new Person('yyy',18)
+    p2.say();
+    p1.say();
+    console.log(p2);
+    console.log(p2.eat)//undefined
+    console.log(Police.eat)//ƒ eat(){console.log('吃饭')}
+</script>
+
+</html>

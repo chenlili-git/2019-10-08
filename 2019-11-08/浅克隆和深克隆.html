@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">a
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /*
+    如果不是赋址，是赋值就解决了这个问题
+        Object.assign 浅拷贝
+        Object.assign(obj2,obj1,obj0)
+        从左往右拷贝对象的属性 ，可以放若干对象，相同属性后面的覆盖前面的
+    */
+    let prototype1 = {
+        say() {
+            console.log('我叫chenli');
+        }
+    }
+    let prototype2 = {}
+
+    prototype2 = prototype2;//赋址关系
+    for (const attr in prototype1) {
+        //for in会枚举当前对象原型下的属性和方法，使用hasOwnProperty就
+        //能只找对象自身的属性了
+        if (prototype1.hasOwnProperty(attr)) {
+            const element = prototype1[attr];
+            prototype2[attr] = element;
+
+        }
+    }
+    prototype2.say = function () {
+        console.log('我是警察')
+    }
+    console.log(prototype2)
+    prototype2.say();
+    prototype1.say();
+    /*
+    2个引用类型的赋值就是赋值地址
+    原始类型的赋值就是普通类型的赋值，其实赋值引用类型的目的是B拿A下面的属性
+    
+    如何避免赋值：
+    1.需要2个不同地址
+    2.B地址下拥有A地址下的原始类型的数据即可（原始类型的赋值）
+
+    */
+    // let ary=[1,3,[3,4],{name:'chenli',age:29}]
+    // let ary2=ary
+    // ary2[3].name='chenlili';
+    // console.log(ary2)//[1,3,[3,4],{name:'chenlili',age:29}]
+    // console.log(ary)//[1,3,[3,4],{name:'chenlili',age:29}]
+    //上面还是赋址 没有解决只是赋值的问题
+    // let ary = [1, 3, [3, 4]]
+    // let ary2 = []
+    // for (let index = 0; index < ary.length; index++) {
+
+    //     //原始数据类型的赋值就是简单的赋值关系，不会赋值地址
+    //     ary2[index] = ary[index];
+    // }
+    // ary2.push(2);
+    // console.log(ary)//[1,3,[3,4]]
+    // ary2[2].push(2);
+    // console.log(ary)//[1,3,[3,4,2]]//如果数组中有引用类型，那么引用类型的数据还是赋址的 还是需要解决问题
+
+    //为了解决上面的引用类型数据赋址的问题  需要深度克隆(深拷贝)
+    let ary = [1, 3, [3, 4],{name:'chenli',age:29}];
+    function deepClone(obj){
+
+        //先判断obj是否是引用类型且不为空
+        if(typeof obj!=='object'&&obj!==null)return null;
+        
+        //判断数据是数组还是对象
+        let o=obj.push?[]:{};//o=Array.isArray(obj)?[]:{};   
+        for (const attr in obj) {
+            //判断obj的值是引用类型还是原型类型 引用类型就递归 继续深度克隆
+            if (typeof obj[attr]==='object') {
+               o[attr]=deepClone(obj[attr])
+            }else{
+                o[attr]=obj[attr];
+            }
+        }
+        return o;
+    }
+    let ary2 = deepClone(ary);
+    
+    //JSON.parse(Json.stringify(ary))//jquery深度克隆方法
+    ary2[2].name='chenlili';
+    console.log(ary2)//[1, 3, [3, 4],{name:'chenlili',age:29}]
+    console.log(ary)//
+</script>
+
+</html>
