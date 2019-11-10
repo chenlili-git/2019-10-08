@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
-    
+
 </body>
 <script>
     /*new的特性
@@ -17,24 +19,55 @@
         4.可以不加括号调用
     
     */
-    function Fn(name){
-        this.name=name;
+    function Fn(name) {
+        this.name = name;
     }
-    Fn.prototype.age='25';
-    let f=New(Fn,'chenli');
+    Fn.prototype.age = '25';
+    let f = New(Fn, 'chenli');
     console.log(f.name)
     console.log(f.age)
     console.log(f)
-    function New(fn,...arg){
-        let obj={};
-        let callback=fn.call(obj,...arg);//把构造函数的this改成实例obj
+    function New(fn, ...arg) {
+        let obj = {};
+        let callback = fn.call(obj, ...arg);//把构造函数的this改成实例obj
         //实例的原型链===构造函数的原型
-        obj.__proto__=fn.prototype;
-        
-        if(callback!==null && typeof callback==='object'||typeof callback==='function'){
+        obj.__proto__ = fn.prototype;
+
+        if (callback !== null && typeof callback === 'object' || typeof callback === 'function') {
             return callback;
         }
         return obj;
     }
+
+    // function New(fn, ...arg) {
+    //     var obj = {}
+    //     return function () {
+    //         obj.__proto__ = fn.prototype;
+    //         fn.call(obj, ...arg);
+    //         return obj;
+    //     }
+
+    // }
+
+
+    function _new() {
+        // 1、创建一个新对象
+        let target = {};
+        let [constructor, ...args] = [...arguments];  // 第一个参数是构造函数
+        // 2、原型链连接
+        target.__proto__ = constructor.prototype;
+        // 3、将构造函数的属性和方法添加到这个新的空对象上。
+        let result = constructor.apply(target, args);
+        if (result && (typeof result == "object" || typeof result == "function")) {
+            // 如果构造函数返回的结果是一个对象，就返回这个对象
+            return result
+        }
+        // 如果构造函数返回的不是一个对象，就返回创建的新对象。
+        return target
+    }
+    let p2 = _new(Person, "小花")
+    console.log(p2.name)  // 小花
+    console.log(p2 instanceof Person) // true
 </script>
+
 </html>

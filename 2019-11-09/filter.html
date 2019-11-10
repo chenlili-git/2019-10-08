@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+let ary=[1,2,4,2,6,7,3];
+//要拿到4-6之间的数字，包含4和6
+/*
+filter 返回的是一个新数组
+循环数组的每一项数据，把符合条件的数据返回出去生成一个新数组
+（过滤了不符合条件的数据）
+
+*/
+let ary2=ary.filter((item,index)=>{
+    return item>=4&&item<=6;//把符合大于等于4和小于等于6之间的数据放入新数组
+
+})
+console.log(ary2)
+</script>
+</html>
