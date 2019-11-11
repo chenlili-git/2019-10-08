@@ -95,7 +95,7 @@
                 let list = newdata.map(({ title, img, price, time, hot, id }, i) => {
                     return (
                         `<li data-id="${id}">
-                            <img src="${img}" alt="">
+                            <img src="${img}" loading="lazy" alt="">
                             <p
                                 title="${title}"
                             >商品名称:<span>${title.substr(0, 6)}</span></p>

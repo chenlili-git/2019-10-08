@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body,
+			ul,
+			li {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="price.css" />
+	</head>
+
+	<body onselectstart="return false;">
+		<div class="wrap">
+			<div class="box">
+				<ul class="list">
+					<li>
+						<i class="cut"></i>
+						<em>0</em>
+						<i class="add"></i>
+						<span>
+							单价：<strong>12.5元</strong> 小计：<strong>0元</strong>
+						</span>
+					</li>
+					<li>
+						<i class="cut"></i>
+						<em>0</em>
+						<i class="add"></i>
+						<span>
+							单价：<strong>10.5元</strong> 小计：<strong>0元</strong>
+						</span>
+					</li>
+					<li>
+						<i class="cut"></i>
+						<em>0</em>
+						<i class="add"></i>
+						<span>
+							单价：<strong>8.5元</strong> 小计：<strong>0元</strong>
+						</span>
+					</li>
+					<li>
+						<i class="cut"></i>
+						<em>0</em>
+						<i class="add"></i>
+						<span>
+							单价：<strong>8元</strong> 小计：<strong>0元</strong>
+						</span>
+					</li>
+					<li>
+						<i class="cut"></i>
+						<em>0</em>
+						<i class="add"></i>
+						<span>
+							单价：<strong>14.5元</strong> 小计：<strong>0元</strong>
+						</span>
+					</li>
+				</ul>
+				<div class="info">
+					<span>商品公合计：<em id="totalNum">0</em>件</span>
+					<span>共花费了：<em id="totalPrice">0</em>元</span>
+					<br />
+					<br />
+					<span>其中最贵的商品单价是：<em id="mostPrice">0</em>元</span>
+				</div>
+			</div>
+		</div>
+		<script>
+			let lis=document.querySelectorAll('li');
+			let totalNumTag=document.getElementById('totalNum');
+			let totalPriceTag=document.getElementById('totalPrice');
+			let mostPriceTag=document.getElementById('mostPrice');
+			
+			let mostPriceArr={};
+
+			lis.forEach(element => {
+				let iTag=element.querySelectorAll('i');
+				let emTag=element.querySelectorAll('em')[0];
+				let priceTag=element.querySelectorAll('strong')[0];
+				let totalTag=element.querySelectorAll('strong')[1];
+				let num=emTag.innerText;
+				let str=priceTag.innerText;
+			
+				let price=str.substring(0,str.length-1);
+		
+				iTag.forEach(ele=>{
+
+					ele.onclick=function(){	
+											
+						if(this.className=='cut'){
+						
+							if(num>0){
+								num--;
+								emTag.innerText=num;//单个商品数量
+								totalTag.innerText=price*num+'元';//单个商品的总价
+								
+								totalNumTag.innerText=Number(totalNumTag.innerText)-1;//所选商品的总数量
+								totalPriceTag.innerText=Number(totalPriceTag.innerText)-Number(price);//所选商品的总价格
+								
+							//mostPriceArr[price]=emTag.innerText;
+							}
+						}else{
+							
+							num++;
+							emTag.innerText=num;//单个商品数量
+							totalTag.innerText=price*num+'元';//单个商品的总价
+							totalNumTag.innerText=Number(totalNumTag.innerText)+1;//所选商品的总数量
+							totalPriceTag.innerText=Number(totalPriceTag.innerText)+Number(price);//所选商品的总价格
+					
+							//mostPriceArr[price]=emTag.innerText;
+						}
+						mostPriceArr[price]=emTag.innerText;
+						mostPriceTag.innerText=moustPrice(mostPriceArr);
+					}
+					
+				})
+			});
+			//最高价格
+			function moustPrice(obj){
+			
+				let priceNum=0;
+				for (const key in obj) {
+				
+					if(Number(key)>Number(priceNum) ){
+						if(obj[key]>0){
+							priceNum=Number(key);
+						}		
+					}
+				}
+				return priceNum;
+			}
+		</script>
+	</body>
+
+</html>

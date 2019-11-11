@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+//     let a = 12;
+//     a.b = 10;
+//     console.log(a.b)//简单类型挂属性都是undefined 除了undefined  null
+//     let obj={a:1,c:2,d:3}
+//     // obj.b=3;
+//     // console.log(obj.b)//3
+//     let c;
+//    // c.a=2;
+//     //console.log(c.a)//报错co
+//     console.log(deepclone([1,2,1,2,[3,4],{a:1,b:4}]))
+//     console.log(deepclone(obj))
+//     function deepclone(obj){
+//         let o=obj.push?[]:{};
+//         for (const attr in obj) {
+//             if (typeof obj[attr]==='object'&& obj[attr]!==null) {
+//                 o[attr]=deepclone(obj[attr])
+                
+//             }else{
+//                 o[attr]=obj[attr]
+//             }
+//         }
+//         return o;
+//     } 
+
+
+// //call
+// function fn(a,b){
+//     this.a=a;
+//     this.b=b;
+//     console.log(this)
+// }
+// fn.myCall([1,2],1,2)
+// //改变this
+// //
+// Function.prototype.myCall=function(that,...arg){
+//     that.fn=this;
+// }    
+
+// var a = {
+//     x: 1
+// };
+
+// var b = a;
+// a.c = a = {
+//     y: 1
+// };
+// console.log(a);
+
+// console.log(a, b, c); //undefined undefined undefined
+// var a = 10,
+//     b = 20,
+//     c = 30;
+
+// function f(a) {
+//     console.log(a, b, c);//10 undefined 30
+//     var b = a = c = 100;  //a=100 window.c=100
+//     console.log(a, b, c) //100 100 100
+// }
+// f(10, 20);
+// console.log(a, b, c)//10 20 100
+// a(); //1
+// var a = c = function () {
+//     console.log(2)
+// };
+// a(); //2
+// function a() {
+//     console.log(1)
+// };
+// a(); 
+// console.log(a);//undefined
+// var a = 12;
+
+// function fn() {
+//     console.log(a);//12
+//     a = 13;
+// }
+// fn();
+// var foo = 1;
+
+// function bar() {
+
+//     if (!foo) {
+//         var foo = 10;
+//     }
+//     console.log(foo);//10
+// }
+// bar();
+
+</script>
+
+</html>
