@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /*
+    正则表达式：
+        专门用来检索字符串的一种规则（更擅长处理模糊范围的字符串）
+        难点：
+            1.规则=>规律 现象（需要大家去总结）
+        容易点：
+            没有逻辑 靠记忆
+    
+        // 字面量的方法
+    
+        new RegExp(规则，修饰符) 规则：可以为字符串 也可以进行字符串拼接
+            当查找变量的时候 一定用new RegExp()
+    
+    
+        懒惰: 
+            你让它找一个，绝对不会找第二个，你让它找一堆，它绝对不会找第二堆
+    
+        贪婪:
+            只要符合某个规则就不停的找，直到找不到为止
+    
+           
+    
+    转义字符  
+        \ :  把正则中含有特殊含义的字符 转成字符本身 即不带有任何特殊含义
+             alert('通知：\\n明天考试')
+        \d ： 一个0-9的数字
+    
+        \D : 一个非数字
+        () : 分组 （提权） 从左往右数 几个括号几个组
+             (((\d+))(((\D)+))((\d+)))    8个分组
+
+             如果分组的后面有量词，那么分组项为最后一个字符
+
+        [] ： 括号中的字符在正则中是找任意一个字符
+                [123]=>要么找1要么找2要么找3
+        [0-9] ：=>\d 一样  一个0-9的数字
+        [a-z] :小写英文
+        [A-Z] ：大写英文
+                 如果要拿到大写和小写的字符[A-z] 这样是不对的  因为acsll码的91-96是别的字符不算字母
+                要[A-Za-z]写 正确
+
+        ^  ： 开头
+             如果^在中括号中，那么代表排除
+                let str = 'a12ca456ca6789ca123456caca1ca78c';
+                console.log(str.match(/a[^123]+c/g));//a开头c结尾，中间排除1
+        
+        (?:) ：表示非捕获分组，和捕获分组唯一的区别在于，非捕获分组匹配的值不会保存起来
+        (?=)
+                整个字符串都要符合123才被匹配，但是只要12
+                // console.log(/12(?=(?:3))/.exec('123'));  //12
+
+                // console.log(/12(?=(?:3))/.exec('123'));
+    
+    
+    量词：
+        +     至少出现1次，最多不限
+        {}    描述花括号前面字符的数量
+        {m,}  最少m个，最多不限
+        {m,n} 最少m个，最多n个
+        {n}   最少出现n次，最多也是出现n次
+        ?     最少可以没有，最多出现1次 -> {0,1}
+        *     最少可以没有，最多无限 -> {0,}
+
+
+    修饰符
+        g=>global 全局查找
+        i=>ignoreCase  忽略大小写 
+
+    */
+    let str = 'abc';
+    let aa = 'a';
+    console.log(/aa/);//找的是字符aa(正则里面放的是不带引号的字符串或者规则)
+    console.log(new RegExp(aa)); //找的是变量aa，其实就是找字符串a
+
+    console.dir(/a/); //正则的常用方法exec,test
+
+    /*
+    正则的方法：
+    .exec(字符串)
+        找到正则匹配的字符串（首次出现的字符【只有一次】，并且放到数组中（返回新数组）
+    
+        let str = 'dh819dx1';
+        console.log(/\d/.exec(str)); //查看字符串中是否有正则匹配项
+        console.log的输出内容如下：
+            ["1", index: 2, input: "dh819dx1", groups: undefined]
+    
+            '1'为找到的字符
+            index: '2'首次出现的位置
+            input:整个字符
+            groups:undefined
+            length:1  (因为找的是'1'这个字符串)
+        
+         
+    
+    .test(字符串)
+        查看字符串中是否有规则匹配项，如果有就返回true，否则false
+    
+         let str = 'dh8137289371299zdx1'; 
+        console.log(/z/.test(str));// true 找当前字符串中是否有z这个字符
+    
+    
+    */
+    let str1 = 'asd122fgdfgdf';
+    console.log((/\d/).exec(str1))
+
+    let str2 = 'dh8137289371299zdx1';
+    console.log(/z/.test(str2));
+
+    /*
+    字符串的方法
+    string.match(//)
+        找到正则匹配的字符并且把它们放到数组中（返回值是数组）
+        跟exec类似
+    
+        let str5 = '32632321323rgb087yr23n6x832321';
+        console.log(str5.match(/\d+/g)); 全局匹配数字
+    
+    string.replace(''或者放正则,'替换字符'或者放函数)  替换
+
+        过滤敏感词 
+        let str4 = '1珠266枫3';
+        console.log(str4.replace('枫','峰'));
+
+        console.log(str4.replace(/\d+/g,''));
+
+        replace的细节:
+            *默认*情况下，函数的
+                第一个参数是每次匹配字符
+                第二个参数是匹配字符索引
+                第三个参数是整个字符串
+                第四个参数是undefined
+
+            如果有分组
+              
+                第一个参数是每次匹配字符
+                第二个参数是第一个分组，
+                之后有几个分组，参数就是分组项
+                直到分组读完就正常走索引、整个字符串、undefined
+
+              let str = '2019/11/12';
+
+              let s = str.replace(/((\d)+)\D+(\d+)\D+(\d+)/,function($0,$1,$2,$3,$4,$5,$6){
+                        // console.log($0,$1,$2,$3);
+                        // console.log($2); //9
+                        console.log($6)
+                        return $1 +'年' + $3 + '月' + $4 + '日';
+                    });
+                    console.log(s);
+
+    */
+    let str3 = '37z89z37Z218Z9';
+
+    console.log(str3.match(/z/gi));//查找全局是否有z(不管大写还是小写) ["z", "z", "Z", "Z"] 
+    let str5 = '32632321323rgb087yr23n6x832321';
+    console.log(str5.match(/\d+/g)); // ["32632321323", "087", "23", "6", "832321"]
+
+
+    let str4 = '1珠266枫3';
+    console.log(str4.replace('枫', '峰'));
+
+    console.log(str4.replace(/\d+/g, ''));
+
+
+    let str6 = '冉某和某磊见不得光的新鲜事';
+
+    // console.log(str6.replace(/冉某|某磊|不得光/g,'***'));
+
+    /*
+        函数的第一个参数就是每次匹配的字符，如果匹配多次那么会多次调用
+    
+        打游戏的时候，打怒了会喷人，艹泥煤  *￥#%
+    */
+    console.log(str6.replace(/冉某|某磊|不得光/g, function ($0) {
+        // console.log($0);
+        let temp = '';
+        for (let i = 0; i < $0.length; i++) {
+            temp += '*';
+        }
+        return temp;
+    }));
+
+
+    let str7 = 'a12ca456ca6789ca123456caca1ca78c';
+    // console.log(str7.match(/a\d{0,3}c/g))
+    // console.log(str7.match(/a\d{2}c/g))
+    // console.log(str7.match(/a\d?c/g))
+    // console.log(str7.match(/a\d{0,1}c/g))
+
+    // console.log(str.match(/a\d*c/g))
+    console.log(str7.match(/a\d{0,}c/g))
+</script>
+
+</html>
