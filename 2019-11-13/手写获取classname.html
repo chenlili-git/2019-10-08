@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul>
+        <li class="li active li1">dbggfghrthrthrt</li>
+        <li>dfsdfsdfsdf</li>
+        <li class="li">werwerwerwer</li>
+    </ul>
+</body>
+<script>
+    /*
+    获取class 为li 的li标签  背景颜色高亮
+    <li class="li active li1">
+    <li class="li"></li>
+     */
+     /* 这样写的弊端是<li class="li active li1"> 这个获取不到 */
+    // let li = document.getElementsByTagName('li');
+    // for (let i = 0; i < li.length; i++) {
+    //     console.log(li[i].className)
+    //     if (li[i].className === 'li') {
+    //         li[i].style.background = 'red';
+    //     }
+    // }
+    function getByClassName(className) {
+        let lis = document.getElementsByTagName('*');
+        let ary = [];
+
+        let re = new RegExp('\\b' + className + '\\b');
+        console.log(re)
+        for (let index = 0; index < lis.length; index++) {
+            const element = lis[index];
+            console.log(element.className)
+            if(re.test(element.className)){
+                ary.push(element);
+            }
+        }
+        return ary;
+    }
+
+
+    // let ary=getByClassName('li')
+    // for (let index = 0; index < ary.length; index++) {
+    //     ary[index].style.background='yellow'
+
+    // }
+</script>
+
+</html>

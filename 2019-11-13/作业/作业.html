@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+           把下面str的name，age，say换成obj中的value值
+        */
+        let obj = {
+            name: '小明',
+            age: 18,
+            say: '好好学习，天天向上'
+        }
+        let str = '我的名字叫{name},年龄是{age}岁,我想说:{say}';
+        str = str.replace(/{[a-z]+}/g, function ($0, $1) {
+            //console.log('$0='+$0)//{name},{age},{say}         
+            $0 = obj[$0.match(/[a-z]+/)]
+            return $0;
+        })
+        console.log(str)
+
+
+        /*
+            计算下面字符串中哪个字符出现的次数最多,它是谁，出现了多少次
+        */
+
+        let str2 = 'hd82nxa89a3axdma2naejaaxaa8n2xdanja2cah2hnadhioamwajexnad8mdahiodn';
+        let objStr = {};
+        let num = 0;
+        let name;
+        /*普通方法*/
+        for (let index = 0; index < str2.length; index++) {
+            const element = str2[index];
+            if (objStr.hasOwnProperty(element)) {
+                objStr[element] = Number(objStr[element]) + 1;
+
+                if (num < Number(objStr[element])) {
+                    num = Number(objStr[element])
+                    name = element;
+                };
+
+            } else {
+                objStr[element] = 1;
+            }
+
+        }
+        console.log(name + '字符出现的次数最多,出现了' + num + '次')
+
+        /*正则方法1*/
+        let reStr = ''
+        let reNum = 0;
+        str2.split('').sort().join('').replace(/(\w)\1*/g, function ($0, ) {
+            //console.log($0)
+            if (reNum < $0.length) {
+                reNum = $0.length;
+                reStr = $0[0];
+            }
+        })
+        console.log(reStr + '字符出现的次数最多,出现了' + reNum + '次')
+
+        /*正则方法2*/
+
+        // var v = "bl";
+
+        // var re = new RegExp("^\\d+" + v + "$", "gim"); // re为/^\d+bl$/gim
+
+        var str2Arr = [...new Set(str2.split(''))]
+        let num_2 = 0;
+        let str_2 = ''
+        str2Arr.forEach(ele => {
+            let re = new RegExp(ele, 'g');
+            let arr = str2.match(re)
+            if (num_2 < arr.length) {
+                str_2 = arr[0];
+                num_2 = arr.length;
+            }
+        });
+        console.log(str_2 + '字符出现的次数最多,出现了' + num_2 + '次')
+
+
+    </script>
+</body>
+
+</html>

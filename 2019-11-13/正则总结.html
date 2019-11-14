@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /*
+        \d 0-9的任意数字数字
+        \D 代表除了0-9的字符
+        \n 换行符
+        \s 一个空格
+        \S 一个非空格
+        \b 一个边界符
+        \B 一个非边界符
+        \w 一个数字、字母、下划线=>[0-9a-zA-Z]
+        \W 一个非数字、字母、下划线
+        .  除了\n任意的字符
+
+
+        i 匹配大小写
+        g 全局查找
+        m 多行匹配
+    */
+    console.log('sas sd fsf'.match(/\s/g))
+    //去掉 字符串的前后空格
+    let str1 = '    d n eq  1 你 哈 ；’   ';
+    for (let index = 0; index < str1.length; index++) {
+        if (str1[index] !== " ") {
+            str1 = str1.substring(index);
+            break;
+        }
+    }
+    for (let index = str1.length - 1; index >= 0; index--) {
+        if (str1[index] !== " ") {
+            str1 = str1.substring(0, index + 1);
+            break;
+        }
+    }
+    console.log(str1)
+    //正则去除前后空格
+    let str2 = '    d n eq  1 你 哈 ；’   ';
+    str2.replace(/^\s+|\s+$/g, '')
+    console.log(str2.replace(/^\s+|\s+$/g, ''))
+    console.log(str2.replace(/\S+/g, '*'))
+
+    /* 
+      英文的字符串开头有一个边界符
+      字母与字母之间是没有边界符的
+      中英文结合的情况下中文的左边有边界符，右边没有边界符
+      整个字符串都是中文，是没有边界符的
+      
+      */
+    let str3 = ' jdfsd s w r 4 5 sfsdf中  的ss dqq哈dddd  哈喽'
+    console.log(str3.replace(/\b/g, '|'))// |jdfsd| |s| |w| |r| |4| |5| |sfsdf|中  的|ss| |dqq|哈|dddd|  哈喽
+    /*
+    邮箱要求：6-18个字符{}，
+    可使用字母、数字、 下划线，需要以字母开头\w||[0-9a-zA-Z]
+        n63_h1@163.com
+        xxx_love@163.com
+        xxx_32@126.com
+        xx-x_32@139.com
+        xxx_32@gmail.com
+        xxx_32@hotmail.com
+        xxx._32@hotmail.com
+        xxx^._32@sina.com
+        xxx._32@sina.cn
+    */
+    let str = 'xxx-sd.dd'
+
+    console.log(str.match(/^[A-Za-z][\W.-]{5,17}$/));
+    let str0 = 'xxxsd.dd@12wwerwerw6.com';
+    console.log(/^[A-Za-z][\w.-]{5,17}@[0-9A-Za-z]{2,10}\.co(m|n)$/.test(str0));
+console.log('1111')
+
+    /* .除了\n任意的字符 */
+    let  str4='sfasdf2\n3523%^&**\n*(!(2klfs';
+    console.log(str4.match(/.+/g))
+
+
+
+    let str5=`
+    今天tianqi真好
+    今天tianqi真好
+    今天tianqi真好
+   `
+   console.log(str5.match(/好$/gm))
+   </script>
+
+
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <section>
+        <div>
+            <span>QQ：</span>
+            <input type="text" id="qq" placeholder="请输入QQ">
+        </div>
+        <div>
+            <span>Email：</span>
+            <input type="text" id="email" placeholder="请输入邮箱">
+        </div>
+        <div>
+            <span>Mobile：</span>
+            <input type="text" id="mobile" placeholder="请输入手机号">
+        </div>
+        <div>
+            <span>Date：</span>
+            <input type="text" id="date" placeholder="请输入出生年月日">
+        </div>
+        <div>
+            <button id='registerBtn'>注册</button>
+        </div>
+    </section>
+</body>
+<script>
+    class Register {
+        constructor() {
+            this.inputs = document.querySelectorAll('input[type=text]');
+            this.qq = document.getElementById("qq");
+            this.email = document.getElementById("email");
+            this.mobile = document.getElementById("mobile");
+            this.date = document.getElementById("date");
+            this.registerBtn = document.getElementById('registerBtn')
+            this.obj = {};
+            this.events();
+        }
+        events() {
+            let _this = this;
+            this.inputs.forEach(ele => {
+
+                _this.obj[ele.id] = false;
+
+                ele.onchange = function () {
+                    let val = this.value;
+                    if (!val) {
+                        this.className = ''
+                        this.onoff = false;
+                        _this.obj[this.id] = false;
+                        return
+                    }
+                    if (this.id === 'qq') {
+                        //5-11位数字
+                        if (!/^\d{5,11}$/.test(val)) {
+                            this.className = 'active';
+                            _this.obj[this.id] = false;
+                        } else {
+                            this.className = '';
+                            _this.obj[this.id] = true;
+                        }
+
+                    } else if (this.id === 'email') {
+
+                        if (!/^[a-zA-Z][\w.-]{5,17}@[0-9a-zA-Z]{2,10}\.c(om|n)$/.test(val)) {
+                            this.className = 'active';
+                            _this.obj[this.id] = false;
+                        } else {
+                            this.className = '';
+                            _this.obj[this.id] = true;
+                        }
+                    } else if (this.id === 'mobile') {
+
+                        //             验证手机:
+                        // 11位
+                        // 都是数字
+                        // 1开头
+                        // 3456789
+                        // +9位数                
+                        if (!/^1[3-9]\d{9}$/.test(val)) {
+                            this.className = 'active';
+                            _this.obj[this.id] = false;
+                        } else {
+                            this.className = '';
+                            _this.obj[this.id] = true;
+                        }
+                    } else {
+                        /* 时间格式
+                        2017-12-30
+                        /^\d{4}-((0([1-9]))|(1(0|1|2)))-((0[1-9])|([1-2][0-9])|(3[0|1]))$/
+                        */
+
+                        if (!/^\d{4}-((0([1-9]))|(1(0|1|2)))-((0[1-9])|([1-2][0-9])|(3[0|1]))$/.test(val)) {
+                            this.className = 'active';
+                            _this.obj[this.id] = false;
+                        } else {
+                            /* 判断闰年 2月份有29天 平年28天
+                                普通闰年:公历年份是4的倍数的，且不是100的倍数，为闰年。（如2004年就是闰年）
+                                世纪闰年:公历年份是整百数的，必须是400的倍数才是闰年（如1900年不是世纪闰年，2000年是世纪闰年）
+                               1,3,5,7,8,10,12=>31
+                               4,6,9,11=>30
+                            [31,28,31,30,31,30,31,31,30,31,30,31]
+                            [31,29,31,30,31,30,31,31,30,31,30,31]
+                            */
+
+                            let dateArr = val.split('-');
+
+                            if (_this.isD(_this.isLeapYear(dateArr[0]), dateArr[1], dateArr[2])) {
+                                this.className = '';
+
+                                _this.obj[this.id] = true;
+                            } else {
+                                this.className = 'active';
+                                _this.obj[this.id] = false;
+                            }
+                            //方法二
+                            //设置一个时间，如果设置的时间不等于输入的时间就是错误的时间
+                            // let dateStr=new Date(val+' 00:00:00');
+                            // console.log(new Date(dateStr));
+
+
+                        }
+                    }
+                    _this.isOnBtn();
+                }
+            })
+        }
+        isOnBtn() {
+            let ary = this.obj;
+
+            for (const key in ary) {
+                if (!ary[key]) {
+                    this.registerBtn.style.cursor = 'not-allowed';
+                    return;
+                }
+            }
+            this.registerBtn.style.cursor = 'pointer';
+
+        }
+        isLeapYear(y) {
+            //console.log(y)
+            if (y % 400 === 0) return true;
+            if (y % 4 === 0 && y % 100 !== 0) {
+                return true;
+            }
+            return false;
+        }
+        isD(bool, m, d) {
+            let day = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            let leapDay = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            if (bool) {
+                if (leapDay[Number(m) - 1] >= d) return true;
+                return false;
+            } else {
+                if (day[Number(m) - 1] >= d) return true;
+                return false;
+            }
+        }
+    }
+    new Register();
+</script>
+
+</html>
