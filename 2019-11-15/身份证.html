@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+/* 
+
+身份证号码 18位
+12=>省份
+34=>城市
+56=>区县
+7 8 9 10 11 12 13 14年月日
+ =>1920 - 2019
+月:
+            01-12 -> 01-09  10-12  
+
+            01-31 -> 01-09   10-29  30-31
+
+
+
+
+15 16 派出所编号2位 =>
+17 男的女的 =>(男生单号 女生双号)
+18 校验码（0-9|x）
+ /^[1-8]\d{5}](19[2-9]\d|20[0-1]\d)/(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01]\d{3}(\d|X))$/
+
+*/
+
+let re=/^[1-8]\d{5}(19[2-9]\d|20[0-1]\d)(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/;
+
+let str='130627199907082343';
+console.log(re.test(str));
+</script>
+</html>

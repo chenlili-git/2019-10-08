@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+/* 
+    ()->重复子项
+    \数字（子项的个数）->\1 \2 代表第N个子项
+    重复子项只能用在匹配子项的后面
+    
+    
+    
+*/
+/*
+下面的代码本来打算匹配acbc,因为c为第三个分组
+a后面跟着一个\3(c),\3在分组的前面所以匹配不成功
+分组的顺序是从左往右数括号  第几个括号就是第几个分组
+*/ 
+let str='acbc';
+
+str.replace(/(a)\3(b)(c)/,function($0,$1){
+    console.log($0);//没有输出
+})
+str.replace(/(a)(c)(c)\2/,function($0,$1){
+    console.log($0);//没有匹配到内容
+})
+str.replace(/(a)(c)(b)\2/,function($0,$1){
+    console.log($0);//acbc  (a)=>\1 (c)=>\2 (b)=>\3
+})
+
+let str2 = 'https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=js';
+/* 
+
+分析:
+https => (http)s?
+:// => :\/\/
+www => w{3}
+. => \.
+baidu => [a-z]{2,18} 
+.com|.cn|.net|.com.cn|.org => (\.[a-z]{2,3}){1,2}
+/s? => \/[a-z]{1,10}
+ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=js => (([a-z]\w{0,10})=([\w\W]+)&?)+
+
+ */
+ //验证url是否合理
+let str3 = 'ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=js%20全角转半角%20正则&oq=%25E5%2585%25A8%25E8%25A7%2592%25E8%25BD%25AC%25E5%258D%258A%25E8%25A7%2592%2520%25E6%25AD%25A3%25E5%2588%2599&rsv_pq=ed9277970000f747&rsv_t=719cvLoB2Cy7pOW4%2F1hf3xOXnlRxJsSEPLA5xAfCoQ5RkeA6ruGTQ0OPjo4';
+let re= /^(http)s?:\/\/w{3}\.[a-z]{2,18}(\.[a-z]{2,3}){1,2}\/[a-z]{1,10}\?(([a-z]\w{0,10})=([\w=%-]+)&?)+$/;
+console.log(re.test(str2))//true
+
+//解析url获取到参数值
+let re2=/([a-z]\w{0,10})=([\w=%-]+)/g;
+let obj={};
+str2.replace(re2,(...arg)=>{
+    console.log(re2)
+    let a=arg[1];
+    let b=arg[2];
+    obj[a]=b;
+});
+console.log(obj)//ie: "utf-8", f: "8", rsv_bp: "1", rsv_idx: "1", tn: "baidu", …}
+
+</script>
+</html>
