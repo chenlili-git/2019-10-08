@@ -1,0 +1,160 @@
+* {
+    margin : 0;
+    padding: 0;
+}
+
+section {
+
+    width           : 1000px;
+    height          : 650px;
+    background-color: cyan;
+    margin          : 0 auto;
+    padding         : 50px 0;
+    overflow        : hidden;
+
+    .upBox {
+        width           : 500px;
+        border-radius   : 10px;
+        background-color: white;
+        margin          : 0 auto;
+        padding         : 30px;
+        overflow        : hidden;
+
+        .textBox {
+            float           : left;
+            width           : 350px;
+            padding         : 15px;
+            border          : 1px solid black;
+            text-indent     : 2px;
+            line-height     : 30px;
+            font-size       : 16px;
+            background-color: rgb(238, 248, 250);
+
+            span {
+
+                background-color: green;
+                color           : white;
+                height          : 30px;
+                display         : inline-block;
+            }
+        }
+
+        .btnBox {
+            float   : right;
+            width   : 90px;
+            position: relative;
+
+            div {
+                position        : absolute;
+                width           : 90px;
+                height          : 74px;
+                text-align      : center;
+                background-color: rgb(144, 226, 242);
+                color           : white;
+                font-size       : 20px;
+                margin-bottom   : 15px;
+                cursor          : pointer;
+                padding-top     : 16px;
+                line-height     : 40px;
+
+                img {
+
+                    display: block;
+                    margin : 0 auto;
+                }
+            }
+
+            .spreadBtn {
+                z-index: 1;
+            }
+
+            .shrinkBtn {
+                z-index: 1;
+
+                img {
+                    transform: rotate(45deg);
+                }
+
+                display: block;
+            }
+
+            .searchBtn {
+                top       : 105px;
+                transition: 0.5s;
+            }
+
+            .replaceBtn {
+                top       : 210px;
+                transition: 0.5s;
+            }
+        }
+    }
+
+    .downBox {
+        display         : none;
+        width           : 500px;
+        border-radius   : 10px;
+        background-color: white;
+        margin          : 20px auto 0;
+        padding         : 30px;
+        overflow        : hidden;
+
+        .btnBox {
+            margin-bottom: 20px;
+
+            span.btn {
+                line-height     : 40px;
+                width           : 80px;
+                display         : inline-block;
+                background-color: yellowgreen;
+                text-align      : center;
+                color           : white;
+                cursor          : pointer;
+            }
+
+            span.close {
+                float : right;
+                cursor: pointer;
+            }
+        }
+
+        .inputBox {
+            input {
+                line-height   : 45px;
+                border        : 1px solid rgb(38, 107, 185);
+                width         : 180px;
+                font-size     : 16px;
+                vertical-align: middle;
+
+            }
+
+            #searchText {
+                display: inline-block;
+                width  : 366px;
+            }
+
+            #findText {
+                display: none;
+            }
+
+            #replaceText {
+                display: none;
+            }
+
+            span {
+                display         : inline-block;
+                width           : 90px;
+                text-align      : center;
+                line-height     : 45px;
+                background-color: rgb(228, 93, 233);
+                vertical-align  : middle;
+                border          : 1px solid rgb(228, 93, 233);
+                cursor          : pointer;
+
+                img {
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <section>
+        <div class="upBox">
+            <p class="textBox" id='textBox'>
+                教育理念： 认识到每个人的优势和价值，进行不同的指导和引导、推荐到更适合的平台。我们不仅仅是努力，不仅仅是传授技术，更重要的是：我们是发现你的伯乐！ 传奇就业：
+                超过50%的学员工资翻倍或进入百度、新浪、腾讯等知名公司！ 强悍课程：
+                原生javaScript、算法及编程思想、设计模式、Ajax后台技术,HTML5+CSS3移动端客户端开发，Node.js、jQuery、Vue、React框架讲解
+            </p>
+            <div class="btnBox" id="btnBox">
+                <div class="spreadBtn" data-name='spread'>
+                    <img src="images/images/li_bg_09.png" alt="">
+                    <p>展开</p>
+                </div>
+                <div class="shrinkBtn" data-name="shrink">
+                    <img src="images/images/li_bg_09.png" alt="">
+                    <p>收缩</p>
+                </div>
+                <div class="searchBtn" data-name="search">
+                    <img src="images/images/li_bg_12.png" alt="">
+                    <p>查找</p>
+                </div>
+                <div class="replaceBtn" data-name="replace">
+                    <img src="images/images/replace_11.png" alt="">
+                    <p>替换</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="downBox" id="downBox">
+            <div class='btnBox'>
+                <span class="btn" data-name="downsearch">查找</span>
+                <span class="btn" data-name="downreplace">替换</span>
+                <span class='close' data-name="downclose"><img src="images/close.png" alt=""></span>
+            </div>
+            <div class="inputBox">
+                <input id="searchText" type="text" placeholder="请输入查找的内容">
+                <input id="findText" type="text" placeholder="请输入查找内容">
+                <input id="replaceText" type="text" placeholder="请输入替换内容">
+
+                <span class="btn" id="search"><img src="images/images/li_bg_12.png" alt=""></span>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+    class Demo {
+        constructor() {
+            //textBox
+            this.btnBox = document.getElementById('btnBox');
+
+            this.textBox = document.getElementById('textBox');
+            this.value = this.textBox.innerText;
+            this.btns = this.btnBox.querySelectorAll('div');
+            this.shrinkBtn = this.btnBox.querySelector('.shrinkBtn')
+            this.searchBtn = this.btnBox.querySelector('.searchBtn')
+            this.replaceBtn = this.btnBox.querySelector('.replaceBtn')
+
+            this.downBox = document.getElementById('downBox');
+            this.searchText = document.getElementById('searchText');
+            this.findText = document.getElementById('findText');
+            this.replaceText = document.getElementById('replaceText');
+            this.downBtns = this.downBox.getElementsByClassName('btnBox')[0].querySelectorAll('span');
+            this.search = document.getElementById('search');
+            this.onoff = '';
+            this.events();
+        }
+        events() {
+
+            let _that = this;
+            this.btns.forEach(ele => {
+                ele.onclick = function () {
+                    let name = this.dataset.name;
+                    console.log(this.dataset.name)
+                    switch (name) {
+                        case 'spread':
+                            _that.shrinkBtn.style.display = '';
+                            _that.replaceBtn.style.top = "210px";
+                            _that.searchBtn.style.top = '105px';
+
+                            break;
+                        case 'shrink':
+                            this.style.display = 'none';
+                            _that.replaceBtn.style.top = _that.searchBtn.style.top = "0px";
+
+                            setTimeout(() => {
+                                _that.downBox.style.display = 'none';
+                            }, 500);
+                            break;
+                        case 'search':
+                            _that.downBox.style.display = 'block';
+                            _that.searchText.style.display = 'inline-block';
+                            _that.findText.style.display = _that.replaceText.style.display = 'none';
+                            _that.onoff = true;
+                            break;
+                        case 'replace':
+                            _that.downBox.style.display = 'block';
+                            _that.searchText.style.display = 'none';
+                            _that.findText.style.display = _that.replaceText.style.display = 'inline-block';
+                            _that.onoff = false;
+                            break;
+                    }
+                }
+            });
+            this.downBtns.forEach(ele => {
+                ele.onclick = function () {
+                    let name = this.dataset.name;
+                    switch (name) {
+                        case 'downsearch':
+                            _that.searchText.style.display = 'inline-block';
+                            _that.findText.style.display = _that.replaceText.style.display = 'none';
+                            _that.onoff = true;
+                            break;
+                        case 'downreplace':
+                            _that.searchText.style.display = 'none';
+                            _that.findText.style.display = _that.replaceText.style.display = 'inline-block';
+                            _that.onoff = false;
+                            break;
+                        case 'downclose':
+                            _that.downBox.style.display = 'none';
+                            break;
+                    }
+                }
+
+            })
+            this.search.onclick = function () {
+
+
+                if (_that.onoff === false) {
+                    let findText = _that.findText.value.trim();
+                    let replaceText = _that.replaceText.value.trim();
+                    let re = new RegExp(findText);
+                    if (!findText || !replaceText) {
+                        alert('请输入查找替换内容');
+                        return;
+                    }
+                    //查找的没有
+                    if (!_that.value.includes(findText)) {
+                        alert('未匹配到');
+                        return;
+                    }
+                    _that.textBox.innerHTML = _that.value.split(findText).join(`<span>${replaceText}</span>`);
+
+                    _that.value = _that.value.split(findText).join(`${replaceText}`);
+
+                    _that.findText.value = _that.replaceText.value = '';
+
+                } else {
+                    let value  = _that.searchText.value.trim();  //查找的value
+                    
+                    if (!value) {
+                        alert('请输入查找内容');
+                        return;
+                    }
+
+                    //当前页面中是否有想查找的内容
+                    let re = new RegExp(value);
+                    if (re.test(_that.value)) {
+                        console.log('1111')
+                        _that.textBox.innerHTML = _that.value.split(value).join('<span>' + value + '</span>')
+                        _that.searchText.value = '';
+                    } else {
+                        alert('未匹配到');
+                    }
+                }
+
+            }
+        }
+    }
+    var p1 = new Demo;
+</script>
+
+</html>

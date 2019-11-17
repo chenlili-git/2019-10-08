@@ -99,23 +99,24 @@
 					let iTag = element.querySelectorAll('i');
 					let emTag = element.querySelectorAll('em')[0];
 					let priceTag = element.querySelectorAll('strong')[0];
-					let totalTag = element.querySelectorAll('strong')[1];
-					let num = emTag.innerText;
+					let totalTag = element.querySelectorAll('strong')[1];			
 					let str = priceTag.innerText;
 
 					let price = str.substring(0, str.length - 1);
 
 					iTag.forEach(ele => {
-						this.events(ele, emTag, totalTag, num, price, totalPrice, this);
+						this.events(ele, emTag, totalTag, price, totalPrice, this);
 					})
 
 				});
 			}
-			events(ele, emTag, totalTag, num, price, totalPrice, that) {
+			events(ele, emTag, totalTag, price, totalPrice, that) {
+
 				ele.onclick = function () {
-					if (this.className === 'cut') {
+					let num=Number(emTag.innerText)
+					if (this.className == 'cut') {
 						if (num > 0) {
-							
+
 							num--;
 							emTag.innerText = num;//单个商品数量
 							totalTag.innerText = price * num + '元';//单个商品的总价
@@ -125,9 +126,7 @@
 
 						}
 					} else {
-
 						num++;
-						console.log(num)
 						emTag.innerText = num;//单个商品数量
 						totalTag.innerText = price * num + '元';//单个商品的总价
 						that.totalNumTag.innerText = Number(that.totalNumTag.innerText) + 1;//所选商品的总数量

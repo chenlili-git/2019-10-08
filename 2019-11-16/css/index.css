@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+section {
+  width: 1000px;
+  height: 650px;
+  background-color: cyan;
+  margin: 0 auto;
+  padding: 50px 0;
+  overflow: hidden;
+}
+section .upBox {
+  width: 500px;
+  border-radius: 10px;
+  background-color: white;
+  margin: 0 auto;
+  padding: 30px;
+  overflow: hidden;
+}
+section .upBox .textBox {
+  float: left;
+  width: 350px;
+  padding: 15px;
+  border: 1px solid black;
+  text-indent: 2px;
+  line-height: 30px;
+  font-size: 16px;
+  background-color: #eef8fa;
+}
+section .upBox .textBox span {
+  background-color: green;
+  color: white;
+  height: 30px;
+  display: inline-block;
+}
+section .upBox .btnBox {
+  float: right;
+  width: 90px;
+  position: relative;
+}
+section .upBox .btnBox div {
+  position: absolute;
+  width: 90px;
+  height: 74px;
+  text-align: center;
+  background-color: #90e2f2;
+  color: white;
+  font-size: 20px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  padding-top: 16px;
+  line-height: 40px;
+}
+section .upBox .btnBox div img {
+  display: block;
+  margin: 0 auto;
+}
+section .upBox .btnBox .spreadBtn {
+  z-index: 1;
+}
+section .upBox .btnBox .shrinkBtn {
+  z-index: 1;
+  display: block;
+}
+section .upBox .btnBox .shrinkBtn img {
+  transform: rotate(45deg);
+}
+section .upBox .btnBox .searchBtn {
+  top: 105px;
+  transition: 0.5s;
+}
+section .upBox .btnBox .replaceBtn {
+  top: 210px;
+  transition: 0.5s;
+}
+section .downBox {
+  display: none;
+  width: 500px;
+  border-radius: 10px;
+  background-color: white;
+  margin: 20px auto 0;
+  padding: 30px;
+  overflow: hidden;
+}
+section .downBox .btnBox {
+  margin-bottom: 20px;
+}
+section .downBox .btnBox span.btn {
+  line-height: 40px;
+  width: 80px;
+  display: inline-block;
+  background-color: yellowgreen;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+}
+section .downBox .btnBox span.close {
+  float: right;
+  cursor: pointer;
+}
+section .downBox .inputBox input {
+  line-height: 45px;
+  border: 1px solid #266bb9;
+  width: 180px;
+  font-size: 16px;
+  vertical-align: middle;
+}
+section .downBox .inputBox #searchText {
+  display: inline-block;
+  width: 366px;
+}
+section .downBox .inputBox #findText {
+  display: none;
+}
+section .downBox .inputBox #replaceText {
+  display: none;
+}
+section .downBox .inputBox span {
+  display: inline-block;
+  width: 90px;
+  text-align: center;
+  line-height: 45px;
+  background-color: #e45de9;
+  vertical-align: middle;
+  border: 1px solid #e45de9;
+  cursor: pointer;
+}
+section .downBox .inputBox span img {
+  vertical-align: middle;
+}
