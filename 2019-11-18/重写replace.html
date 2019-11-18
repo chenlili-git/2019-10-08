@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+    String.prototype.myReplace = function (...arg) {
+        let [a, b] = arg;
+        let str = this.valueOf();
+        //当a不是字符串或者正则时 返回整个str，当b不是字符串或者函数时也返回整个str
+        if (typeof a !== 'string' && a.constructor !== RegExp || typeof b !== 'string' && typeof b !== 'function') {
+            return str;
+        }
+        //如果a是字符串,那么就查找一次，如果正则就按照正则规则解析
+        let s = '';
+        if (typeof a === 'string') {
+            let i = str.indexOf(a);
+            //没有找到替换的内容 就返回整个字符串
+            if (i === -1) {
+                return str;
+            } else {
+                //b为字符串时
+                if (typeof b === 'string') {
+                    let aa = str.subString(0, i);
+                    let bb = str.substring(i + a.length);
+                    return aa + b + bb;
+                } else if (typeof b === 'function') {
+                    //b为函数时
+                    let aa = str.substring(0, i);
+                    let bb = str.substring(i + a.length);
+                    return aa + b(a, i, str) + bb;
+                }
+            }
+        } else if (a.constructor === RegExp) {
+            let ary = str.match(a);
+            //未匹配到
+            if (ary === null) {
+                return str;
+            }
+            let i = str.search(a);
+            if (typeof b === 'string') {
+                if (ary.length > 1) {
+                    return str.split(ary[0]).join(b);
+                } else {
+                    let aa = str.subString(0, i);
+                    let bb = str.substring(i + ary[0].length);
+                    return aa + b + bb;
+                }
+            } else if (typeof b === 'function') {
+                if (ary.length > 1) {
+                    //需要循环把每次匹配的索引获取到
+                    return fn(str, b, a)
+                } else {
+                    let aa = str.substring(0, i);
+                    let bb = str.substring(i + ary[0].length);
+                    return aa + b(ary[0], i, str) + bb;
+                }
+            }
+        }
+
+    }
+    function fn(str, cd, re) {
+        let o = true;
+        let rep = '';
+        let str2 = str;
+        while (o) {
+            o = re.exec(str);
+            if (o) {
+                let { index, input } = o;
+                rep = cd(o[0], index, input);
+                let i = str2.indexOf(o[0]);
+                str2 = str2.substring(0, i) + rep + str2.substring(i + o[0].length);
+            }
+        }
+    }
+    let str = 'adfsafiuklsfjlaaa';
+    console.log(str.myReplace(/a/g, ($0, $1, $2) => {
+        console.log($0, $1, $2);
+        return 'A';
+    }));
+</script>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            height: 3000px;
+        }
+
+        #btn {
+            width: 100px;
+            line-height: 30px;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">回到顶部</button>
+</body>
+<script>
+
+    let btn = document.getElementById('btn');
+    const { offsetTop } = btn;//610
+    document.documentElement.scrollTop = 0;
+    onscroll = function () {
+        let { scrollTop } = document.documentElement;
+        if (scrollTop >= offsetTop) {
+            btn.style.position = 'fixed';
+            btn.style.top = '50%';
+        } else {
+            btn.style.position = 'absolute';
+            btn.style.top = '100%';
+        }
+
+    }
+    btn.onclick = function () {
+        document.documentElement.scrollTop = 0;
+    }
+
+</script>
+
+</html>

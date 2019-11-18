@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/list.css">
+</head>
+
+<body>
+    <section id='box'>
+        <nav class="nav">
+            <span>排序</span>
+            <a href="javascript:void(0);" data-name="time">
+                上架时间
+                <i class='up'></i>
+                <i class=down></i>
+            </a>
+            <a href="javascript:void(0);" data-name="hot">
+                热度
+                <i class='up'></i>
+                <i class=down></i>
+            </a>
+            <a href="javascript:void(0);" data-name="price">
+                价钱
+                <i class='up'></i>
+                <i class=down></i>
+            </a>
+            <div>
+                <select name="" id="sele">
+                    <option value="title">按照文字搜索</option>
+                    <option value="hot">按照热度搜索</option>
+                    <option value="price">按照价格搜索</option>
+                </select>
+                <div id="num" class="hide">
+                    从<input type="text" id="start">
+                    到<input type="text" id="end">
+                </div>
+                <div id="txt" class="show">
+                    <input type="text" id="txt1">
+                </div>
+                <button id="search">搜索</button>
+                <button id="init">还原</button>
+            </div>
+        </nav>
+        <ul class="list" id="listBox">
+            <!-- <li>
+                <img data-src="./img/2.jpg" alt="">
+                <p>商品名称:<span>dsdsadsads</span></p>
+                <p>上架时间:<span>2019-10-10</span></p>
+                <p>商品热度:<span>32</span></p>
+                <p>商品价格::<span>200</span></p>
+            </li> -->
+        </ul>
+    </section>
+
+</body>
+<script>
+
+    fetch('json/product.json')
+        .then(d => d.json())
+        .then(data => {
+
+            let newdata = data.concat();
+            function render(newdata) {
+                let list = newdata.map(({ title, img, price, time, hot, id }, i) => {
+                    return (
+                        `<li data-id="${id}">
+                            <img data-src="${img}"  alt="">
+                            <p
+                                title="${title}"
+                            >商品名称:<span>${title.substr(0, 6)}</span></p>
+                            <p>上架时间:<span>${time}</span></p>
+                            <p>商品热度:<span>${hot}</span></p>
+                            <p>商品价格::<span>${price}</span></p>
+                        </li>`
+                    );
+                }).join('');
+                document.getElementById('listBox').innerHTML = list;
+            }
+            render(newdata);
+
+            let lis = document.getElementById('listBox').querySelectorAll('li');
+
+            window.onscroll = function () {
+                let scollTop = window.pageYOffset;
+                let innerHeight = window.innerHeight;
+
+                lis.forEach((ele, index) => {
+
+                    let { t } = positionFn(ele);
+                    //ele到显示区的顶部的距离  
+                    //!ele.children[0].src 元素如果有src了 就不用再重新加一遍src
+                    if (scollTop + innerHeight >= t && !ele.children[0].src) {
+                        ele.children[0].src = ele.children[0].dataset.src;
+                        setTimeout(() => {
+                            ele.children[0].style.opacity = 1;
+                        }, 300 * index);
+                    }
+
+                });
+            }
+            window.onscroll();
+            function positionFn(ele) {
+                let top = 0;
+                let left = 0;
+                while (ele) {
+                    top += ele.clientTop + ele.offsetTop;
+                    left += ele.clientLeft + ele.offsetLeft;
+                    ele = ele.offsetParent;
+                }
+                return {
+                    l: left,
+                    t: top
+                }
+            }
+
+        })
+
+</script>
+
+</html>

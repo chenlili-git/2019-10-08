@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let arr = [1, 2, 3, 4, 5];
+    let m = arr.forEach(function (element) {
+        console.log(element);
+        
+    },document);
+  console.log(m)
+
+
+    Array.prototype.myForEach = function (callback, that) {
+
+        for (let index = 0; index < this.length; index++) {
+            callback.call(that, this[index], index, this);
+        }
+    }
+
+
+
+    Array.prototype.myMap = function (callback, that) {
+        let ary = [];
+        for (let i = 0; i < this.length; i++) {
+            ary.push(callback.call(that, this[i], i, this));
+        }
+        return ary;
+    }
+
+
+    
+    let a = arr.myForEach(function (item, index, all) {
+        console.log(item, index, all, this);
+        return '5';
+    }, document)
+
+    // let a = arr.myMap(function (item, index, all) {
+    //     console.log(this);
+    //     return '<li>' + item + '</li>';
+    // }, document);
+
+    console.log(a);
+</script>
+
+</html>

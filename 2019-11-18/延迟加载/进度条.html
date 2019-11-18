@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box {
+            border: 2px solid black;
+            height: 20px;
+            width: 100%;
+        }
+
+        #box>div {
+            height: 20px;
+            background-color: aqua;
+            width: 0%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div id="innerBox"></div>
+    </div>
+</body>
+<script>
+    let box = document.getElementById('box');
+    let innerBox = document.getElementById('innerBox');
+    let imgArr = [
+        'https://goss.veer.com/creative/vcg/veer/800water/veer-159497091.jpg',
+        'https://goss.veer.com/creative/vcg/veer/800water/veer-152360031.jpg',
+        'https://goss.veer.com/creative/vcg/veer/800water/veer-153725613.jpg',
+        'https://goss.veer.com/creative/vcg/veer/800water/veer-153779846x.jpg'
+    ]
+    let num=0;
+    let per=1/(imgArr.length);
+    imgArr.forEach((ele,i) => {
+        let img=document.createElement('img');            
+        img.src=imgArr[i];
+        img.onload=function(){           
+            innerBox.style.width=(++num)*per*100+'%';
+            console.log(innerBox.style.width)
+            console.log("加载成功")
+        }
+        img.onerror=function(){
+            console.log("加载失败")
+        }
+
+    });
+</script>
+
+</html>
