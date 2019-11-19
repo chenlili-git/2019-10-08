@@ -138,15 +138,15 @@ class Demo {
         this.aryy = [];
         this.iH = window.innerHeight;
         for (let i = 0; i < this.len; i++) {
-            aryx[i] = i * (this.picw + this.ml);
-            aryy[i] = 0;
+            this.aryx[i] = i * (this.picw + this.ml);
+           this.aryy[i] = 0;
         }
         //获取所有的li，然后给重新安排位置
-        this.lis = box.querySelectorAll('li');
+        this.lis = this.box.querySelectorAll('li');
         this.lis.forEach((ele, i) => {
-            let { index } = minIndex(aryy);
-            ele.style.cssText = `top:${aryy[index]}px;left:${aryx[index]}px`;
-            aryy[index] += (ele.scrollHeight + 10);
+            let { index } = this.minIndex(this.aryy);
+            ele.style.cssText = `top:${this.aryy[index]}px;left:${this.aryx[index]}px`;
+            this.aryy[index] += (ele.scrollHeight + 10);
         });
 
     }
