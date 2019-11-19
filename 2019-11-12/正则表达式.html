@@ -103,8 +103,9 @@
             input:整个字符
             groups:undefined
             length:1  (因为找的是'1'这个字符串)
-        
-         
+        1.lastIndex 它会在 RegExpObject 的 lastIndex 属性指定的字符处开始检索字符串 string
+        2.通过反复调用 exec() 方法来遍历字符串中的所有匹配文本。
+          当 exec() 再也找不到匹配的文本时，它将返回 null，并把 lastIndex 属性重置为 0
     
     .test(字符串)
         查看字符串中是否有规则匹配项，如果有就返回true，否则false

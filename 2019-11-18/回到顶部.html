@@ -29,7 +29,11 @@
 
     let btn = document.getElementById('btn');
     const { offsetTop } = btn;//610
-    document.documentElement.scrollTop = 0;
+    window.onload=function(){
+        console.log(document.documentElement.scrollTop)
+        document.documentElement.scrollTop=0;
+    }
+    
     onscroll = function () {
         let { scrollTop } = document.documentElement;
         if (scrollTop >= offsetTop) {
