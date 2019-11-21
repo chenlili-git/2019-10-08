@@ -130,7 +130,6 @@ class Demo {
     }
     //当浏览器缩放的时候重新计算一下，可视区能放多少张图片
     resize() {
-        // console.log(1);
         this.clientW = document.documentElement.clientWidth;//可视区的宽度
         this.len = Math.floor(this.clientW / (this.picw + this.ml));
         this.box.style.width = (this.len * (this.picw + this.ml)) - this.ml + 'px';
@@ -160,4 +159,7 @@ window.onscroll =function(){
     p.throttling(p.fn, 200)()
 } ;
 
-window.onresize = p.resize;
+window.onresize = function(){
+    p.resize();
+
+}

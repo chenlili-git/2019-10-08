@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="ul">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+</body>
+<script>
+    /* 
+        querySelectorAll 静态获取方法  当时获取的是谁就是谁
+
+        getElementsByTagName  getElements系列、children都是动态获取方法  所以内容在变化
+    
+    */
+// let lis=document.querySelectorAll('li');
+// for (let index = 0; index < lis.length; index++) {
+//     ul.appendChild(lis[index]);   //1,2,3,4
+// }
+let lis=document.getElementsByTagName('li');
+for (let index = 0; index < lis.length; index++) {
+    ul.appendChild(lis[index]);   //2 4 3 1 都是剪切不是复制
+
+}
+/* 
+
+2
+3   index=1时拿的3
+4
+1  index=0 时拿的1 
+
+
+
+2
+4
+1   index=0 时拿的1  index=2 时拿的是1
+3   index=1时拿的3
+
+
+
+2
+4
+3   index=1时拿的3
+1   index=0 时拿的1  index=2 时拿的是1  index=3时拿的是1 
+
+*/
+</script>
+</html>
