@@ -64,7 +64,7 @@
             console.log(ev.keyCode);
         }
         var timer;
-        document.onkeyup = function () {
+        document.onkeyup = function (ev) {4
             clearInterval(timer);
         }
         function moveFn(obj, attr, offset, speed) {

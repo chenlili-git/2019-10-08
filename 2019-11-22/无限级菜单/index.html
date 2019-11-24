@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<style>
+		html {
+
+			width: 100%;
+			/* height: 100%; */
+		
+		}
+
+		body {
+			margin: 0px;
+			width: 100%;
+			/* height: 100%; */
+			background: url(./image/bg.png);
+
+		}
+
+		.main {
+			width: 100%;
+			/* height: 100%; */
+			background: url(./image/bg.png) no-repeat;
+			background-size: 100% 100%;
+			overflow: hidden;
+		}
+
+		.logo {
+			display: block;
+			width: 200px;
+			height: 55px;
+
+			margin: 20px auto;
+		}
+
+		.tree{
+			/* height: 100%;
+			overflow: auto; */
+		}
+
+		ul {
+			list-style: none;
+			font-size: 22px;
+			color: #8c949c;
+			font-weight: bold;
+			width: 100%;
+			/* height:100%; */
+		}
+
+		ul li {
+			position: relative;
+			padding-left: 10px;
+			/* height:32px; */
+			overflow: hidden;
+		}
+
+		ul li div {
+			height: 98%;
+			/* width: 1px; */
+			border-left: 1px dotted #ccc;
+			/* position: absolute; */
+			/* left: 34px; */
+			/* top: 18px; */
+			/* margin-left :4px; */
+			line-height: 32px;
+			cursor:pointer;
+		}
+
+		ul ul {
+			display: none;
+		}
+
+		ul li span {
+			display: block;
+			line-height: 32px;
+			padding-left: 15px;
+			background: url(./image/icon.png) no-repeat left 500px;
+			width: 20px;
+			height: 20px;
+			float: left;
+		}
+
+		ul li span.add {
+			background-position: 0px -32px;
+			cursor:pointer;
+		}
+
+		ul li span.line {
+			background-position: 0px 11px;
+			cursor:pointer;
+		}
+
+
+		.tree {
+			margin-left: 300px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="main">
+		<a href="#" class="logo"></a>
+		<div class="tree">
+			<ul id="oUl">
+				<!-- <li>
+						<span class="add"></span>
+						<div>第一级菜单</div>
+						<ul>
+							<li>
+								<span class="line"></span>
+								<div>第二级菜单</div>
+							</li>
+							<li>
+								<span class="line"></span>
+								<div>第二级菜单</div>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<span class="line"></span>
+						<div>第一级菜单</div>
+					</li>
+					<li>
+						<span class="line"></span>
+						<div>第一级菜单</div>
+					</li> -->
+			</ul>
+		</div>
+
+	</div>
+</body>
+<script>
+	class Tree {
+		constructor() {
+			this.ul = document.getElementById('oUl');
+			this.li;
+		}
+		getData(url, cd) {
+			let that = this;
+			fetch(url).then(d => d.json())
+				.then(data => {
+					cd.call(that, data)
+				})
+		}
+		render() {
+			this.getData('./data/data.json', function (data) {
+				this.ul.innerHTML = this.creatTree(data);
+				this.li = this.ul.querySelectorAll('li');
+				this.li.forEach((item, i) => {
+					item.onclick = function (ev) {
+
+						if (ev.target.tagName === 'DIV' || ev.target.tagName === 'SPAN') {
+							if (this.children[0].className === 'add') {
+								this.children[0].className = 'line';
+								this.children[2].style.display = 'block';
+							} else if (this.children[0].className === 'line') {
+								let ul=this.querySelectorAll('ul');
+
+								for (let index = 0; index < ul.length; index++) {
+									const element = ul[index];
+									if(element.style.display){
+										element.style.display='none';
+									}
+									element.parentNode.children[0].className='add';
+								}
+							}
+						}
+						ev.cancelBubble = true;
+					}
+				})
+			})
+		}
+		creatTree(data) {
+			let li = '';
+			data.forEach((item, i) => {
+
+				if ('child' in item) {
+					li += `<li>
+						<span class="add"></span>
+						<div>${item.title}</div>
+						<ul>`
+					li += this.creatTree(item.child)
+
+					li += `</ul>
+					</li>`
+
+				} else {
+					li += `
+					<li>
+						<span class=""></span>
+						<div>${item.title}</div>
+					</li>
+					`
+				}
+
+			});
+
+			return li;
+		}
+	}
+	var p = new Tree();
+	p.render();
+</script>
+
+</html>

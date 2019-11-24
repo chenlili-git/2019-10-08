@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html,
+        body {
+            overflow: hidden;
+        }
+
+        #ul {
+            position: absolute;
+            list-style: none;
+            top: 0;
+            left: 0;
+            transition: 1s;
+        }
+    </style>
+
+</head>
+
+<body>
+    <ul id="ul"></ul>
+</body>
+<script>
+    let arr = ['yellow', 'red', 'blue', 'green', 'pink'];
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    let html = arr.map(item => `<li style="width:${w}px;height:${h}px;background:${item}"></li>`).join('');
+    ul.innerHTML = html;
+    let num = 0;
+    addWheel(document, throttling(fn, 1000));
+    function fn(o) {
+        if (o) {
+            num--;
+            if (num < 0) {
+                num = 0;
+            }
+        } else {
+            num++;
+            if (num > arr.length - 1) {
+                num = arr.length - 1;
+            }
+        }
+        ul.style.top = -num * h + 'px';
+    }
+    function addWheel(obj, cb) {
+        if (document.onmousewheel === null) {
+            obj.onmousewheel = listen;
+        } else {
+            obj.addEventListener('DOMMouseScroll', listen);
+        }
+        function listen(ev) {
+            let o = false;//默认向下，true向上
+            if (ev.wheelDelta) {//g谷歌
+                o = ev.wheelDelta > 0 ? true : false;
+            } else {
+                o = ev.detail < 0 ? true : false;
+            }
+            cb.call(this, o)
+        }
+    }
+    function throttling(cb, time) {
+        let prevtime = 0;
+        return function (...arg) {
+            let nowTime = +new Date;
+            if (nowTime - prevtime > time) {
+                cb.call(this, ...arg);
+            }
+            prevtime = nowTime;
+        }
+    }
+</script>
+
+</html>

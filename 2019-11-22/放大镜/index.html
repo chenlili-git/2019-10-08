@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box1 {
+            border: 1px solid black;
+            display: inline-block;
+            vertical-align: top;
+            position: relative;
+            width: 350px;
+            height: 350px;
+        }
+
+        #box2 {
+            display: inline-block;
+            border: 1px solid black;
+            width: 500px;
+            height: 500px;
+            margin-left: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #box2 img {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #block {
+            width: 120px;
+            height: 120px;
+            background: sandybrown;
+            z-index: 1;
+            opacity: 0.5;
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: move;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box1"><img src="1.jpg" alt="">
+        <div id="block"></div>
+    </div>
+    <div id="box2"><img src="2.jpg" alt=""></div>
+</body>
+<script>
+    class Zoom {
+        constructor() {
+            this.box1 = document.getElementById('box1');
+            this.block = document.getElementById('block');
+            this.box2 = document.getElementById('box2');
+            this.img = this.box2.getElementsByTagName('img')[0];
+            this.boxw = this.box1.clientWidth;  //获取box的宽
+            this.boxh = this.box1.clientHeight;//获取box的高
+        }
+        init() {
+            let that = this;
+         
+            this.block.onmousedown = function (ev) {
+          
+                let l = this.offsetLeft;
+                let t = this.offsetTop;
+                let _x = ev.pageX - l;
+                let _y = ev.pageY - t;
+
+                document.onmousemove = function (ev) {
+                    let _top = ev.pageY - _y;
+                    let _left = ev.pageX - _x;
+
+                    if (_top < 0) {
+                        _top = 0;
+                    } else if (_top > that.boxh - that.block.clientHeight) {
+                        _top = that.boxh - that.block.clientHeight;
+                    }
+                    if (_left < 0) {
+                        _left = 0;
+                    } else if (_left > that.boxw - that.block.clientWidth) {
+                        _left = that.boxw - that.block.clientWidth;
+                    }
+                    that.block.style.top = _top + 'px';
+                    that.block.style.left = _left + 'px';
+
+                    let scaleY = _top / (that.boxh - that.block.clientHeight);
+                    let scaleX = _left / (that.boxw - that.block.clientWidth);
+   
+                    that.img.style.top = (that.box2.clientHeight - that.img.offsetHeight) * scaleY + 'px';
+                    that.img.style.left = (that.box2.clientWidth - that.img.offsetWidth) * scaleX + 'px';
+
+
+                }
+                ev.returnValue = false;
+            }
+
+
+            this.block.onmouseup = function (ev) {
+                document.onmousemove = null;
+            }
+        }
+    }
+    var p1 = new Zoom()
+    p1.init();
+</script>
+
+</html>

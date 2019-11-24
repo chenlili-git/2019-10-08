@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: blueviolet;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box">
+
+    </div>
+</body>
+<script>
+    let box = document.getElementById('box');
+    var t;
+    var l;
+    var _x;
+    var _y;
+
+    box.addEventListener('mousedown', function (ev) {
+        t = box.offsetTop;
+        l = box.offsetLeft;
+        _x = ev.pageX - l;
+        _y = ev.pageY - t;
+
+        document.addEventListener('mousemove', myfun)
+
+    })
+    function myfun() {
+
+        box.style.left = event.pageX - _x + 'px';
+        box.style.top = event.pageY - _y + 'px';
+        
+    }
+    box.addEventListener('mouseup', function (ev) {
+        document.removeEventListener('mousemove',myfun);
+    })
+    // box.onmousedown = function (ev) {
+    //     var t = box.offsetTop;
+    //     var l = box.offsetLeft;
+    //     var _x = ev.pageX - l;
+    //     var _y = ev.pageY - t;
+    //     document.onmousemove = function (ev) {
+
+    //         box.style.left = ev.pageX - _x + 'px';
+    //         box.style.top = ev.pageY - _y + 'px';
+    //     }
+    // }
+    // box.onmouseup = function () {
+    //     document.onmousemove = null;
+    // }
+</script>
+
+</html>

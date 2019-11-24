@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            position: absolute;
+            top: 100px;
+            height: 100px;
+            width: 100px;
+            height: 100px;
+            background-color: blueviolet;
+            border: 1px solid rgba(rgb(255, 251, 0), green, blue, alpha)
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+</body>
+<script>
+    class Sport {
+        coustructor() {
+            this.box = document.getElementById('box');
+            this.obj={87:'false',83:'false',65:'false',68:'false'};
+            this.e=0; //obj的key值
+            this.timer;
+        }
+        event() {
+            let that = this;
+            document.addEventListener('keydown', function (ev) {
+                console.log(that, ev)
+                that.e = ev.keyCode;
+                console.log(typeof that.e)
+                if(!that.obj[that.e]) return false;
+                
+                console.log(that.e, that.obj[that.e])
+                that.obj[that.e] = 'true';
+                console.log(this)
+                if (!timer) {
+                    timer = setInterval(that.fun(this), 16.7);
+                }
+
+            });
+
+            // document.removeEventListener('keydown', this.fun());
+        }
+        fun(that) {
+            if (this.obj['87']) {
+                this.box.style.top = this.box.offsetTop - 5 + 'px';
+            }
+            if (this.obj['83']) {
+                this.box.style.top = this.box.offsetTop + 5 + 'px';
+            }
+            if (this.obj['65']) {
+                this.box.style.left = this.box.offsetLeft - 5 + 'px';
+            }
+            if (this.obj['68']) {
+                this.box.style.left = this.box.offsetLeft + 5 + 'px';
+            }
+
+        }
+    }
+    var p = new Sport();
+    p.event();
+</script>
+
+</html>

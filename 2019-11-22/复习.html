@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /*
+        event -> window.event chrome默认为undefined，
+        IE默认为null
+    
+        var e=window.event||ev;
+        ev.target 就是事件触发时的标签
+    
+        ev.pageY 基于整个页面（要人为计算滚动距离）包括滚动条
+        ev.clientY基于可视区（不管滚动条如何滚动左上方都没0，0点);
+    */
+    document.onclick = function (ev) {
+        console.log(ev)
+    }
+    
+</script>
+
+</html>
