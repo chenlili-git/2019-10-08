@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+        <div id="box"></div>
+</body>
+<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+<script>
+    /*
+
+    原生对象转jquery只需要包$()即可
+    
+    box=>$(box)就变成了jquery对象
+    
+    jquery对象转原生对象
+    
+    $box=> $box.get(0)
+        => $box[0]
+    
+    */
+    const box = document.getElementById('box');
+    const $box = $('#box');
+    console.log($box.get(0))//<div id="box"></div>
+    console.log($box)// k.fn.init [div#box]0: div#boxlength: 1__proto__: Object(0)
+</script>
+
+</html>

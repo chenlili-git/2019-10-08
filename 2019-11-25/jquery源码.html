@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    (function (global, factory) {
+        factory(global);
+    })(this, function (global, NoGlobal) {//NoGlobal是undefined
+        console.log(NoGlobal);
+        function myQuery() {
+            //因为不能new 自己（new自己就形成了递归 死循环） 所以创建一个$函数作为替身
+            //这个替身拥有myQuery的所有属性和方法
+            return new fn.init;
+        }
+        let fn = myQuery.prototype = {
+            coustructor: myQuery,
+            css: function () {
+                console.log(1);
+            }
+        }
+        fn.init = function () {
+
+        }
+        fn.init.prototype = myQuery.prototype;
+        window.myQuery = $ = myQuery;
+    })
+    $().css();
+    //如果外面在定义一个myQuery 会不会替换window.myQuery 
+    //不会的 因为变量提升  window.myQuery会把定义的覆盖掉
+</script>
+
+</html>
