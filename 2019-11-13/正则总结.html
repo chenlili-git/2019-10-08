@@ -56,7 +56,7 @@
       字母与字母之间是没有边界符的
       中英文结合的情况下中文的左边有边界符，右边没有边界符
       整个字符串都是中文，是没有边界符的
-      
+      [\u4e00-\u9fa5] 匹配中文字符
       */
     let str3 = ' jdfsd s w r 4 5 sfsdf中  的ss dqq哈dddd  哈喽'
     console.log(str3.replace(/\b/g, '|'))// |jdfsd| |s| |w| |r| |4| |5| |sfsdf|中  的|ss| |dqq|哈|dddd|  哈喽

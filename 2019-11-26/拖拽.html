@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 150px;
+            height: 150px;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            border: 1px solid #000000;
+            background-color: yellow;
+        }
+
+        #box2 {
+            width: 150px;
+            height: 150px;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            border: 1px solid #000000;
+            background-color: yellow;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+</body>
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script>
+
+    $('#box').mousedown(function (ev) {
+        let disX = ev.pageX - $(this).offset().left;
+        let disY = ev.pageY - $(this).offset().top;
+        let $that = $(this);
+        let l;
+        let t;
+        let $box2 = $('<div id="box2"></div>');
+        $box2.css({
+            left: $(this).offset().left,
+            top: $(this).offset().top,
+        })
+        $('body').prepend($box2);
+
+
+        $(document).mousemove(function (ev) {
+            l = ev.pageX - disX;
+            t = ev.pageY - disY;
+            $('#box2').css({
+                top: t,
+                left: l
+            });
+
+
+        })
+        $(document).mouseup(function () {
+            $(document).off('mousemove');
+            $(document).off('mouseup');
+            $("#box").css({
+                top: t,
+                left: l
+            });
+            $box2.remove();
+            
+           
+        })
+        return false;
+    })
+
+
+</script>
+
+</html>
