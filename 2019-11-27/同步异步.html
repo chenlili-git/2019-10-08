@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+    let a = 10;
+    let oldDate=new Date();
+    setTimeout(() => {
+        a = 20;
+    }, 0)
+    console.log(a)//10  定时器是异步操作，所以主线程要继续往下执行
+    // 然后当时间到的时候 执行定时器内部代码
+
+
+    document.onclick = function () {//当点击document的时候 才执行  不影响主线程的继续往下执行
+        console.log(a);//a=20 但是定时器的时间调长 在时间未达到的时候点击 输出a=10
+    }
+
+    setTimeout(() => {
+        console.log(a, '定时器'); //定时器如果时间间隔一样就从上往下执行
+    }, 0);
+    setTimeout(() => {
+        a=30;
+        console.log(a, '定时器1',new Date()-oldDate); //1001
+    }, 1000);
+
+    setTimeout(() => {
+        a=40;
+        console.log(a, '定时器2',new Date()-oldDate); // 1002 和上面的时间差至少一毫秒或者0
+    }, 1000);
+
+    let p=new Promise((resolve,reject)=>{
+        resolve(5);
+    })
+    p.then((d)=>{
+        console.log(d,'promise');
+    })
+
+
+
+</script>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script src="jquery.min.js"></script>
+<script src="1.json"></script>
+<script>
+//实现fetch('1.json')  
+
+
+// 注意：运行的时候要用服务器版 (open with live server)
+
+function myFetch(url){
+    return new Promise(function(resolve,reject){
+
+        $.ajax({
+            url,
+            success:function(data){
+                resolve(data);
+            },
+            error:function(data){
+                reject(data)
+            }
+        })
+    })
+}
+let p=myFetch('1.json');
+
+p.then((d)=>{
+    console.log(d);
+}).catch((error)=>{
+    console.log(error.statusText);
+})
+
+let p1=fetch('1.json').then(d=>d.json()).then(data=>{
+    console.log(data);
+})
+</script>
+</html>
