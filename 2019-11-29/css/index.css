@@ -1,0 +1,174 @@
+* {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+}
+ul li {
+  list-style: none;
+}
+p {
+  padding: 0px 0px 0px 0px;
+}
+body {
+  overflow-y: hidden;
+}
+body header {
+  display: flex;
+  color: #fff;
+  height: 60px;
+  line-height: 60px;
+  background-color: #33cc99;
+}
+body header div {
+  width: 180px;
+  height: 60px;
+  vertical-align: middle;
+  margin: 0px 0px 0px 20px;
+}
+body header ul {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+body header ul li {
+  width: 100%;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0px 20px 0px 20px;
+  cursor: pointer;
+}
+body header li:first-child {
+  color: white;
+  background-color: #33cc66;
+}
+body section {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+body section aside {
+  flex-shrink: 0;
+  width: 180px;
+  background-color: #f8fffc;
+}
+body section aside .tree ul {
+  list-style: none;
+  font-size: 16px;
+  color: #8c949c;
+  font-weight: bold;
+  width: 100%;
+}
+body section aside .tree ul li {
+  position: relative;
+  overflow: hidden;
+}
+body section aside .tree ul li div {
+  line-height: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+body section aside .tree ul li span.add {
+  cursor: pointer;
+}
+body section aside .tree ul li span {
+  display: block;
+  line-height: 32px;
+  padding-left: 15px;
+  width: 20px;
+  height: 20px;
+  float: left;
+}
+body section aside .tree ul li span.line {
+  cursor: pointer;
+}
+body section aside .tree ul li ul {
+  display: none;
+}
+body section section {
+  flex: 1;
+  flex-direction: column;
+  margin-left: 10px;
+}
+body section section nav {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #f2f5fa;
+  display: block;
+}
+body section section nav .btn {
+  background-color: white;
+  line-height: 30px;
+  padding: 0px 20px 0px 20px;
+  color: #2ac38a;
+  border: 1px solid #95e3c2;
+  vertical-align: middle;
+  display: inline-block;
+  cursor: pointer;
+}
+body section section nav .btn i {
+  margin-right: 5px;
+}
+body section section nav .btn:hover {
+  background-color: rgba(42, 195, 138, 0.1);
+}
+body section section .content_box {
+  font-size: 16px;
+  display: block;
+  width: 100%;
+  vertical-align: middle;
+}
+body section section .content_box .breadcrumb {
+  font-size: 12px;
+}
+body section section .content_box div p {
+  font-size: 12px;
+}
+body section section .content_box div p input {
+  vertical-align: middle;
+}
+body section section .content_box div #centent_box {
+  overflow-y: auto;
+  width: 100%;
+  height: 500px;
+}
+body section section .content_box div #centent_box .folder_box {
+  vertical-align: middle;
+  display: inline-block;
+  background-color: white;
+  text-align: center;
+  width: 150px;
+  border: 1px solid #95e3c2;
+  padding: 15px 0px 15px 0px;
+  margin: 0px 20px 20px 0px;
+  line-height: 30px;
+}
+body section section .content_box div #centent_box .folder_box img {
+  width: 120px;
+}
+body section section .content_box div #centent_box .folder_box input {
+  font-size: 16px;
+  width: 140px;
+  text-align: center;
+  margin: -1px 0px 0px 0px;
+  line-height: 30px;
+  border: 1px solid rgba(0, 0, 0, 0);
+}
+body section section .content_box div #centent_box .folder_box p {
+  display: none;
+  border: 1px solid rgba(0, 0, 0, 0);
+}
+.tree .active,
+.tree div:hover {
+  background-color: rgba(42, 195, 138, 0.1);
+  color: #2ac38a;
+}
+#box {
+  width: 0;
+  height: 0;
+  background: rgba(200, 210, 0.3);
+  border: 1px dashed green;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: none;
+}

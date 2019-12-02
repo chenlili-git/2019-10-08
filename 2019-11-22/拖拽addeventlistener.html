@@ -41,8 +41,9 @@
         _x = ev.pageX - l;
         _y = ev.pageY - t;
 
-        document.addEventListener('mousemove', myfun)
-
+        document.addEventListener('mousemove', myfun);
+        
+        ev.preventDefault();
     })
     function myfun() {
 

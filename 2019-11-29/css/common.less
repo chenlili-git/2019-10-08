@@ -1,8 +1,12 @@
 @v: 1px;
 
 * {
-    margin : 0;
-    padding: 0;
+    .mg(0, 0, 0, 0);
+    .pdd(0, 0, 0, 0)
+}
+ul li{list-style:none;}
+.ff(@a) {
+    font-family: @a;
 }
 
 //margin
@@ -13,6 +17,11 @@
 //padding
 .pdd(@a, @b, @c, @d) {
     padding: @a*@v @b*@v @c*@v @d*@v;
+
+}
+
+.bk_c(@a) {
+    background-color: @a;
 }
 
 //float
