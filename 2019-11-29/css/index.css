@@ -9,7 +9,103 @@ p {
   padding: 0px 0px 0px 0px;
 }
 body {
+  font-family: slash, "Microsoft Yahei", Verdana;
   overflow-y: hidden;
+  position: relative;
+}
+body #masked_box {
+  position: absolute;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+body #masked_box .mask_cnt {
+  background-color: white;
+  height: fit-content;
+  width: 300px;
+}
+body #masked_box .mask_cnt ul {
+  padding: 0px 10px 0px 10px;
+  display: flex;
+  justify-content: space-between;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  background-color: rgba(42, 195, 138, 0.1);
+  color: #2ac38a;
+}
+body #masked_box .mask_cnt ul li:last-child {
+  cursor: pointer;
+}
+body #masked_box .mask_cnt div {
+  padding: 0px 10px 0px 10px;
+  line-height: 50px;
+  font-size: 12px;
+  text-align: center;
+}
+body #masked_box .mask_cnt div p {
+  padding: 20px 10px 0px 10px;
+}
+body #masked_box .mask_cnt div button {
+  border: none;
+  background-color: #33cc99;
+  width: 70px;
+  line-height: 30px;
+  font-size: 12px;
+  color: white;
+  cursor: pointer;
+  outline: none;
+}
+body #moveto_box {
+  position: absolute;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+body #moveto_box .moveto_cnt {
+  background-color: white;
+  height: fit-content;
+  width: 400px;
+}
+body #moveto_box .moveto_cnt .moveto_hd {
+  padding: 0px 10px 0px 10px;
+  display: flex;
+  justify-content: space-between;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  background-color: rgba(42, 195, 138, 0.1);
+  color: #2ac38a;
+}
+body #moveto_box .moveto_cnt .moveto_hd li:last-child {
+  cursor: pointer;
+}
+body #moveto_box .moveto_cnt .tree_box {
+  padding: 20px 20px 20px 20px;
+  font-size: 12px;
+  text-align: center;
+}
+body #moveto_box .moveto_cnt .tree_box button {
+  border: 1px solid #bce9d6;
+  background-color: white;
+  width: 70px;
+  line-height: 30px;
+  font-size: 12px;
+  color: #2ac38a;
+  cursor: pointer;
+  outline: none;
+}
+body #moveto_box .moveto_cnt .tree_box button.active {
+  color: white;
+  background-color: #2ac38a;
 }
 body header {
   display: flex;
@@ -18,7 +114,7 @@ body header {
   line-height: 60px;
   background-color: #33cc99;
 }
-body header div {
+body header div:first-child {
   width: 180px;
   height: 60px;
   vertical-align: middle;
@@ -36,9 +132,22 @@ body header ul li {
   padding: 0px 20px 0px 20px;
   cursor: pointer;
 }
-body header li:first-child {
+body header ul li:hover {
   color: white;
-  background-color: #33cc66;
+  background-color: #1fb375;
+}
+body header ul li:first-child {
+  color: white;
+  background-color: #1fb375;
+}
+body header div.head_vip {
+  margin-left: auto;
+  padding: 10px 20px 10px 15px;
+  cursor: pointer;
+}
+body header div.head_vip img {
+  width: 40px;
+  border-radius: 50% 50%;
 }
 body section {
   display: flex;
@@ -50,11 +159,14 @@ body section aside {
   width: 180px;
   background-color: #f8fffc;
 }
+body section aside .tree .active,
+body section aside .tree div:hover {
+  background-color: rgba(42, 195, 138, 0.1);
+  color: #2ac38a;
+}
 body section aside .tree ul {
   list-style: none;
-  font-size: 16px;
-  color: #8c949c;
-  font-weight: bold;
+  font-size: 14px;
   width: 100%;
 }
 body section aside .tree ul li {
@@ -65,6 +177,7 @@ body section aside .tree ul li div {
   line-height: 50px;
   height: 50px;
   cursor: pointer;
+  color: #4d4d4d;
 }
 body section aside .tree ul li span.add {
   cursor: pointer;
@@ -73,9 +186,11 @@ body section aside .tree ul li span {
   display: block;
   line-height: 32px;
   padding-left: 15px;
-  width: 20px;
-  height: 20px;
   float: left;
+}
+body section aside .tree ul li span img {
+  width: 18px;
+  margin-top: 15px;
 }
 body section aside .tree ul li span.line {
   cursor: pointer;
@@ -90,8 +205,8 @@ body section section {
 }
 body section section nav {
   width: 100%;
-  height: 50px;
   line-height: 50px;
+  font-size: 12px;
   border-bottom: 1px solid #f2f5fa;
   display: block;
 }
@@ -118,34 +233,61 @@ body section section .content_box {
   vertical-align: middle;
 }
 body section section .content_box .breadcrumb {
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 30px;
 }
-body section section .content_box div p {
-  font-size: 12px;
+body section section .content_box .breadcrumb a {
+  color: #2ac38a;
+  text-decoration: none;
+  text-align: center;
 }
-body section section .content_box div p input {
-  vertical-align: middle;
+body section section .content_box .breadcrumb i {
+  font-style: normal;
+  text-align: center;
 }
-body section section .content_box div #centent_box {
-  overflow-y: auto;
-  width: 100%;
+body section section .content_box .content {
   height: 500px;
 }
-body section section .content_box div #centent_box .folder_box {
+body section section .content_box .content p {
+  font-size: 12px;
+  line-height: 30px;
+}
+body section section .content_box .content p i {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  font-size: 14px;
+  margin-right: 5px;
+}
+body section section .content_box .content .folderBox {
+  height: inherit;
+  position: relative;
+}
+body section section .content_box .content .folderBox #centent_box {
+  overflow-y: auto;
+  width: 100%;
+  height: inherit;
+}
+body section section .content_box .content .folderBox #centent_box .active {
+  border: 1px solid #95e3c2 !important;
+  background-color: #ecfbf5 !important;
+}
+body section section .content_box .content .folderBox #centent_box .folder_box {
+  position: relative;
   vertical-align: middle;
   display: inline-block;
   background-color: white;
   text-align: center;
   width: 150px;
-  border: 1px solid #95e3c2;
+  border: 1px solid rgba(0, 0, 0, 0);
   padding: 15px 0px 15px 0px;
   margin: 0px 20px 20px 0px;
   line-height: 30px;
 }
-body section section .content_box div #centent_box .folder_box img {
+body section section .content_box .content .folderBox #centent_box .folder_box img {
   width: 120px;
 }
-body section section .content_box div #centent_box .folder_box input {
+body section section .content_box .content .folderBox #centent_box .folder_box input {
   font-size: 16px;
   width: 140px;
   text-align: center;
@@ -153,22 +295,89 @@ body section section .content_box div #centent_box .folder_box input {
   line-height: 30px;
   border: 1px solid rgba(0, 0, 0, 0);
 }
-body section section .content_box div #centent_box .folder_box p {
+body section section .content_box .content .folderBox #centent_box .folder_box p {
   display: none;
   border: 1px solid rgba(0, 0, 0, 0);
 }
-.tree .active,
-.tree div:hover {
-  background-color: rgba(42, 195, 138, 0.1);
-  color: #2ac38a;
+body section section .content_box .content .folderBox #centent_box .folder_box i {
+  display: none;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 25px;
+  height: 25px;
+  background-image: url('../img/tick_circle_checked.png');
+  background-size: 25px 25px;
+  background-repeat: no-repeat;
+  opacity: 0.5;
+}
+body section section .content_box .content .folderBox #centent_box .folder_box i.checked {
+  display: block;
+  opacity: 1;
+}
+body section section .content_box .content .folderBox #centent_box .folder_box:hover {
+  border: 1px solid #95e3c2 !important;
+  background-color: #ecfbf5 !important;
+}
+body section section .content_box .content .folderBox #centent_box .folder_box:hover i {
+  display: block;
+}
+body section section .content_box .content #nodata {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: inherit;
+  text-align: center;
+}
+body section section .content_box .content #nodata P {
+  font-size: 18px;
+  line-height: 30px;
+}
+body #moveto_box .moveto_cnt div .tree {
+  border: 1px solid #f2f2f2;
+  overflow: auto;
+  margin-bottom: 20px;
+}
+body #moveto_box .moveto_cnt div .tree ul {
+  list-style: none;
+  font-size: 14px;
+  width: 100%;
+}
+body #moveto_box .moveto_cnt div .tree ul li .active {
+  background-color: lawngreen;
+}
+body #moveto_box .moveto_cnt div .tree ul li div:hover {
+  background-color: lawngreen;
+}
+body #moveto_box .moveto_cnt div .tree ul li {
+  overflow: hidden;
+}
+body #moveto_box .moveto_cnt div .tree ul li div {
+  line-height: 30px;
+  height: 30px;
+  cursor: pointer;
+  color: #4d4d4d;
+  text-align: left;
+}
+body #moveto_box .moveto_cnt div .tree ul li div img {
+  width: 18px;
+}
+body #moveto_box .moveto_cnt div .tree ul li ul {
+  display: none;
+}
+#moveto_box .moveto_cnt div .tree {
+  height: 300px;
+}
+#moveto_box .moveto_cnt div .tree ul {
+  height: inherit;
 }
 #box {
-  width: 0;
-  height: 0;
-  background: rgba(200, 210, 0.3);
-  border: 1px dashed green;
+  width: 0px;
+  height: 0px;
+  background-color: rgba(234, 235, 232, 0.5);
+  border: 1px dashed grey;
   position: absolute;
-  left: 0;
-  top: 0;
+  left: 0px;
+  top: 0px;
   display: none;
 }

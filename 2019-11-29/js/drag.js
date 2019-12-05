@@ -1,54 +1,86 @@
-class Drag {
-    constructor(id) {
-        this.disX = this.disY = 0;
-        this.box = document.getElementById(id);
-        this.centent_box = document.getElementById('centent_box');
-    }
-    init() {
-        this.centent_box.addEventListener('mousedown', this.d = this.down.bind(this));
 
-    }
-    down(ev) {
-        let { left, top } = this.box.getBoundingClientRect();
-        this.disX = ev.pageX;
-        this.disY = ev.pageY;
-        this.box.style.display = 'block';
+const { left: box_l, top: box_t } = $fBox.offset();
 
-        //按下的时候让box等于鼠标按下的位置
-        this.box.style.top = this.disY + 'px';
-        this.box.style.left = this.disX + 'px';
+$fBox.on('mousedown', function (ev) {
+    let disX = ev.pageX, disY = ev.pageY,
+        $folder = $fBox.find('.folder_box');
+   
+    /*
+        在按下的时候，通过ev.target去判断，当前元素是不是文件夹，或者看看
+        目标元素的父级是不是文件夹，如果是就不画框
+    */
+    if ($(ev.target).closest('.folder_box ').length) return;
+ 
+    $kuang.show().css({
+        left: disX - box_l,
+        top: disY - box_t,
+        border: '1px dashed #000'
+    });
 
 
-        document.addEventListener('mousemove', this.mv = this.move.bind(this));
-        document.addEventListener('mouseup', this.u = this.up.bind(this));
-        ev.preventDefault();
-        ev.cancelBubble = true;
-    }
-    move(ev) {
-        this.box.style.top = Math.min(ev.pageY, this.disY) + 'px';
-        this.box.style.left = Math.min(ev.pageX, this.disX) + 'px';
-        let b = document.querySelectorAll('.folder_box');
+    $fBox.on('mousemove', function (ev) {
+        $kuang.css({
+            //移动的减去按下的
+            width: Math.abs(ev.pageX - disX),
+            height: Math.abs(ev.pageY - disY),
+            //鼠标移动的距离（基于可视区的） - fBox的距离
+            left: Math.min(ev.pageX - box_l, disX - box_l),
+            top: Math.min(ev.pageY - box_t, disY - box_t),
 
-        b.forEach(ele => {
-            if (bong(box, ele)) {
-                ele.style.background = 'pink';
+        });
+
+        //move的时候看看，当前的框是否碰到了某几个元素
+        $folder.each((i, ele) => {
+            if (bong($kuang[0], ele)) {
+                list.forEach((item) => {
+                    //数据的id和碰到的did去对比，如果相等就把item的值设置为true
+                    if (item.id === $(ele).attr('did') * 1) {
+                        item.checked = true;
+                        $(ele).find('i').addClass('checked');
+                        $(ele).addClass('active');
+                    }
+                });
             } else {
-                ele.style.background = 'white';
+                list.forEach((item) => {
+                    if (item.id === $(ele).attr('did') * 1) {
+                        item.checked = false;
+                        $(ele).find('i').removeClass('checked');
+                        $(ele).removeClass('active');
+                    }
+                });
             }
-        })
 
+            //如果全选就勾上全选中，否则取消全选中。
+            isAllChecked();
+        });
 
-        //移动的距离 - 按下的距离 = 移动了多少距离
-        this.box.style.width = Math.abs(ev.pageX - this.disX) + 'px';
-        this.box.style.height = Math.abs(ev.pageY - this.disY) + 'px';
+    });
 
-    }
-    up(ev) {
-        this.box.style.height = this.box.style.width = 0;
-        this.box.style.display = 'none';
-        document.removeEventListener('mousemove', this.mv);
-        document.removeEventListener('mouseup', this.u);
-    }
-}
-let d = new Drag('box');
-d.init();
+    $(document).on('mouseup', function (ev) {
+        $fBox.off('mousemove');
+        $(document).off('mouseup');
+        $kuang.css({
+            width: 0,
+            height: 0,
+            display: 'none',
+            border: 'none',
+            top: 0,
+            left: 0
+        });
+
+        //returnVal 只要是returnVal为true（不需要阻止默认行为的时候，没必要画框）
+
+        if (ev.pageX === disX && ev.pageY === disY && !returnVal) {
+
+            list.forEach(item => item.checked = false);
+            $folder.each((i,ele)=>{
+                $(ele).find('i').removeClass('checked');
+                $(ele).removeClass('active');
+            });
+            clearCheckAllClass();
+        }
+
+    });
+    // console.log(ev.originalEvent);
+    ev.originalEvent.returnValue = returnVal;
+});

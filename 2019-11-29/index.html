@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/iconfont.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1538535_95qmhlt1k5h.css">
+</head>
+
+<body>
+    <section id="masked_box">
+        <div class="mask_cnt">
+            <ul>
+                <li>提示</li>
+                <li class='mask_close'>X</li>
+            </ul>
+            <div>
+                <p></p>
+                <button class='mask_close'>关闭</button>
+            </div>
+        </div>
+    </section>
+    <section id="moveto_box">
+        <div class="moveto_cnt">
+            <ul class="moveto_hd">
+                <li>选择移动到的目录</li>
+                <li class='moveto_close'>X</li>
+            </ul>
+            <div class="tree_box">
+                <div class='tree' id="moveto_tree">
+                    <ul id="moveto_oul">
+                        <li class="full" did="0">
+                            <div class='active'>
+                                <img src="./img/folder-open.png" alt="">
+                                <span>微云</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <button class='moveto_close active'>确定</button>
+                <button class='moveto_close'>取消</button>
+            </div>
+        </div>
+    </section>
+    <header>
+        <div><i class="iconfont icon-yun"></i>陈丽云盘</div>
+        <ul>
+            <li>网盘</li>
+            <li>云收藏</li>
+            <li>更多</li>
+        </ul>
+        <div class="head_vip"><img src="./img/vip-icon.jpg" alt=""></div>
+    </header>
+
+    <section>
+        <aside class="tree_box" id="tree_box">
+            <div class="tree" id="tree">
+                <ul id="oUl">
+                    <li class="full" id="0">
+                        <span><img src="./img/folder-open.png" alt=""></span></span>
+                        <div class='active'>微云</div>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <section>
+            <nav>
+                <ul>
+                    <li class="btn" id="download_btn"><i class="iconfont icon-icon-test2"></i>下载</li>
+                    <li class="btn" id="updata_btn"><i class="iconfont icon-icon-test"></i>分享</li>
+                    <li class="btn" id="moveto_btn"><i class="iconfont icon-icon-test1"></i>移动到</li>
+                    <li class="btn" id="rename_btn"><i class="iconfont"></i>重命名</li>
+                    <li class="btn" id="dele_btn"><i class="iconfont icon-ashbin"></i>删除</li>
+                    <li class="btn" id="creat_btn"><i class="iconfont icon-xinjian"></i>新建文件夹</li>
+                </ul>
+
+            </nav>
+            <div class="content_box">
+                <div class="breadcrumb" id="breadcrumb">
+                    <a href="javascript:void(0);">微云</a>
+                    <a href="javascript:void(0);">我的文档</a>
+                    <span>js权威指南</span>
+                </div>
+                <div class="content">
+                    <p id="cheack_all">
+                        <i class="iconfont icon-weigouxuan"></i>全选
+                    </p>
+                    <section class="folderBox" id="folderBox">
+                        <ul id="centent_box">
+                        </ul>
+                        <div id="box" class="free_box"></div>
+                    </section>
+
+                    <div id="nodata">
+                        <img src="./img/no-folder.svg" alt="" />
+                        <p>这里还没有上传过文件哦~</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+</body>
+<script src="./js/jquery.min.js"></script>
+<script src="./data/sql/data.js"></script>
+<script src="./js/tools.js"></script>
+<script src="./js/mask/mask.js"></script>
+<script src="./js/tree/tree.js"></script>
+<script src="./js/folder/folder.js"></script>
+<script src="./js/breadcrumb/breadcrumb.js"></script>
+<script src="./js/moveto/moveto.js"></script>
+<script src="./js/drag.js"></script>
+
+</html>

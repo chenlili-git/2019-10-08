@@ -10,16 +10,14 @@
 .iconfont {
   font-family: "iconfont" !important;
   font-size: 16px;
+  font-weight: bold;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* .icon-xinjian:before {
-  content: "\e728";
+.icon-yun{
+  margin-right: 10px;
 }
 
-.icon-fenxiang:before {
-  content: "\e501";
-} */
 
