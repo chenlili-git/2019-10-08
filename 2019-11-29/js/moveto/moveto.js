@@ -9,7 +9,8 @@ $moveto_close.click(function () {
     if ($(this).hasClass('active')) {
 
         if (okcode === 'error') {
-            alert('非法操作');
+            //alert('非法操作');
+            $masked_box.show().find('p').eq(0).html('非法操作！！！');
             return;
         }
         let pid = $moveto_tree.find('div.active').eq(0).parent('li').attr('did');

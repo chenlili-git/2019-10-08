@@ -21,7 +21,7 @@ function render(num = 0) {
 
     let rdData = getChildrenFolders(data, num);
     list = rdData;
-    console.log(list);
+    //console.log(list);
     if (list.length) {
         isAllChecked();
         $fBox.show();
@@ -233,7 +233,7 @@ function checkedAll($this, arr) {
         // console.log('1111'+onOff)
         arr.map(item => data[item.id].checked = true);
     } else {
-        console.log('2' + onOff)
+        //console.log('2' + onOff)
         arr.map(item => data[item.id].checked = false);
     }
     onOff = !onOff;
