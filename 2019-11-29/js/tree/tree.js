@@ -3,7 +3,7 @@ function creatTree(num, onoff) {
     if (!onoff) {
         $tree.children("li").find('ul').remove();
     }
-    
+
 
     let list = getChildrenFolders(data, num);
 
@@ -20,13 +20,16 @@ function creatTree(num, onoff) {
         <span class="" style="margin-left:${parr.length * 5 + 5}px;"><img src="${arr.length ? '././img/folder-close.png' : ''}" alt=""></span>
         <div>${item.title}</div>
     </li>`);
+        let $obj = null;
         $li.off().click(function () {
-            
+
             let id = item.id;
             let pid = item.pid;
+
             //如果有子级ul 说明已经打开了 所以要关闭 清除ul ; 没有就说明现在是关上的所以要打开
             //清除所有的div中class含有active的 
             $tree.find('div').removeClass('active');
+        
             //判断面当前li下的ul的长度  有ul的就清理ul 重新加载子数据 没有ul的可能是没有打开过 或者是没有子级
             if ($(this).find('ul').length) {
                 $(this).find('ul').remove();
@@ -37,9 +40,12 @@ function creatTree(num, onoff) {
                 } else {
                     //pid不是微云时
                     $(this).find('span img').eq(0).attr("src", '././img/folder-close.png');
-                    $(this).parents("li").eq(0).find('div').eq(0).addClass('active');
+                    $(this).parents("li").eq(0).find('div').eq(0).addClass('active');             
                 }
-               
+                $obj = $(this);
+                //清除全选
+                clearCheckAllClass();
+                list.map(item => data[item.id].checked = false);
                 render(pid);
                 breadcrumb(pid);
 
@@ -58,6 +64,9 @@ function creatTree(num, onoff) {
                         $(this).addClass('once');
                         $(this).append(creatTree(id, true));
                         $(this).find('div').eq(0).addClass('active')
+                        //清除全选
+                        clearCheckAllClass();
+                        list.map(item => data[item.id].checked = false);
                         render(id);
                         breadcrumb(id);
 
@@ -68,6 +77,9 @@ function creatTree(num, onoff) {
                     $(this).find('span img').eq(0).attr("src", '././img/folder-open.png');
                     $(this).append(creatTree(id, true));
                     $(this).find('div').eq(0).addClass('active')
+                    //清除全选
+                    clearCheckAllClass();
+                    list.map(item => data[item.id].checked = false);
                     render(id);
                     breadcrumb(id);
                 }
@@ -90,7 +102,7 @@ function treePosition(id) {
     let $li = $('#' + id);
     let sArr = getChildrenFolders(data, id);
     $tree.find('.active').removeClass('active');
-    
+
     if (id === 0) {
         //当pid是微云时
         $li.append(creatTree(id, false));
@@ -104,7 +116,7 @@ function treePosition(id) {
     }
 
     $li.find('div').eq(0).addClass('active');
-    
+
     if (!getChildrenFolders(data, id).length) {
         $li.find('span img').eq(0).attr("src", '');
     } else {
