@@ -80,7 +80,6 @@ function render(num = 0) {
 }
 render(0);//渲染第一层 id=0
 
-
 //新建文件夹
 
 $creatBtn.click(function (ev) {
@@ -103,7 +102,7 @@ $creatBtn.click(function (ev) {
 
         if (!val) { val = '新建文件夹' }
 
-        let bool = isRename(data, val);
+        let bool = isRename(list, val);
         if (bool && val != '新建文件夹') {
             $masked_box.show().find('p').eq(0).html('相同文件或目录已存在！');
         }
@@ -112,7 +111,7 @@ $creatBtn.click(function (ev) {
         newVal = val;
         while (bool) {
             let s = val.replace(/\(\d\)$/, '') + '(' + (num++) + ')';
-            bool = isRename(data, s);
+            bool = isRename(list, s);
             newVal = s;
         }
         let id = +new Date;
@@ -126,6 +125,7 @@ $creatBtn.click(function (ev) {
         returnVal = false;
         //清除全选
         clearCheckAllClass();
+        list.map(item => data[item.id].checked = false);
         render(globalPid);
         //联动左侧的tree
         treePosition(globalPid);
@@ -164,8 +164,10 @@ $deleBtn.click(function (ev) {
 $renameBtn.click(function (ev) {
     returnVal = true;// drag中mouseup时不阻止默认行为
     //先判断有没有选中的
-    let keysArr = Object.keys(data);
-    let checkedArr = keysArr.filter(item => data[item].checked === true);
+    //let keysArr = Object.keys(data);
+    let checkedArr = list.filter(item => {
+       return item.checked === true;
+    });
     if (!checkedArr.length || checkedArr.length > 1) {
         $masked_box.show().find('p').eq(0).html('请选择一个文件！！！');
         return null;
@@ -189,8 +191,8 @@ $renameBtn.click(function (ev) {
             $input.hide();
             $list.find('p').show();
         } else {
-            let bool = keysArr.some(function (currentValue, index, arr) {
-                return data[currentValue].title === val;
+            let bool = list.some(function (currentValue, index, arr) {
+                return currentValue.title === val;
             });
             if (bool) {
                 $masked_box.show().find('p').eq(0).html('相同文件或目录已存在！');
@@ -204,6 +206,8 @@ $renameBtn.click(function (ev) {
         data[$id].title = val;
         data[$id].checked = false;
         render(globalPid);
+        //联动左侧的tree
+        treePosition(globalPid);
         //当修改成功之后就要阻止模型行为。
         returnVal = false;
         ev.preventDefault();
