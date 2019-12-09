@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /* 
+            发布订阅者模式：    
+                    模拟 xx.addEventListener()
+                    ‘
+
+            如：给一个元素同时加入多次click事件 事件执行机制如下
+
+                xx.fn('click',function(){}) 订阅的过程
+                xx.fn('click',function(){}) 给某个元素的事件订阅一个事件函数
+            订阅池就是一个（能够存储多个事件值的空间）的对象,这个列表在每次订阅事件
+            订阅的过程给某个元素的事件订阅一个事件函数
+            当事件触发以后，发布之前订阅的所有事件函数（循环订阅池，去调用订阅池中的每个事件）
+            订阅池是个对象 
+                {
+                    click:[function(){},function(){}] //事件池是个数组
+                }
+            事件池是个数组
+         */
+    </script>
+</body>
+</html>

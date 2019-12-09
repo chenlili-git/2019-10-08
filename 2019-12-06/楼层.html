@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            position: relative;
+        }
+
+        section div {
+            width: 1000px;
+            height: 300px;
+            margin: 0 auto;
+            border: 1px solid gray;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            position: fixed;
+            list-style: none;
+            top: 50px;
+        }
+
+        ul li {
+            width: 100px;
+            text-align: center;
+            line-height: 30px;
+            border-right: 1px solid black;
+            border-top: 1px solid black;
+            border-left: 1px solid black;
+        }
+
+        ul li:last-child {
+            border-bottom: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li data-index='0'>颜值</li>
+        <li data-index='1'>英雄联盟</li>
+        <li data-index='2'>绝地求生</li>
+        <li data-index='3'>穿越火线</li>
+        <li data-index='4'>王者荣耀</li>
+        <li data-index='5'>云顶模式</li>
+    </ul>
+    <section>
+        <div>颜值</div>
+        <div>英雄联盟</div>
+        <div>绝地求生</div>
+        <div>穿越火线</div>
+        <div>王者荣耀</div>
+        <div>云顶模式</div>
+    </section>
+</body>
+<script src="./js/tween.js"></script>
+<script>
+    let ul = document.getElementsByTagName('ul')[0];
+
+    let section = document.getElementsByTagName('section')[0];
+    let div = section.getElementsByTagName('div');
+
+    ul.onclick = function (ev) {
+        let index = ev.target.getAttribute('data-index');
+        console.log(section.scrollHeight)
+        console.log(div[index].offsetTop)
+        // move({
+        //     el: window,
+        //     attr: {
+        //         scroll:div[index].offsetTop - 20
+        //     }
+        // });
+        window.scrollTop=div[index].offsetTop - 20
+        //scroll(0, div[index].offsetTop - 20)
+    }
+
+</script>
+
+</html>
