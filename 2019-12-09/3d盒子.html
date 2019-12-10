@@ -30,9 +30,9 @@
 
         }
 
-        .box:hover {
+        /* .box:hover {
             transform: rotateX(180deg);
-        }
+        } */
 
         .layer {
             background-color: #000;
@@ -103,5 +103,16 @@
         <div class="layer">6</div>
     </div>
 </body>
+<script>
+    let box = document.getElementById('box');
+    console.log(box);
+    box.onmouseenter = function () {
+        box.style.transform = 'rotateX(180deg)';
+        box.onpointerleave=function(){
+            box.style.transform = 'rotateX(0deg)';
+        }
+    }
+
+</script>
 
 </html>

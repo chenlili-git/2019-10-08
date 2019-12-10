@@ -6,10 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+
     <style>
         * {
             padding: 0;
             margin: 0;
+        }
+
+        html,
+        body {
+            transition: 1s;
         }
 
         body {
@@ -37,6 +43,7 @@
             border-right: 1px solid black;
             border-top: 1px solid black;
             border-left: 1px solid black;
+            cursor: pointer;
         }
 
         ul li:last-child {
@@ -61,8 +68,11 @@
         <div>穿越火线</div>
         <div>王者荣耀</div>
         <div>云顶模式</div>
+        <div>模式</div>
+        <div>模式</div>
     </section>
 </body>
+<script src="./js/jquery.min.js"></script>
 <script src="./js/tween.js"></script>
 <script>
     let ul = document.getElementsByTagName('ul')[0];
@@ -72,16 +82,17 @@
 
     ul.onclick = function (ev) {
         let index = ev.target.getAttribute('data-index');
-        console.log(section.scrollHeight)
-        console.log(div[index].offsetTop)
-        // move({
-        //     el: window,
-        //     attr: {
-        //         scroll:div[index].offsetTop - 20
-        //     }
-        // });
-        window.scrollTop=div[index].offsetTop - 20
-        //scroll(0, div[index].offsetTop - 20)
+        // let scrollT = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+
+        let n = div[index].offsetTop;
+
+        $('html,body').animate({ scrollTop: n });
+
+     
+
+        //document.documentElement.scrollTop = document.body.scrollTop = n
+      
+
     }
 
 </script>

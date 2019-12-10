@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        ul li {
+            list-style: none;
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+            overflow: hidden;
+            position: relative;
+        }
+
+        li img {
+            height: 300px;
+            width: 300px;
+
+        }
+
+        .maskbox {
+            position: absolute;
+            top: 300px;
+            left: 0;
+
+            width: 300px;
+            height: 300px;
+            opacity: 0.6;
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>
+            <img src="./img/timg.jpg" alt="">
+            <div class="maskbox"></div>
+        </li>
+        <li>
+            <img src="./img/timg_2.jpg" alt="">
+            <div class="maskbox"></div>
+        </li>
+        <li>
+            <img src="./img/timg_1.jpg" alt="">
+            <div class="maskbox"></div>
+        </li>
+        <li>
+            <img src="./img/timg_3.jpg" alt="">
+            <div class="maskbox"></div>
+        </li>
+    </ul>
+</body>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/tween.js"></script>
+<script>
+    let $lis = $('li');//0、1、2、3 之间的一个（分别代表上、右、下、左）
+    $lis.each(function (i, item) {
+
+        $(this).mouseenter(function (e) {
+            switch (isDirection(e.pageX, e.pageY, this.offsetLeft, this.offsetTop)) {
+                case 0:
+                    $(this).children('.maskbox')[0].style.top = '-300px';
+                    $(this).children('.maskbox')[0].style.left = '0px';
+                    $(this).children('.maskbox').eq(0).animate({ top: '0' }, "easein");
+                    break;
+                case 1:
+                    $(this).children('.maskbox')[0].style.top = '0px';
+                    $(this).children('.maskbox')[0].style.left = '300px';
+                    $(this).children('.maskbox').eq(0).animate({ left: '0' }, "easein");
+                    break;
+                case 2:
+                    $(this).children('.maskbox')[0].style.top = '300px';
+                    $(this).children('.maskbox')[0].style.left = '0px';
+                    $(this).children('.maskbox').eq(0).animate({ top: '0' }, "easein");
+                    break;
+                case 3:
+                    $(this).children('.maskbox')[0].style.top = '0px';
+                    $(this).children('.maskbox')[0].style.left = '-300px';
+                    $(this).children('.maskbox').eq(0).animate({ left: '0' }, "easein");
+                    break;
+            }
+        })
+        $(this).mouseleave(function (e) {
+            switch (isDirection(e.pageX, e.pageY, this.offsetLeft, this.offsetTop)) {
+                case 0:
+                    $(this).children('.maskbox').eq(0).animate({ top: '-300px' }, "easein");
+                    break;
+                case 1:
+                    $(this).children('.maskbox').eq(0).animate({ left: '300px' }, "easein");
+                    break;
+                case 2:
+                    $(this).children('.maskbox').eq(0).animate({ top: '300px' }, "easein");
+                    break;
+                case 3:
+
+                    $(this).children('.maskbox').eq(0).animate({ left: '-300px' }, "easein");
+                    break;
+            }
+        })
+    })
+    function isDirection(pageX, pageY, offsetLeft, offsetTop) {
+        let w = 302;
+        let h = 302;
+        var x = (pageX - offsetLeft - (w / 2)) * (w > h ? (h / w) : 1);
+        var y = (pageY - offsetTop - (h / 2)) * (h > w ? (w / h) : 1);
+        var direction = Math.round((((Math.atan2(y, x) * (180 / Math.PI)) + 180) / 90) + 3) % 4;
+        return direction;
+    }
+</script>
+
+</html>

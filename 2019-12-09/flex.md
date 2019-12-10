@@ -74,7 +74,7 @@ flex-wrap:wrap-reverse;
 
  + align-items:flex-end|flex-start|flex-stretch|center|baseline 
 
-    定义项目在交叉轴上如何对齐。
+    定义项目在交叉轴上如何对齐。(侧轴对齐方式)
 
 ![align-items](http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071011.png)
 
@@ -118,3 +118,15 @@ flex-wrap:wrap-reverse;
 
     
 ```
++ flex-flow:flex-direction|flex-wrap;
+方向和换行的复合体
+```
+flex-flow:row wrap;
+
+```    
+
++ flex：number  剩余空间平均分配 数值是多少就占几份
+
++ align-self 给自己加入侧轴样式   可以和其他兄弟元素不一样
+
++ order  数值越小越靠前

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            outline-style: none;
+            text-decoration: none;
+        }
+
+        html {
+            background-color: white;
+            font-size: 12px;
+        }
+
+        body {
+            max-width: 540px;
+            min-width: 320px;
+            height: 500px;
+            margin: 0 auto;
+            background-color: blueviolet;
+        }
+
+        .wrap .searchbox {
+            position: fixed;
+            height: 44px;
+            width: 100%;
+            max-width: 540px;
+            background-color: yellow;
+            display: flex;
+            align-items: center;
+            padding-left: 12px;
+            box-sizing: border-box;
+        }
+
+        .searchbox>div {
+            height: 28px;
+            line-height: 24px;
+            border: 1px solid black;
+            border-radius: 15px;
+            flex: 1;
+        }
+
+        .searchbox>a {
+            width: 51px;
+            height: 44px;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center
+        }
+
+        header {
+            height: 198px;
+            background-color: tomato;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap" class="wrap">
+        <section class="searchbox">
+            <div>
+                <span>搜索:目的地/酒店/景点/航班号</span>
+            </div>
+            <a href=""><span>我的</span></a>
+        </section>
+        <header></header>
+        <nav>
+            <ul>
+                <li>
+                    <a href="">
+                        <span>攻略·景点</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <span>门票·玩乐</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <span>美食林</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <span>周边游</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <span>一日游</span>
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+</body>
+
+</html>
