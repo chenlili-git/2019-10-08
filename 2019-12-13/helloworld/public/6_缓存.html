@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    用户名：<input type="text" id="user" /><br />
+
+    密码：<input type="password" id="pw"><br />
+    <button id="btn">提交</button>
+</body>
+<script>
+    let re = /^[a-zA-Z][\w-]{5,7}$/;//以字母开头 以数字字母下划线- 6-8位
+    user.onblur = function () {
+        //发起ajax请求（打电话模式）
+        /* 
+            1.创建一个电话
+            2.输入号码
+            3.按绿色键拨打
+            4.等待 连线中。。。
+            5.通话
+        */
+        let xhr = new XMLHttpRequest();//创建一个电话
+        console.log(xhr);
+        xhr.open('get', '/get?user=' + this.value, true); //true 是否异步   输入号码
+        xhr.send();//拨打
+        xhr.onload = function () {//等待
+            console.log(typeof xhr.responseText);//通话 json string    response回应 响应
+            let d = JSON.parse(xhr.responseText);
+
+        };
+    }
+/*
+
+    在低版本IE下有缓存问题
+
+
+    1、encodeURI和decodeURI
+
+        [1]语法：encodeURI(string)转成uri码、decodeURI(string)转成汉字
+        [2]说明：decodeURI() 函数可对 encodeURI() 函数编码过的 URI 进行解码。当中加密值为：当中的十六进制转义序列将被它们表示的字符替换。
+
+        decodeURI('%E7%BB%AD')->续
+
+        [3]案例：
+        <script type="text/javascript">
+
+        var test1="http://www.w3school.com.cn/My first/"
+
+        document.write(encodeURI(test1)+ "<br />")
+        document.write(decodeURI(test1))
+
+</script>
+
+*/
+
+</script>
+
+</html>

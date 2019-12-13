@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    用户名：<input type="text" id="user" /><br />
+
+    密码：<input type="password" id="pw"><br />
+    <button id="btn">提交</button>
+    <!-- <form action="/post" method="post">
+        用户名：<input type="text" name="user"/><br/>
+
+        密码：<input type="password" name="pw"><br/>
+        <input type="submit" value="提交">
+    </form> -->
+</body>
+<script>
+    let re=/^[a-zA-Z][\w-]{5,7}$/;//以字母开头 以数字字母下划线- 6-8位
+    user.onblur = function () {
+        //发起ajax请求（打电话模式）
+        /* 
+            1.创建一个电话
+            2.输入号码
+            3.按绿色键拨打
+            4.等待 连线中。。。
+            5.通话
+        */
+        var  xhr = new XMLHttpRequest();//创建一个电话
+        console.log(xhr);
+        xhr.open('post','/post',true); //true 是否异步   输入号码
+        xhr.setRequestHeader('content-type','application/x-www-form-urlencoded');
+        xhr.send('user='+this.value);//拨打
+        xhr.onload=function(){//等待
+            console.log(typeof xhr.responseText);//通话 json string    response回应 响应
+            let d=JSON.parse(xhr.responseText);
+
+        };
+    }
+
+/* 
+
+post是通过服务器来发送请求的（用户名密码 银行系统  跟用户有关的信息 发送体积比较大的文件）
+
+相对安全，因为它是通过服务器来发送请求的
+体积可以是无限大（但是一般后端开发人员都会给予限制）
+
+比get要慢
+
+post三次握手  6步
+*/
+
+</script>
+
+</html>

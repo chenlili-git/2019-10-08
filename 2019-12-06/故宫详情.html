@@ -78,22 +78,22 @@
                 case 0:
                     $(this).children('.maskbox')[0].style.top = '-300px';
                     $(this).children('.maskbox')[0].style.left = '0px';
-                    $(this).children('.maskbox').eq(0).animate({ top: '0' }, "easein");
+                    $(this).children('.maskbox').eq(0).stop(true,false).animate({ top: '0' }, "easein");
                     break;
                 case 1:
                     $(this).children('.maskbox')[0].style.top = '0px';
                     $(this).children('.maskbox')[0].style.left = '300px';
-                    $(this).children('.maskbox').eq(0).animate({ left: '0' }, "easein");
+                    $(this).children('.maskbox').eq(0).stop(true,false).animate({ left: '0' }, "easein");
                     break;
                 case 2:
                     $(this).children('.maskbox')[0].style.top = '300px';
                     $(this).children('.maskbox')[0].style.left = '0px';
-                    $(this).children('.maskbox').eq(0).animate({ top: '0' }, "easein");
+                    $(this).children('.maskbox').eq(0).stop(true,false).animate({ top: '0' }, "easein");
                     break;
                 case 3:
                     $(this).children('.maskbox')[0].style.top = '0px';
                     $(this).children('.maskbox')[0].style.left = '-300px';
-                    $(this).children('.maskbox').eq(0).animate({ left: '0' }, "easein");
+                    $(this).children('.maskbox').eq(0).stop(true,false).animate({ left: '0' }, "easein");
                     break;
             }
         })

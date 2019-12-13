@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ajax请求</title>
+</head>
+
+<body>
+    用户名：<input type="text" id="user" /><br />
+
+    密码：<input type="password" id="pw"><br />
+    <button id="btn">提交</button>
+</body>
+<script>
+    //当用户名失焦的时候请求服务器 询问服务器当前提交的用户名能不能注册 
+    user.onblur= function () {
+        //?  查询信息  url+参数
+        console.log(22222)
+        fetch('/get?user=' + user.value).then(d => d.json()).then(d => {
+            console.log(d.code);//返回结果code：1=>可以注册 返回结果code：0=>不可以注册 因为后台有这个用户名
+            if(d.code===0){
+                user.style.border='1px solid red';
+            }else{
+                user.style.border='1px solid blue';
+            }
+           
+        })
+    }
+
+</script>
+
+</html>
