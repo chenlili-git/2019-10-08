@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+let val='1';
+let val2='+';
+let val3='2';
+//想得到val+val2+val3 的结果是3 
+console.log(val+val2+val3)//=>1+2 string类型
+
+//所以上面情况处理不了计算 但eval专门处理计算的
+console.log(eval(val+val2+val3))//=>3 number类型
+
+//还有一种方式可以处理 new Function()
+console.log(new Function('','return '+val+val2+val3)())//=>3 number类型
+
+let ary='[1,2,3,4]';
+let json='{"name":1}';
+//上面是字符串 目前我想得到数组 和对象 
+console.log(eval('('+ary+')'))//=>[]
+console.log(eval('('+json+')')) //=>{name: 1}
+
+/* 
+new Function([arg1[,arg2[,...argN]],] functionBody)
+函数的参数首先出现，函数体在最后，所有的参数是字符串形式
+let sum=new Function('a','b','return a+b')
+alert(sum(1,2));//3
+
+如果所有新建的函数没有参数，那么new Function()只有函数体参数
+let sayHi=new Function('alert("Hello")')
+sayHi();//Hello
+
+这个方式与其他方式最主要的不同点在于，函数时由在运行时传入的字符串创建的，之前的所有声明都要求程序员在脚本中编写功能代码
+
+但new Function允许将任何字符串转换为函数， 例如，我们可以从服务器接收新函数然后执行它：
+let str = ... receive the code from a server dynamically ...
+
+let func = new Function(str);
+func();
+
+*/
+
+</script>
+
+</html>

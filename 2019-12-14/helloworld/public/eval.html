@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>eval</title>
+</head>
+
+<body>
+    <img src="../2019-12-10/img/10020q000000gajaeDB6E_C_360_202.jpg" alt="">
+    <input type="text" name="" id="txt"> <button id="btn">按钮</button>
+</body>
+<script>
+
+    /* 
+     eval() 函数可计算某个字符串，并执行其中的的 JavaScript 代码。
+    
+     eval(string) 
+    
+
+    // btn.onclick = function () {
+    //     let str = null;
+    //     str = document.getElementById('txt').value;
+
+        //console.log(eval(str));//当input中输入 document.getElementsByTagName('body')[0].style.background='black' 时  并且代码用eval处理str  页面的body颜色就会改为黑色
+
+        //console.log(eval(str));//当input值为 window.location.href="http://www.baidu.com"; 时 代码用的eval处理str 页面就会跳转到百度首页
+
+        // console.log(eval(str));//当input中输入 document.getElementsByTagName('img')[0].src='../2019-12-10/img/10020q000000gajaeDB6E_C_360_203.jpg' 时 img图片就会被修改成输入的地址图片 
+
+
+        // console.log(eval(`(${document.getElementById('txt').value})')); 
+        
+       /* 报错 如果输入框输入的是dd  那么 eval(...) 运行后 => console.log(dd) dd就会被当做变量名运行  但是代码中没有变量dd 所以报错 */
+
+        //综上所述  eval不是很安全 用的时候要小心  
+        /* 
+            btn.onclick=function(){
+                let str=document.getElementById('txt').value;
+                if(/href|src|location|style/.test(val)){
+                    alert('就知道你会搞事情');
+                }else{
+                    console.log(eval(str))
+                    console.log(eval(`$(txt.value)`))
+                }
+            }
+
+        }
+        */
+
+
+</script>
+
+</html>

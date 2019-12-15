@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>URLSearchParams</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+    let obj = new URLSearchParams({
+        user: 'sdlkjsdal',
+        pw: 12121,
+        age: '10'
+    })
+    console.log('' + obj)//user=sdlkjsdal&pw=12121&age=10
+    console.log(obj)//URLSearchParams{}
+    let obj1=new URLSearchParams('https://www.baidu.com/s?wd=new%20URLSearchParams&rsv_spt=1&rsv_iqid=0xc1391944008c712c&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=0&rsv_dl=tb&rsv_sug3=2&rsv_n=2&inputT=2260&rsv_sug4=2798')
+   console.log(obj1.get('rsv_idx'))//2
+</script>
+
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    用户名：<input type="text" id="user"><br />
+    密码：<input type="password" id="pw">
+</body>
+<script>
+    user.onblur = function () {
+        // ajax('./data.xml',{
+        //     success(d){
+        //         const person = d.getElementsByTagName('person');
+        //         let temp = '';
+        //         for(let i=0;i<person.length;i++){
+        //             temp += `<li>我的名字叫:${person[i].children[0].innerHTML},今年${person[i].children[1].innerHTML}岁,我想说:${person[i].children[3].innerHTML}</li>`
+        //         }
+        //         ul.innerHTML = temp;
+        //         console.log(person);
+        //     }
+        // },{
+        //     dataType:'xml'
+        // })
+    }
+
+    //ajax封装
+    function ajax(url, callback, opt) {
+        var myopt = opt && {
+            method: opt.method || 'get',//请求方法
+            body: opt.body || '',//请求体
+            headers: opt.headers || {},//请求头
+            dataType: opt.dataType || 'json',//数据类型
+            timeout: opt.timeout || 10000,//超时设置
+            ontimeout: opt.ontimeout || function () { },//超时后做的事情
+            async: (opt.asyns === undefined) ? true : opt.async //是同步还是异步
+        }
+        var len = arguments.length;
+        var xhr = new XMLHttpRequest();
+        if (myopt.async === true) {
+            xhr.timeout = myopt.timeout;
+            xhr.ontimeout = myopt.ontimeout;
+        }
+        function ready() {
+            //异步
+            if (myopt.async === true) {
+                xhr.onreadystatechange = function () {
+                    //如果状态值是4
+                    if (xhr.readyState === 4) {
+                        //若状态是下列几种 则是成功
+                        if (/(20[0-7])|(30[14])/.test(xhr.status)) {
+                            //数据类型为json 或者xml时
+                            if (myopt.dataType === 'json') {
+                                callback.success && callback.success(eval('(' + xhr.responseText + ')'))
+                            } else if (myopt.dataType === 'xml') {
+                                callback.success && callback.success(xhr.responseXML)
+                            }
+                        } else {
+                            callback.error && callback.error(xhr.status);
+                        }
+                    }
+                }
+            } else {
+                //同步
+                if (/(20[0-7]|(30[14]))/.test(xhr.status)) {
+                    if (myopt.dataType === 'json') {
+                        callback.success & callback.success(eval('(' + xhr.responseText
+                            + ')'))
+                    } else if (myopt.dataType === 'xml') {
+                        callback.success && callback.success(xhr.responseXML)
+                    }
+                } else {
+                    callback.error && callback.error(xhr.status);
+                }
+
+
+                if (len === 2) {
+                    //get 
+                    xhr.open('get', url, true);
+                    ready();
+                    xhr.send();
+                } else if (len === 3) {
+                    if (/^get$/i.test(myopt.method)) {
+                        url = myopt.body ? url + "?" + myopt.body : url;
+                        xhr.open('get', url + '&myrandom=' + Date.now(), myopt.async)
+                    } else if (/^post$/i.test(myopt.method)) {
+                        xhr.open('post', '/post', myopt.async);
+                        for (var attr in myopt.headers) {
+                            if (myopt.headers.hasOwnProperty(attr)) {
+                                xhr.setRequestHeader(attr, myopt.headers[attr]);
+                            }
+                        }
+                        xhr.send();
+                        ready();
+                    }
+                }
+            }
+        }
+    }
+</script>
+
+</html>

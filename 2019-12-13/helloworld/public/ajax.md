@@ -114,6 +114,27 @@
     - 监听数据响应
     - 接收到数据
 
+XMLHttpRequest 是高版本浏览器拥有的  IE除了ie6别的版本都是这个对象（ie6用的ActiveXobject） 但是每个版本的属性是不一样的
+
+IE9以下浏览器是没有onload的，但是所有的浏览器都支持onreadystatechange事件
+
+timeout 
+
+ontimeout
+
+
+### onreadystatechange
+    可以监听发送请求的状态 
+    5次状态0-4 ，但是0永远监听不到，1-4
+
+    0:请求未初始化
+    1:服务器连接已建立
+    2:请求已接收
+    3:请求处理中
+    4:请求已完成，且响应已就绪
+
+
+
 ### GET和POST
 ```
     GET是通过url进行请求（4步就发送请求了）
@@ -161,4 +182,22 @@
 
         xhr.setRequestHeader('content-type','application/x-www-form-urlencoded')   
 
+```
+
+### fetch post请求
+
+```
+使用fetch代替ajax请求 post传递方式
+
+let postData = {a:'b'};
+fetch('http://data.xxx.com/Admin/Login/login', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  },
+  body: JSON.stringify(postData) //请求体  放参数 body:'user='+user.value+'&pw='+pw.value
+
+}).then(function(response) {
+  console.log(response);
+});
 ```
