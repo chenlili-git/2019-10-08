@@ -53,54 +53,49 @@
                     //如果状态值是4
                     if (xhr.readyState === 4) {
                         //若状态是下列几种 则是成功
-                        if (/(20[0-7])|(30[14])/.test(xhr.status)) {
-                            //数据类型为json 或者xml时
-                            if (myopt.dataType === 'json') {
-                                callback.success && callback.success(eval('(' + xhr.responseText + ')'))
-                            } else if (myopt.dataType === 'xml') {
-                                callback.success && callback.success(xhr.responseXML)
-                            }
-                        } else {
-                            callback.error && callback.error(xhr.status);
-                        }
+                        succOrError();
                     }
                 }
             } else {
                 //同步
-                if (/(20[0-7]|(30[14]))/.test(xhr.status)) {
-                    if (myopt.dataType === 'json') {
-                        callback.success & callback.success(eval('(' + xhr.responseText
-                            + ')'))
-                    } else if (myopt.dataType === 'xml') {
-                        callback.success && callback.success(xhr.responseXML)
-                    }
-                } else {
-                    callback.error && callback.error(xhr.status);
-                }
-
-
-                if (len === 2) {
-                    //get 
-                    xhr.open('get', url, true);
-                    ready();
-                    xhr.send();
-                } else if (len === 3) {
-                    if (/^get$/i.test(myopt.method)) {
-                        url = myopt.body ? url + "?" + myopt.body : url;
-                        xhr.open('get', url + '&myrandom=' + Date.now(), myopt.async)
-                    } else if (/^post$/i.test(myopt.method)) {
-                        xhr.open('post', '/post', myopt.async);
-                        for (var attr in myopt.headers) {
-                            if (myopt.headers.hasOwnProperty(attr)) {
-                                xhr.setRequestHeader(attr, myopt.headers[attr]);
-                            }
-                        }
-                        xhr.send();
-                        ready();
-                    }
-                }
+                succOrError();
             }
         }
+        if (len === 2) {
+            //get 
+            xhr.open('get', url, true);
+            ready();
+            xhr.send();
+        } else if (len === 3) {
+            if (/^get$/i.test(myopt.method)) {
+                url = myopt.body ? url + "?" + myopt.body : url;
+                xhr.open('get', url + '&myrandom=' + Date.now(), myopt.async)
+            } else if (/^post$/i.test(myopt.method)) {
+                xhr.open('post', '/post', myopt.async);
+                for (var attr in myopt.headers) {
+                    if (myopt.headers.hasOwnProperty(attr)) {
+                        xhr.setRequestHeader(attr, myopt.headers[attr]);
+                    }
+                }
+                xhr.send();
+                ready();
+            }
+        }
+
+        function succOrError() {
+            if (/(20[0-7]|(30[14]))/.test(xhr.status)) {
+                if (myopt.dataType === 'json') {
+                    callback.success & callback.success(eval('(' + xhr.responseText
+                        + ')'))
+                } else if (myopt.dataType === 'xml') {
+                    callback.success && callback.success(xhr.responseXML)
+                }
+            } else {
+                callback.error && callback.error(xhr.status);
+            }
+
+        }
+
     }
 </script>
 

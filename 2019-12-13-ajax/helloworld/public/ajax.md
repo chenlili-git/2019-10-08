@@ -201,3 +201,11 @@ fetch('http://data.xxx.com/Admin/Login/login', {
   console.log(response);
 });
 ```
+### xhr有个upload属性 上传  upload里面有好多事件  
+
+> xhr.upload.onprogress 上传进度
+
+```javascript
+ev里面有total  文件的总大小
+ev里面有loaded  已下载文件的大小
+```
