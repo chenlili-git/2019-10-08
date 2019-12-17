@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="../public/css/weibo.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="nArea">
+        <!--留言-->
+        <div class="takeComment">
+            <textarea name="textarea" class="takeTextField" id="text"></textarea>
+            <div class="takeSbmComment">
+                <input type="button" id="submit" class="inputs" value="" />
+                <span>(可按 Enter 回复)</span>
+            </div>
+        </div>
+        <!--已留-->
+        <div class="commentOn">
+            <div class="messList" id="div1" style="height:502px">
+
+            </div>
+            <div class="page" id="page">
+                <!-- <a href="#" class="active">1</a>
+                <a href="#">2</a> -->
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    //自动补0
+    function addZero(d) {
+        return d < 10 ? '0' + d : '' + d;
+    }
+
+    function init(p = 1) {
+        div1.innerHTML = '';
+        page.innerHTML = '';
+        fetch('/api/weibo?act=get&page=' + p).then(d => d.json()).then(d => {
+
+            for (let index = d.length - 1; index >= 0; index--) {
+                const item = d[index];
+
+                let date = new Date(item.time);
+
+                let y = date.getFullYear();
+                let m = date.getMonth() + 1;
+                let dt = date.getDate();
+                let h = date.getHours();
+                let ms = date.getMinutes();
+                let s = date.getSeconds();
+                let div = document.createElement('div');
+                div.className = 'reply';
+                div.id = `${item.id}`;
+                div.innerHTML = `<p class="replyContent">${item.content}</p>
+                    <p class="operation">
+                        <span class="replyTime">${y}-${addZero(m)}-${addZero(dt)} ${addZero(h)}:${addZero(ms)}:${addZero(s)}</span>
+                        <span class="handle">
+                            <a href="javascript:;" class="top">${item.like}</a>
+                            <a href="javascript:;" class="down_icon">${item.dislike}</a>
+                            <a href="javascript:;" class="cut">删除</a>
+                        </span>
+                    </p>`
+                div1.prepend(div);
+            };
+        })
+
+        fetch('/api/weibo?act=get_page_count').then(d => d.json()).then(d => {
+
+            if (d.count) {
+                for (let index = 1; index <= d.count; index++) {
+                    let a = document.createElement('a');
+
+                    if (index === p * 1) {
+                        a.className = 'active';
+                    }
+                    a.innerHTML = index;
+                    page.append(a);
+                }
+            }
+        })
+    }
+    //删除数据
+    div1.onclick = function (ev) {
+
+        if (ev.target.className == 'cut') {
+            let id = ev.target.parentNode.parentNode.parentNode.id;
+            fetchFn('/api/weibo?act=del&id=' + id);
+        } else if (ev.target.className == 'top') {
+            //点赞top
+            let id = ev.target.parentNode.parentNode.parentNode.id;
+   
+            fetchFn('/api/weibo?act=like&id=' + id);
+        } else if (ev.target.className == 'down_icon') {
+            //点赞top
+            let id = ev.target.parentNode.parentNode.parentNode.id;
+            fetchFn('/api/weibo?act=dislike&id=' + id);
+           
+        }
+        return false;
+    }
+    function fetchFn(url) {
+        fetch(url).then(d => d.json()).then(d => {
+            alert(d.msg);
+            init();
+        })
+    }
+    //页码点击
+    page.onclick = function (ev) {
+        //console.log(ev)
+        if (ev.target.tagName == 'A') {
+            // console.log(ev.target.innerHTML)
+            init(ev.target.innerHTML)
+        }
+    }
+    init();
+    submit.onclick = function () {
+        submitFn();
+    }
+    function submitFn() {
+        let val = text.value;
+        if (!val) return;
+        fetch('/api/weibo?act=add&content=' + val).then(d => d.json()).then(d => {
+            alert(d.msg);
+            text.value = '';
+            init();
+        })
+    }
+    document.onkeyup = function (ev) {
+        if (ev.code === 'Enter') {
+            submitFn();
+        }
+    }
+</script>
+
+</html>
