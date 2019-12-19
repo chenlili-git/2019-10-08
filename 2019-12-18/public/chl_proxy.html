@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>服务器代理解决跨域</title>
+</head>
+<body>
+    chenli
+</body>
+<script>
+    let xhr=new XMLHttpRequest();
+    xhr.open('get','/proxy');
+    xhr.send();
+    xhr.onreadystatechange=function(){
+        if(xhr.readyState===4){
+            if(xhr.status===200){
+                console.log
+                (xhr.responseText)
+               let body=document.getElementsByTagName('html')[0];
+               body.innerHTML=xhr.responseText
+            }
+        }
+    }
+</script>
+</html>

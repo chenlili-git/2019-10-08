@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    chenli
+
+</body>
+<!-- <script>
+    function fn(d) {
+        console.log(d);
+    }
+</script>
+<script src="./chl_jsonp_1.js"></script> -->
+<script>
+    // console.log(a)
+    function fn2(d) {
+        console.log(d);
+    }
+    //点击是异步的
+    document.onclick = function () {
+        let o = document.createElement('script');
+        o.src = 'https://www.baidu.com/sugrec?pre=1&p=3&ie=utf-8&json=1&prod=pc&from=pc_web&sugsid=1461,21082,30210,30328,30284,26350&wd=s&cb=fn2';
+        document.getElementsByTagName('head')[0].append(o);
+
+}
+</script>
+
+</html>

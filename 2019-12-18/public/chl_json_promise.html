@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jsonp Promise版</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+        }
+
+        ul {
+            width: 166px;
+            list-style: none;
+            border: 1px solid #ccc;
+            border-top: none;
+            border-bottom: none;
+        }
+
+        li {
+            height: 20px;
+            line-height: 20px;
+            /* text-align: center; */
+            border-bottom: 1px solid #ccc;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <h2>哈呵搜索</h2>
+        <input type="text" id="search" autocomplete="off" autofocus />
+        <ul id="ul">
+        </ul>
+    </div>
+    <script>
+
+        function jsonp(data, cb = 'callback') {
+            return new Promise((reslove, reject) => {
+                //设置默认值
+                let opt = {
+                    url: '',
+                    data: {}
+                }
+                //有配置就走配置 没有就走默认值 浅克隆
+                Object.assign(opt, data);
+                /*
+                如果想实现&连接的数据 进行下列代码操作
+                    {
+                        user:'haha',
+                        age:10
+                    }
+                    'user=haha&age=10'
+                */
+                let options = '';
+                let ary = [];
+                for (const attr in opt.data) {
+                    if (opt.data.hasOwnProperty(attr)) {
+                        const element = opt.data[attr];
+                        ary.push(attr + '=' + element);
+                    }
+                }
+
+                options = ary.join('&');
+                console.log(options);
+                let os = document.createElement('script');
+                //随机生成函数名
+                let fnName = 'jQuery_' + Date.now();
+                //把这个函数名挂到window上
+                window[fnName] = function (d) {
+                    reslove(d);
+
+                }
+                os.src = opt.url + '?' + options + '&' + cb + '=' + fnName;
+                document.getElementsByTagName('head')[0].appendChild(os);
+                os.remove();//调用完就清掉这次加入script标签  否则head里一堆添加的script标签
+            })
+        }
+
+        search.onkeyup = function () {
+
+            jsonp({
+                url: 'https://www.baidu.com/sugrec',
+                data: {
+                    wd: this.value,
+                    prod: 'pc'
+                }
+            }, 'cb').then(data => {
+                const { g } = data;//data={q: "s", p: false, g: Array(10), slid: "14332690225836524788"} 所以解构下g
+                let html = '';
+                if (!g) {
+                    ul.innerHTML = '';
+                    return;
+                }
+                //g的每条数据g:{type: "sug", sa: "s_1", q: "双色球"} 我们需要q的值
+                g.forEach(({ q }) => {
+                    html += '<li>' + q + '</li>';
+                });
+                ul.innerHTML = html;
+                ul.onclick = function (ev) {
+                    if (ev.target.tagName === 'LI') {
+                        window.open('https://www.baidu.com/s?ie=UTF-8&wd=' + ev.target.innerText, '_blank')
+                    }
+                }
+            })
+        }
+
+    </script>
+</body>
+
+</html>

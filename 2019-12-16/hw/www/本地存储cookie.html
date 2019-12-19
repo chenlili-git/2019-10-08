@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box {
+            padding: 30px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="h1"></h1>
+    <div id="box">
+        用户名:<input type="text" id="user" />
+        密码:<input type="password" id="pw" />
+        <button id="btn">登录</button>
+    </div>
+</body>
+<script>
+
+    // document.cookie = 'name=pq';
+    // document.cookie = 'age=13';
+    // document.cookie = 'name=chenli';
+    // console.log(document.cookie);//name=chenli; age=13
+    btn.onclick = function () {
+        let val1 = user.value();
+        let val2 = pw.value();
+        let o = sql.find(item => item.user === val1);
+        if (o) {
+            if (o.pw === val2 * 1) {
+                alert('登录成功');
+                document.cookie = 'user=' + o.user;
+                window.location.reload();
+            } else {
+                alert('用户名或密码错误');
+            }
+        } else {
+            alert('没有此人');
+        }
+    }
+
+
+    let c = document.cookie;
+    c.split('; ').forEach(item => {
+        let ary = item.split('=');
+        if (ary[0] === 'user') {
+            h1.innerHTML = '欢迎' + ary[1] + '回来';
+            box.style.display = 'none';
+        }
+    })
+
+    let sql = [
+        {
+            user: '郝永旺',
+            pw: 123
+        },
+        {
+            user: '尹德智',
+            pw: 321
+        }
+    ];
+    setCookie('name','chenli', {
+        setTime: {
+            date: 1
+        }
+    })
+    setCookie('age','29', {
+        setTime: {
+            date: 1
+        }
+    })
+    //设置cookie 封装
+    function setCookie(key, val, time) {
+        if (time) {
+            let o = new Date();
+            console.log(o);
+            let t;
+            let prop;
+            for (const attr in time.setTime) {
+                t = attr[0].toUpperCase() + attr.substr(1);
+                prop = attr;
+            }
+            // console.log(t)//Date
+            o['set' + t](new Date()['get' + t]() + time.setTime[prop]);//设置时间 当前本地时间+time中的date
+            document.cookie = key + '=' + val + '; expires=' + o;
+
+        } else {
+            document.cookie = key + '=' + val;
+        }
+
+    }
+
+    //获取cookie值
+    function getCookie(key) {
+        let c = document.cookie;
+        let val;
+        c.split('; ').forEach(item => {
+            let ary = item.split('=');
+            if (ary[0] === key) {
+                val = ary[1]
+            }
+        })
+        return val;
+    }
+
+    //删除一条cookie
+    function removeCookie(key, val) {
+        setCookie(key, val, { setTime: { date: -1 } });
+    }
+
+    //removeCookie('user', '尹德智');
+
+    //console.log(getCookie('user'));
+    document.onclick = function () {
+        console.log(document.cookie)
+        removeCookie('name', 'chenli');
+        console.log(getCookie('name'));
+    }
+
+</script>
+
+</html>

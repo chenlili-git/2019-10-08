@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+<button id='allBtn'>全部删除</button>
+<button id='addBtn'>添加一条数据</button>
+</body>
+<script>
+    //这里面涉及到localStorage的值变化时 就会触发同目录下其他兄弟页面的onstorage事件
+    allBtn.onclick=function(ev){
+        console.log(ev)
+        localStorage.clear();
+        
+        ev.cancelBubble=true;
+    }
+    addBtn.onclick=function(ev){
+        localStorage.setItem('user','xiaoxiong');
+        ev.cancelBubble=true;
+    }
+    localStorage.setItem('user','chenli');
+    localStorage.setItem('age','29');
+    localStorage.setItem('sex','女');
+    console.log(localStorage.getItem('user'))
+
+    document.onclick=function(){
+        localStorage.removeItem('user');
+        console.log(localStorage.getItem('user'));
+    }
+    window.onstorage=function(ev){
+        console.log('localstorage数据变化了111')
+        //ev.cancelBubble=true;
+    }
+</script>
+
+</html>
