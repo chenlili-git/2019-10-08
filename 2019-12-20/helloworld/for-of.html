@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>for-of</title>
+</head>
+<body>
+   <div>1</div>
+   <div>1</div>
+   <div>1</div>
+   <div>1</div>
+   <div>1</div>
+</body>
+<script>
+/* 
+    统一的遍历api
+    for of
+
+    一个数据结构只要部署了 Symbol.iterator属性，就被视为具有 iterator接口，就可以用for..of循环遍历它的成员。
+    也就是说，for...of循环内部调用的是数据结构的Symbol.iterator的方法。
+
+    要遍历key->ary.keys()
+    要遍历value->ary.values()
+    都要遍历->ary.entries()
+
+
+    字符，数组 ，Map, Set, querySelectorAll都有Symbol.iterator
+*/
+
+let ary=[1,2,3];
+for (let i of ary.values()) {
+    console.log(i);
+}
+console.dir(document.querySelectorAll('div'))
+</script>
+</html>

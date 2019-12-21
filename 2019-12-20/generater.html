@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // function* fn() {
+    //     console.log(1);
+    //     yield '你好';
+    //     console.log(5);
+    //     return 5;
+    // }
+    // let hw = fn();
+    // console.log(hw.next().value);
+    // hw.next();
+
+
+    // function* g() { 
+    //     this.a=1;
+    // }
+
+    // g.prototype.hello = function () {
+    //     return 'hi!';
+    // };
+
+    // let obj = g();
+
+    // obj instanceof g // true
+    // obj.hello() // 'hi!'
+    // console.log(obj.a)
+
+    // function* fn() {
+    //     console.log('请求之前');
+    //     let res = yield request('/sleep?user=123');
+    //     console.log('拿到数据' + res);
+    //     console.log('请求之后')
+
+    // }
+
+    // let f = fn();
+    // document.onclick = function () {
+    //     f.next();
+    // }
+
+    // function request(url) {
+    //     let xhr = new XMLHttpRequest;
+    //     xhr.open('get', url);
+    //     xhr.send();
+    //     xhr.onload = function () {
+    //         f.next(xhr.responseText);
+    //     }
+    // }
+
+    // function* fn(){
+    //     console.log(1);
+    //     yield 'hello';
+    //     console.log(2);
+    //     return 5;
+    // }
+    // let f=fn();
+    // console.log(f.next());
+    // console.log(f.next());
+    // console.log(f.next());
+
+    // function* gen(){
+    //     yield 2+1;
+    // }
+    // console.log(gen().next().value);
+    // function* fn(){
+    //     //同步编程函数，这个函数就算有异步也算同步
+    //     console.log(1);
+    //     let a=yield;// 异步的数据已经到手
+    //     console.log(a);
+    //     console.log(2);
+    // }
+
+    // let f=fn();
+    // f.next();
+    // setTimeout(()=>{
+    //     f.next('异步的数据已经到手');
+    // })
+
+    // function* foo(x){
+    //     var y=2*(yield(x+1));
+    // }
+
+    // function* foo(x) {
+    //     var y = 2 * (yield (x + 1));
+    //     var z = yield y;
+    //     return (x + y + z);
+    // }
+    // var a=foo(5);//遍历对象
+    // a.next();//{value:6,done:false}
+    // a.next(12);//{value:(2*12)/3,done:false}这次的next的参数就是上次yield的返回值
+//console.log(a.next(12));
+// function* fnn(){
+//     yield '1';
+//     yield '2';
+// }
+// function* ff(){
+//     yield* fnn();
+//     yield '3';
+// }
+// let a=(function* (){
+//     yield '1'
+// })();
+
+// console.log(a.next().value);//1
+
+
+function* f(g1,g2){
+    yield* g2();
+    yield* g1();
+}
+
+let ff=f(function* a(){
+    yield 1;
+},function* b(){
+    yield 2;
+});
+console.log(ff);
+for(let i of ff){
+    console.log(i);
+}
+function* aa(){
+    console.log(this);
+    //this.a=11;
+}
+let obj={};
+let a=aa();//aa.call(obj)
+a.next();
+console.log(obj.a);
+</script>
+
+</html>
