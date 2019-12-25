@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn1">1</button>
+    <button id="btn2">2</button>
+    <button id="btn3">3</button>
+    <p id='cnt'>1</p>
+</body>
+<script>
+    let btn = document.querySelectorAll('button');
+    console.log(btn.length)
+    for (let index = 0; index < btn.length; index++) {
+        const element = btn[index];
+        element.index=index;
+        element.onclick = function () {
+            console.log(this.index);
+            cnt.innerHTML=this.index;         window.location.hash='page/'+this.index;
+        }
+    }
+  window.onhashchange=function(){
+      
+  }
+</script>
+
+</html>

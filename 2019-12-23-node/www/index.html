@@ -1,10 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
 </head>
+
 <body>
-    chenli1
+    <div>
+        <div><span>用户名：</span><input autocomplete type="text" id="user"></div>
+        <div><span>密码：</span><input type="text" id="pw"></div>
+        <div><button id="registerBtn">注册</button><button id="loginBtn">登录</button></div>
+    </div>
 </body>
+
+<script>
+registerBtn.onclick=async function(){
+    let v1=user.value.trim();
+    let v2=pw.value.trim();
+    if(!v1||!v2) return;
+    console.log(v1,v2);
+    let d=await fetch('/register',{
+        method:'POST',
+        headers:{
+            'content-type':'application/x-www-form-urlencoded'
+        },
+        body:''+new URLSearchParams({
+            user1:v1,
+            pw1:v2
+        })
+    }).then(d=>d.json());
+    if(d.code===0){
+        console.log(d.msg);
+    }
+    if(d.code===1){
+        console.log(d.msg);
+    }
+    if(d.code===2){
+        console.log(d.msg);
+    }
+}
+</script>
+
+
 </html>
