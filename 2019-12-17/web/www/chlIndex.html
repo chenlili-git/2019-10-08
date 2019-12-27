@@ -30,12 +30,13 @@
     </div>
 </body>
 <script>
+    let pageNum=1;
     //自动补0
     function addZero(d) {
         return d < 10 ? '0' + d : '' + d;
     }
 
-    function init(p = 1) {
+    function init(p = pageNum) {
         div1.innerHTML = '';
         page.innerHTML = '';
         fetch('/api/weibo?act=get&page=' + p).then(d => d.json()).then(d => {
@@ -86,7 +87,12 @@
     div1.onclick = function (ev) {
 
         if (ev.target.className == 'cut') {
-            let id = ev.target.parentNode.parentNode.parentNode.id;
+            let parent=ev.target.parentNode.parentNode.parentNode;
+            let id = parent.id;
+            if(parent.parentNode.children.length==0){
+                //页数--
+                pageNum--;
+            }
             fetchFn('/api/weibo?act=del&id=' + id);
         } else if (ev.target.className == 'top') {
             //点赞top
@@ -112,6 +118,7 @@
         //console.log(ev)
         if (ev.target.tagName == 'A') {
             // console.log(ev.target.innerHTML)
+            pageNum=ev.target.innerHTML;
             init(ev.target.innerHTML)
         }
     }
@@ -133,6 +140,7 @@
             submitFn();
         }
     }
+
 </script>
 
 </html>

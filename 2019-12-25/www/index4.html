@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+
+    <title>loading axios拦截</title>
+    <style>
+        #loadBox {
+            display: none;
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        }
+
+        #loadBox img {
+            width: 100px;
+        }
+    </style>
+</head>
+<script src="./axios.js"></script>
+
+<body>
+    <div id="loadBox">
+        <img src="../public/img/loading.jpg" alt="">
+    </div>
+
+</body>
+<script>
+    axios.interceptors.request.use(async function (config) {
+        console.log(config);
+        //return;
+        loadBox.style.display = 'block';
+
+        let u = localStorage.getItem('session_id');
+        if (u) {
+            let data = await fetch('/islogin').then(d => d.json());
+            if (data.code == 0) {
+                return config;
+            } else {
+                location.href = '/';
+            }
+        } else {
+            location.href = '/';
+        }
+
+
+
+    }, function (error) {
+        return Promise.reject(error);
+    })
+    axios.interceptors.response.use(function (config) {
+        console.log(config);
+        config.user = config.data.user;//提前处理数据 解构数据
+        loadBox.style.display = 'none';
+        return config;
+    }, function (error) {
+        return Promise.reject(error);
+    })
+
+    document.onclick = function () {
+        axios.get('/a').then(({ user }) => {
+            console.log(user);
+        })
+    }
+</script>
+
+</html>
