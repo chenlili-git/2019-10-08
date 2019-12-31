@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="app">
+        <!-- <button @click="b=!b">按鈕</button> -->
+        <button @click="click">{{title}}</button>
+        <div v-if="b" class="box">1212</div>
+        <div v-else>34534534</div>
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    new Vue({
+        el:'.app',
+        data:{
+            b:true,
+            title:'点击收起'
+        },
+        methods: {
+            click(){
+                this.b=!this.b;
+                this.title=`${this.b?'点击收起':'点击展开'}`
+            }
+        },
+    })
+</script>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue</title>
+</head>
+
+<body>
+    <div id="app">
+        <button v-for='(item,index) in arr' @click='fn(index)'>
+
+            按钮{{item}}
+
+        </button>
+        <div>{{cnt[b]}}</div>
+        <!-- <button @click='fn(1)'>按钮1</button>
+        <button @click='fn(2)'>按钮2</button@click='fn(1)'>
+        <button @click='fn(3)'>按钮3</button>
+        <div v-show='b==1'>1111</div>
+        <div v-show='b==2'>2</div>
+        <div v-show='b==3'>3</div> -->
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    let v = new Vue({
+        el: '#app',
+        data: {
+            b: 0,
+            arr: [1, 2, 3],
+            cnt: ['111', '222', '333']
+        },
+        methods: {
+            fn(n) {
+                console.log(n)
+                this.b = n;
+
+            }
+        }
+    })
+</script>
+
+
+</html>

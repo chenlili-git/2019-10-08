@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>todos</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+
+<body>
+    <section class="todoapp">
+        <div>
+            <header class="header">
+                <h1>todos</h1>
+                <input class="new-todo" placeholder="请输入内容" v-model='val' @keyup.enter="onEnter">
+            </header>
+            <section class="main">
+                <input class="toggle-all" type="checkbox" v-model='isAllChecked' @change="isAllCheckedFn">
+                <ul class="todo-list">
+                    <li v-for="(val,index) in setAry" :class="!val.onoff?'active':'editing'">
+                        <div class="view">
+                            <input class="toggle" type="checkbox" v-model='val.checked' @change="checkedFn">
+                            <label @dblclick="dblclick(index,$event)">{{val.txt}}</label>
+                            <button class="destroy" @click.stop="destroy(val,$event)"></button>
+                        </div>
+                        <input class="edit" v-show="val.onoff" :data-txt="val.txt" v-model="val.txt" autofocus @focus="focus(val,$event)" @blur="blur(val,$event)" />
+                    </li>
+                </ul>
+            </section>
+            <footer class="footer">
+                <span class="todo-count">
+                    <strong>{{checkedNumFun}}</strong>
+                    <span>条未选中</span>
+                </span>
+                <ul class="filters" @click="btnClickFn">
+                    <li>
+                        <a href="#/all" :class="dataNum=='0'?'selected':''" :data-num="0">全部</a>
+                    </li>
+                    <li>
+                        <a href="#/unchecked" :class="dataNum=='1'?'selected':''" :data-num="1">未选中</a>
+                    </li>
+                    <li>
+                        <a href="#/checked" :class="dataNum=='2'?'selected':''" :data-num="2">已选中</a>
+                    </li>
+                </ul>
+            </footer>
+        </div>
+    </section>
+    <script src="../../jquery.min.js"></script>
+    <script src="../../vue.js"></script>
+    <script>
+        // editing completed
+        // editing ''
+        // ''
+        //completed
+        let val = '';
+       let v= new Vue({
+            el: '.todoapp',
+            data: {
+                ary: [
+                    {
+                        id: 0,
+                        txt: '哈哈',
+                        checked: true,
+                        onoff: false
+                    },
+                    {
+                        id: 1,
+                        txt: '呵呵',
+                        checked: false,
+                        onoff: false
+                    }
+                ],
+                val: '',
+                num: 2,
+                isAllChecked: true,
+                dataNum: 0,
+                txt:''
+            },
+            computed: {
+                checkedNumFun() {
+                    let num = 0;
+                    this.ary.forEach(element => {
+                        if (element.checked !== true) {
+                            num++;
+                        }
+                    });
+                    this.isAllChecked = num > 0 ? false : true;
+                    return num;
+                },
+                setAry() {
+                    const { dataNum, ary } = this;
+                    let arr = [];
+                    ary.forEach(item => {
+                        console.log(dataNum == 1)
+                        if (dataNum == 0) {
+                            arr.push(item);
+                        } else if (dataNum == 1) {
+                            if (!item.checked) {
+                                arr.push(item);
+                            }
+
+                        } else if (dataNum == 2) {
+                            if (item.checked) {
+                                arr.push(item);
+                            }
+                        }
+                    })
+                    return arr;
+                }
+            },
+            methods: {
+                onEnter(ev) {
+                    this.ary.push({
+                        id: this.num++,
+                        txt: ev.target.value,
+                        checked: false,
+                        onoff: false
+                    })
+                    this.val = '';
+                },
+                checkedFn(ev) {
+                    isAllChecked = this.ary.every(function (value, index) { return value.checked == true });
+
+                },
+                isAllCheckedFn(ev) {
+                    this.ary.forEach(item => {
+                        item.checked = ev.target.checked;
+                    })
+                },
+                btnClickFn(ev) {
+                    if (ev.target.tagName === 'A') {
+                        this.dataNum = ev.target.dataset.num;
+
+                    }
+                },
+                focus(val,ev) {
+                    // $txt.select();
+                    this.txt=val.txt;
+                    ev.target.select();
+                },
+                dblclick(index, ev) {
+                    this.ary.forEach((item, i) => {
+                        if (i == index) {
+                            item.onoff = !item.onoff;
+                        } else {
+                            item.onoff = false;
+                        }
+
+                    })
+                    // ev.currentTarget.parentElement.nextElementSibling.focus();
+                    ev.currentTarget.parentElement.nextElementSibling.select();
+
+                },
+                //删除数据
+                destroy(val, ev) {
+                    let index = this.ary.findIndex(item => {
+                        return item.id == val.id
+                    })
+                    this.ary.splice(index, 1);
+                },
+                blur(val, ev) {
+                    let index = this.ary.findIndex(item => {
+                        return item.id == val.id
+                    })
+                    console.dir(ev.target)
+                    console.log(this.txt)
+                    if(!val.txt){
+                        this.ary[index].txt= this.txt;
+                    }
+                    this.ary[index].onoff = !this.ary[index].onoff
+                }
+            }
+
+        })
+        
+    </script>
+</body>
+
+</html>
