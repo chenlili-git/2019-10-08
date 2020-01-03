@@ -9,27 +9,40 @@
 
 <body>
     <section class="todoapp">
+
+        {{checkList}}
+        {{ary}}
+
+
         <div>
             <header class="header">
                 <h1>todos</h1>
                 <input class="new-todo" placeholder="请输入内容" v-model='val' @keyup.enter="onEnter">
             </header>
             <section class="main">
-                <input class="toggle-all" type="checkbox" v-model='isAllChecked' @change="isAllCheckedFn">
+                <input class="toggle-all" type="checkbox" v-model='isAllChecked'>
                 <ul class="todo-list">
-                    <li v-for="(val,index) in setAry" :class="!val.onoff?'active':'editing'">
+                    <li v-for="(val,index) in setAry" :class={active:!val.onoff,editing:val.onoff,completed:val.checked}
+                        @dblclick="dblclick(index,$event)">
+
                         <div class="view">
-                            <input class="toggle" type="checkbox" v-model='val.checked' @change="checkedFn">
-                            <label @dblclick="dblclick(index,$event)">{{val.txt}}</label>
-                            <button class="destroy" @click.stop="destroy(val,$event)"></button>
+                            <input class="toggle" type="checkbox" 
+                                v-model='val.checked' 
+                                @change="checkedFn()">
+                            <label v-cloak>
+                                {{val.txt}}
+                            </label>
+                            <button class="destroy" @click.stop="destroy(val,$event)">
+                            </button>
                         </div>
-                        <input class="edit" v-show="val.onoff" :data-txt="val.txt" v-model="val.txt" autofocus @focus="focus(val,$event)" @blur="blur(val,$event)" />
+                        <input class="edit" v-show="val.onoff" ref="input" @blur="blur(val,$event)"
+                            @keyup.esc="esc(val,$event)" />
                     </li>
                 </ul>
             </section>
             <footer class="footer">
                 <span class="todo-count">
-                    <strong>{{checkedNumFun}}</strong>
+                    <strong v-cloak>{{handleLen}}</strong>
                     <span>条未选中</span>
                 </span>
                 <ul class="filters" @click="btnClickFn">
@@ -46,15 +59,14 @@
             </footer>
         </div>
     </section>
-    <script src="../../jquery.min.js"></script>
-    <script src="../../vue.js"></script>
+    <script src="../vue.js"></script>
     <script>
         // editing completed
         // editing ''
         // ''
         //completed
         let val = '';
-       let v= new Vue({
+        let v = new Vue({
             el: '.todoapp',
             data: {
                 ary: [
@@ -73,33 +85,38 @@
                 ],
                 val: '',
                 num: 2,
-                isAllChecked: true,
+                checkList: [],
                 dataNum: 0,
-                txt:''
             },
             computed: {
-                checkedNumFun() {
-                    let num = 0;
-                    this.ary.forEach(element => {
-                        if (element.checked !== true) {
-                            num++;
-                        }
-                    });
-                    this.isAllChecked = num > 0 ? false : true;
-                    return num;
+                isAllChecked: {
+                    get() {
+                        return this.checkList.length === this.ary.length;
+                    },
+                    set(val) {
+                        this.checkList = [];
+                        this.ary.forEach(item => {
+                            item.checked = val;
+                            this.checkList.push(item.checked);
+                        });
+                    }
+                },
+
+                handleLen: {
+                    get() {
+                        return this.ary.length - this.checkList.length;
+                    }
                 },
                 setAry() {
                     const { dataNum, ary } = this;
                     let arr = [];
                     ary.forEach(item => {
-                        console.log(dataNum == 1)
                         if (dataNum == 0) {
                             arr.push(item);
                         } else if (dataNum == 1) {
                             if (!item.checked) {
                                 arr.push(item);
                             }
-
                         } else if (dataNum == 2) {
                             if (item.checked) {
                                 arr.push(item);
@@ -109,8 +126,19 @@
                     return arr;
                 }
             },
+            created: function () {
+                //在页面加载时判断checkbox是否被选中
+                var _this = this;
+                _this.ary.forEach(function (item, index) {
+                    if (item.checked) {
+                        _this.checkList.push(item.checked);
+                    }
+                });
+            },
+
             methods: {
                 onEnter(ev) {
+                    if (!ev.target.value) return;
                     this.ary.push({
                         id: this.num++,
                         txt: ev.target.value,
@@ -118,26 +146,21 @@
                         onoff: false
                     })
                     this.val = '';
-                },
-                checkedFn(ev) {
-                    isAllChecked = this.ary.every(function (value, index) { return value.checked == true });
 
                 },
-                isAllCheckedFn(ev) {
+                checkedFn(ev) {
+                    this.checkList = [];
                     this.ary.forEach(item => {
-                        item.checked = ev.target.checked;
-                    })
+                        if (item.checked) {
+                            this.checkList.push(item.checked);
+                        }
+
+                    });
                 },
                 btnClickFn(ev) {
                     if (ev.target.tagName === 'A') {
                         this.dataNum = ev.target.dataset.num;
-
                     }
-                },
-                focus(val,ev) {
-                    // $txt.select();
-                    this.txt=val.txt;
-                    ev.target.select();
                 },
                 dblclick(index, ev) {
                     this.ary.forEach((item, i) => {
@@ -148,32 +171,44 @@
                         }
 
                     })
-                    // ev.currentTarget.parentElement.nextElementSibling.focus();
-                    ev.currentTarget.parentElement.nextElementSibling.select();
+                    //input元素获取焦点
+                    this.$nextTick((x) => { //正确写法
 
+                        this.$refs.input[index].value = this.ary[index].txt;
+                        this.$refs.input[index].select();
+                    })
+
+
+                },
+                findIndexFn(val) {
+                    return this.ary.findIndex(item => {
+                        return item.id == val.id
+                    })
                 },
                 //删除数据
                 destroy(val, ev) {
-                    let index = this.ary.findIndex(item => {
-                        return item.id == val.id
-                    })
+                    let index = this.findIndexFn(val);
                     this.ary.splice(index, 1);
                 },
-                blur(val, ev) {
-                    let index = this.ary.findIndex(item => {
-                        return item.id == val.id
-                    })
-                    console.dir(ev.target)
-                    console.log(this.txt)
-                    if(!val.txt){
-                        this.ary[index].txt= this.txt;
+                //失焦
+                blur(val, ev, sign) {
+                    let index = this.findIndexFn(val);
+                    if (ev.target.value.length) {
+                        this.ary[index].txt = ev.target.value;
+                    } else {
+                        this.ary[index].txt = val.txt
                     }
                     this.ary[index].onoff = !this.ary[index].onoff
+                },
+                esc(val, ev, sign) {
+                    let index = this.findIndexFn(val);
+                    this.$refs.input[index].value = '';
+                    this.$refs.input[index].blur();
                 }
             }
 
         })
-        
+
     </script>
 </body>
 

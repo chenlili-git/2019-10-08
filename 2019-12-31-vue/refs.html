@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+        <h3 v-html='msg' ref='titleBox'></h3>
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    //vue框架开发的时候，尽可能减少dom 但是该用的时候也得用
+    //我们基于ref可以把当前元素放置到this.refs对象中，从而实现对dom的操作（只能在mounted之后才能操作这些dom元素）
+    
+    let vm=new Vue({
+        el:'#app',
+        data:{
+            msg:'你好世界'
+        },
+        mounted() {
+            console.log(this.$refs) //{titleBox: h3}
+        },
+    })
+</script>
+</html>

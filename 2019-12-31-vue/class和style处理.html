@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .active {
+            color: red;
+        }
+        .big{
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p :class=[active,big]>你好呀</p>
+        <!-- <p :class={active:a,big:a}>你好</p> -->
+        <button @click='handle'>切换样式</button>
+    </div>
+
+</body>
+<script src="./vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            // a: false,
+            active:'',
+            big:'big'
+        },
+        methods: {
+            handle() {
+               // this.a = !this.a;
+                this.active=this.active?'':'active';
+            }
+        }
+    })
+
+</script>
+
+</html>

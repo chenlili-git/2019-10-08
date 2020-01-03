@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-app :title='ary'></my-app>
+        <ppa :title="val"></ppa>
+        <!-- <app></app> -->
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+
+    Vue.component('my-app', {
+        props:['title'],
+        template: `
+            <div  @click="click">
+                <p v-for="val in title">我的第{{val}}个子组件</p>
+            </div>`,
+        data() {
+            return {
+                num: 0,
+            }
+        },
+        methods: {
+            click() {
+                alert('1')
+            }
+        },
+
+    })
+    let ppa = {
+        template: `<div>你好---{{num}}</div>`,
+        data() {
+            return {
+                num: '陈丽',
+            }
+        }
+    }
+    let v = new Vue({
+        el: '#app',
+        data: {
+            val:10,
+            ary:[1,2,3,4,5]
+        },
+        components: {       
+            'ppa': {
+                props:['title'],
+                template: `<div>chenli{{num}}---{{title}}</div>`,
+                data() {
+                    return {
+                        num: 0,                    
+                    }
+                }
+            },
+            //'app':ppa
+        }
+    })
+
+
+
+</script>
+
+</html>

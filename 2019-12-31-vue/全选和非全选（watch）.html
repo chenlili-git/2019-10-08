@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="checkbox" name="selectall" id="selectall" v-model='slected'  @change="fn()">全选/不全选
+        <div v-for="(val, index) in arr">
+            <input type="checkbox" :value="val.value" :id="val.id|handleID" v-model="checkList">{{checkList}}
+            <label :for="val.id|handleID" v-text='val.name'></label>
+        </div>
+
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            arr: [
+                {
+                    id: 1,
+                    name: '唱歌',
+                    value: 'sing'
+                },
+                {
+                    id: 2,
+                    name: '跳舞',
+                    value: 'dance'
+                },
+                {
+                    id: 3,
+                    name: '看书',
+                    value: 'book'
+                },
+                {
+                    id: 4,
+                    name: '编程',
+                    value: 'js'
+                },
+            ],
+            checkList: [],
+            slected: false,
+        },
+        filters: {
+            handleID(val) {
+                return 'handle' + val;
+            }
+        },
+        watch: {
+            checkList() {
+                this.slected = this.checkList.length === this.arr.length;
+            }
+        },
+
+        methods: {
+            fn() {
+                this.checkList = [];
+                if (this.slected) {
+
+                    this.arr.forEach(item => {
+                        this.checkList.push(item.value);
+                    });
+
+                }
+            }
+        },
+    })
+</script>
+
+</html>

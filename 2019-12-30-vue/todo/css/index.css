@@ -182,27 +182,26 @@ label[for='toggle-all'] {
 	position: absolute;
 	top: 0;
 	bottom: 0;
-	margin: auto 0;
+	margin: 10px  0  0;
 	border: none; /* Mobile Safari */
 	-webkit-appearance: none;
 	appearance: none;
 }
 
 .todo-list li .toggle:after {
-	content: url('../../img/1.png');
+	content: url('../img/1.png');
 }
 
 .todo-list li .toggle:checked:after {
-	content: url('../../img/2.png');
+	content: url('../img/2.png');
 }
 
 .todo-list li label {
 	white-space: pre-line;
 	word-break: break-all;
-	padding: 15px 60px 15px 15px;
+	padding: 0px 60px 15px 15px;
 	margin-left: 45px;
 	display: block;
-	line-height: 1.2;
 	transition: color 0.4s;
 }
 
