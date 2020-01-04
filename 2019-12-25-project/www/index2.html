@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<link rel="stylesheet" href="../public/css/index.css">
+	<link rel="stylesheet" href="../public/css/tree.css">
 </head>
 
 <body>
@@ -36,25 +37,57 @@
 	</nav>
 	<section class="contentBox">
 		<aside>
-			<ul>
-				<li>
-					<div>用户信息</div>
-					<ul>
-						<li>密码修改</li>
-						<li>个人设置</li>
-					</ul>
-				</li>
-			</ul>
-		</aside>
-		<section class="cnt">
-			<div class="bread"></div>
-			<div>
-				<input type="file" name="filename" id="file" multiple>
-				<button id='uploadBtn'>上传</button>
+			<div class="tree" id="tree">
+				<ul>
+					<li>
+						<div class="tit">用户信息</div>
+						<ul>
+							<li class="active">
+								<div>密码修改</div>
+							</li>
+							<li>
+								<div>个人设置</div>
+							</li>
+						</ul>
+					</li>
+				</ul>
 			</div>
-			<ul id="imgBox">
 
-			</ul>
+		</aside>
+		<section class="cntBox">
+			<div class="bread">密码修改</div>
+			<div class="cnt">
+				<div class="uploadBox">
+					<div>
+						<input type="file" name="filename" id="file" multiple>
+						<button id='uploadBtn'>上传</button>
+					</div>
+					<ul id="imgBox">
+
+					</ul>
+				</div>
+				<div class="passwordBox">
+					<p class="tip">
+						为保障您账户的安全，请每间隔3个月更换一次新密码，若3个月后未更换密码，将无法使用旧密码登录!
+					</p>
+					<div>
+						<div>
+							<span>旧密码：</span>
+							<input type="password" id="oldPW">
+						</div></div>>
+						<div>
+							<span>新密码：</span>
+							<input type="password" id="newPW">
+						</div>
+						<div>
+							<span>确认密码:</span>
+							<input type="password" id="confirmPW">
+						</div>
+
+					</div>
+				</div>
+			</div>
+
 
 		</section>
 	</section>
@@ -66,7 +99,7 @@
 		let d = data.data;
 		if (d.code == 0) {
 			user.innerHTML = '欢迎您【' + d.user + '】登录本系统';
-			localStorage.setItem('session_id',d.user)
+			localStorage.setItem('session_id', d.user)
 		} else {
 			window.location.href = '/';
 		}

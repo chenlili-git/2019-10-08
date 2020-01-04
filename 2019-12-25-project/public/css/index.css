@@ -71,7 +71,7 @@ aside{
     border-left: 0px;
     box-sizing: border-box;
 }
-.cnt{
+.cntBox{
     flex:1;
     border: 1px solid gray;
 }
@@ -79,6 +79,10 @@ aside{
     height: 30px;
     line-height: 30px;
     border-bottom: 1px solid gray;
+    box-sizing:border-box;
+    color: #666;
+    padding-left: 20px;
+    font-weight: bold;
 }
 #imgBox{
     display: flex;  

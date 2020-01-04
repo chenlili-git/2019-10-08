@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="./reset.css">
+<style>
+    .main{
+    width: 800px;
+    margin: 0 auto;
+    border: 1px solid  #bebebe;
+    padding: 20px;
+}
+        *{
+            list-style: none;
+        }
+        html,body{
+            margin: 0;
+            padding: 0;
+        }
+        .all-list{
+            padding: 40px;
+            margin: 0 auto;
+        }
+        .choose-list{
+          overflow: hidden;
+        }
+        .choose-list >h5{
+          display: block;
+          font-size: 14px;
+          color: #666666;
+          padding: 13px 0;
+          font-weight: normal;
+        }
+        .choose-container{
+          overflow: hidden;
+          border: 1px solid #DDDDDD;
+          box-sizing: border-box;
+        }
+        .choose-header{
+          overflow: hidden;
+          background-color: #F9FAFB;
+          padding: 0 48px;
+        }
+        .choose-header ul{
+          overflow: hidden;
+        }
+        .choose-header ul li{
+          float: left;
+          width: 5%;
+          text-align: center;
+          padding: 15px 0;
+          font-size: 12px;
+          color: #666666;
+        }
+        .choose-content{
+          padding: 0 48px;
+          overflow: hidden;
+        }
+        .choose-content ul{
+          overflow: hidden;
+
+        }
+        .choose-content ul li{
+          float: left;
+          /* width:19%; */
+          text-align: center;
+          padding: 15px 0;
+          line-height: 28px;
+          color: #555555;
+        }
+        .add-number li{
+         
+          display: inline-block;
+        }
+        .choose-content ul li .number-input{
+          float: left;
+          width: 70px;
+          height: 28px;
+          border-top: 1px;
+          border-bottom: 1px;
+          border-color: #CCCCCC;
+          border-style: solid none;
+          box-sizing: border-box;
+          line-height: 28px;
+          outline: none;
+          text-align: center;
+          color: #FE5200;
+        }
+        .choose-content ul li .minus,.choose-content ul li .add{
+          float: left;
+          width: 28px;
+          height: 28px;
+          background-color: #F9FAFB;
+          font-size: 14px;
+          outline: none;
+          border: 1px solid #CCCCCC;
+          box-sizing: border-box;
+        }
+        .choose-content ul li >span{
+          color: #FE5200;
+        }
+        .choose-footer{
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            background-color: #F9FAFB;
+            padding-left: 100px;
+        }
+        
+        .total-price span{
+         float: left;
+         margin-right: 40px;
+        }
+        .total-price >span{
+          display: block;
+          font-size: 14px;
+          color: #555555;
+          padding: 6px 0;
+        }
+        .total-price >span em{
+          font-style: initial;
+          text-decoration:line-through;
+        }
+        .total-price >span i{
+          font-style: initial;
+        }
+        .prices{
+          color: #EA4335 !important;
+        }
+       .xiaoji{
+            margin-left: 426px;
+       }
+    </style>
+
+<body>
+
+        <div class="all-list">
+    　　　　　　<div class="choose-list">
+        　　　　　　<h5>确认订单消息:</h5>
+        　　　　　　<div class="choose-container">
+        　　　　　　<div class="choose-header">
+            　　　　　　<ul>
+            　　　　　　<li>会员卡</li>
+            　　　　　　<li>原价</li>
+            　　　　　　<li>现价</li>
+            　　　　　　<li>数量</li>
+            　　　　　　<li class="xiaoji">小计</li>
+            　　　　　　</ul>
+        　　　　　　</div>
+        　　　　　　<div class="choose-content  clearfix">
+            　　　　　　<ul class="clearfix">
+                　　　　  <li><span>180</span>天会员卡</li>
+                　　　　　<li class="old-price" data-price="128">¥128</li>
+                　　　　　<li class="now-price" data-price="99" data-val="1">¥99</li>
+                　　　　　　<li class="add-number clearfix">
+                    　　　　　　　<button class="minus">-</button>
+                    　　　　　　  <input class="number-input" value="0" onkeyup="value=value.replace(/[^\d]/g,'')" data-value="0" />
+                    　　　　　　  <button class="add">+</button>
+                　　　　　　</li>
+                　　　　　<li><span class="now-total-price">¥99</span></li>
+            　　　　　　</ul>
+            　　　　　　<ul>
+                　　　　　　<li><span>365</span>天会员卡</li>
+                　　　　　　<li class="old-price" data-price="228">¥228</li>
+                　　　　　　<li class="now-price" data-price="199" data-val="2">¥199</li>
+                　　　　<li class="add-number clearfix">
+                    　　　　　　　<button class="minus">-</button>
+                    　　　　　　  <input class="number-input" value="0" onkeyup="value=value.replace(/[^\d]/g,'')" data-value="0" />
+                    　　　　　　  <button class="add">+</button>
+                　　　　　　</li>
+                　　　　　　<li><span class="now-total-price">¥199</span></li>
+            　　　　　　</ul>
+
+            　　　　　　<ul>
+            　　　　　　<li><span>730</span>天会员卡</li>
+            　　　　　　<li class="old-price" data-price="428">¥428</li>
+            　　　　　　<li class="now-price" data-price="329" data-val="3">¥329</li>
+            　　　　　<li class="add-number clearfix">
+                　　　　　　　<button class="minus">-</button>
+                　　　　　　  <input class="number-input" value="0" onkeyup="value=value.replace(/[^\d]/g,'')" data-value="0" />
+                　　　　　　  <button class="add">+</button>
+            　　　　　　</li>
+            　　　　　　<li><span class="now-total-price">¥329</span></li>
+            　　　　　　</ul>
+
+            　　　　　　<ul>
+            　　　　　　<li><span>终身</span>天会员卡</li>
+            　　　　　　<li class="old-price" data-price="888">¥888</li>
+            　　　　　　<li class="now-price" data-price="666" data-val="4">¥666</li>
+            　　　　　　<li class="add-number clearfix">
+                　　　　　　　<button class="minus">-</button>
+                　　　　　　  <input class="number-input" value="0" onkeyup="value=value.replace(/[^\d]/g,'')" data-value="0" />
+                　　　　　　  <button class="add">+</button>
+            　　　　　　</li>
+            　　　　　　<li><span class="now-total-price">¥666</span></li>
+            　　　　　　</ul>
+        　　　　　　</div>
+        　　　　　　<div class="choose-footer">
+            　　　　　
+            　　　　　　<div class="total-price">
+                　　　　　　<span>应支付：<em>128</em></span>
+                　　　　　　<span class="prices">折后支付：<i>99</i></span>
+            　　　　　　</div>
+        　　　　　　</div>
+        　　　　　　</div>
+    　　　　　　</div>
+
+    <!-- 　　　　　　 -->
+        
+            </div>
+            <script src="./jquery-3.1.1.js"></script>
+            <script>
+                    $(function(){
+                        addMoney();
+                        //增加按钮事件
+                    $(document).on('click','.add-number .add',function(){
+                        var _input = $(this).siblings('.number-input');
+                        $(this).siblings('.number-input').val(parseInt(_input.val()) + 1);
+                        addMoney();
+                    });
+                    //减少按钮事件
+                    $(document).on('click','.add-number .minus',function(){
+                        var _input = $(this).siblings('.number-input');
+                        var _val = parseInt(_input.val()) - 1;
+                        if(_val <0){
+                            $(this).siblings('.number-input').val('0');
+                        }else{
+                            $(this).siblings('.number-input').val(_val);
+                        }
+                        addMoney();
+                    });
+                    //input 输入事件
+                    $('.number-input').keyup(function(){
+                        addMoney();
+                    });
+                    
+                    //input失焦事件
+                    $('.number-input').blur(function(){
+                        var this_val = $(this).val();
+                        if(this_val == '' || this_val == 'undefind'){
+                            $(this).val('0');
+                        }else{
+                            $(this).val(this_val);
+                        }
+                    });
+                
+                    //金额计算
+                    function addMoney(){
+                        var now_total = 0,
+                            old_total= 0;
+                        $('.choose-content ul').each(function(index){
+                            var oldPrice = $(this).find('.old-price').attr('data-price');
+                            var nowPrice = $(this).find('.now-price').attr('data-price');
+                            var numbers = $(this).find('.number-input').val();
+                            var old_price_total = oldPrice * numbers;
+                            var now_price_total = nowPrice * numbers;
+                            // console.log(old_price_total,now_price_total);
+                            if(now_price_total == 0){
+                                $(this).find('.now-total-price').html(now_price_total);
+                            }else{
+                                $(this).find('.now-total-price').html('¥' + now_price_total);
+                            }
+                            now_total += now_price_total;
+                            old_total += old_price_total;
+                            console.log(now_price_total);
+                            
+                            $('.total-price span em').html(old_total);
+                            $('.total-price span i').html(now_total);
+                            
+                        })
+                    }
+                    })
+              </script>
+</body>
+
+</html>

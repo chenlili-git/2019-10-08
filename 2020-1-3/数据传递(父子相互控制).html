@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="changeNum">我是父级按钮{{num}}</button>
+        <template2 :a="num" :myname="name" @myclick="changeNum"></template2>
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+
+    let template2 = {
+        template: `<div>我是vue的子组件-----<button @click="mychange">我是子组件按钮{{a}}{{myname}}</button></div>`,
+        props: {
+            a: {
+                type: Number,
+            },
+            myname: {
+                required: true,
+                type: String,
+                validator: function (value) {
+                    console.log(value)
+                    return /[\u4e00-\u9fa5]/.test(value)
+                }
+            }
+        },
+        data() {
+            return {
+                mynum: this.a,
+            }
+        },
+        methods:{
+            mychange(){
+                this.$emit('myclick')
+            }
+        }
+
+    }
+    Vue.component('template2', template2)
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            num: 0,
+            name: '陈丽'
+        },
+        methods: {
+            changeNum(){
+                this.num++;
+            }
+        },
+    })
+</script>
+
+</html>

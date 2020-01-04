@@ -26,9 +26,7 @@
                         @dblclick="dblclick(index,$event)">
 
                         <div class="view">
-                            <input class="toggle" type="checkbox" 
-                                v-model='val.checked' 
-                                @change="checkedFn()">
+                            <input class="toggle" type="checkbox" v-model='val.checked' @change="checkedFn()">
                             <label v-cloak>
                                 {{val.txt}}
                             </label>
@@ -87,6 +85,12 @@
                 num: 2,
                 checkList: [],
                 dataNum: 0,
+            },
+
+            filters: {
+                handleId(val) {
+                    return 'input'+val
+                }
             },
             computed: {
                 isAllChecked: {

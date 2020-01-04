@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        table {
+            width: 800px;
+            text-align: center;
+            border: 1px solid black;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+
+        table thead {
+            background-color: grey;
+            height: 50px;
+            line-height: 50px;
+            color: white;
+        }
+
+        table tbody td {
+            line-height: 80px;
+        }
+
+        table tfoot {
+            border-top: 1px solid black;
+            line-height: 50px;
+        }
+
+        .day {
+            color: red;
+        }
+
+        .numBox {
+            display: flex;
+            justify-content: center;
+        }
+
+        .up,
+        .down {
+            border: 1px solid black;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            display: inline-block;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+
+        input {
+            outline: none;
+            padding: 0;
+            width: 50px;
+            height: 30px;
+            line-height: 30px;
+            box-sizing: border-box;
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+            border-left: none;
+            border-right: none;
+            text-align: center;
+            color: red;
+        }
+
+        .totolPrice {
+            text-decoration: line-through;
+            margin-right: 50px;
+        }
+
+        .salePrice,
+        .subtotal {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <table>
+            <thead>
+                <tr>
+                    <th width="20%">会员卡</th>
+                    <th width="20%">原价</thwidth="20%">
+                    <th width="20%">现价</th>
+                    <th width="20%">数量</th>
+                    <th width="20%">小计</thwidth="20%">
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(val,index) in goodsArr" :key="val.id">
+                    <td v-cloak><span class="day">{{val.name|handleNm}}</span>会员卡</td>
+                    <td v-cloak><span>¥</span>{{val.price}}</td v-cloak>
+                    <td v-cloak><span>¥</span>{{val.saleprice}}</td v-cloak>
+                    <td>
+                        <div class="numBox">
+                            <span class="down" @click="cutNum(val,index,$event)">-</span>
+                            <input type="text" v-model="val.num" @keyup="changNum(val.num,index,$event)">
+                            <span class="up" @click="addNum(val,index,$event)">+</span>
+                        </div>
+
+                    </td>
+                    <td v-cloak class="subtotal">{{val.subtotal|handleSub}}</span></td v-cloak>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" style="text-align: left; padding-left: 80px;">
+                        应支付：<span class="totolPrice">{{totalPrice|handleSub}}</span> 　　　　　　
+                        <span class="salePrice">折后支付：{{salePrice|handleSub}}</span>
+                    </td>
+                </tr>
+
+            </tfoot>
+        </table>
+    </div>
+
+</body>
+<script src="./vue.js"></script>
+<script>
+    let v = new Vue({
+        el: "#app",
+        data: {
+            goodsArr: [
+                {
+                    id: 0,
+                    name: '180天会员卡',
+                    price: 128,
+                    saleprice: 99,
+                    num: 0,
+                    subtotal: 0
+                },
+                {
+                    id: 1,
+                    name: '365天会员卡',
+                    price: 228,
+                    saleprice: 199,
+                    num: 0,
+                    subtotal: 0
+                },
+                {
+                    id: 2,
+                    name: '730天会员卡',
+                    price: 428,
+                    saleprice: 329,
+                    num: 0,
+                    subtotal: 0
+                },
+                {
+                    id: 3,
+                    name: '终身会员卡',
+                    price: 888,
+                    saleprice: 666,
+                    num: 0,
+                    subtotal: 0
+                },
+            ],
+            totalPrice: 0,
+            salePrice: 0
+        },
+        filters: {
+            handleNm(val) {
+                let str = ''
+                val.replace(/(^\d+天)|(终身)/, function ($0, $1, $2) {
+                    str = $0;
+                })
+                return str;
+            },
+            handleSub(val) {
+                return val > 0 ? '¥' + val : '' + val
+
+            }
+
+        },
+        methods: {
+            cutNum(val, index, ev) {
+                this.goodsArr[index].num--;
+                if (this.goodsArr[index].num < 0) {
+                    this.goodsArr[index].num = 0;
+                } else {
+                    this.totalPrice -= this.goodsArr[index].price;
+                    this.salePrice -= this.goodsArr[index].saleprice;
+                }
+                this.goodsArr[index].subtotal = this.goodsArr[index].saleprice * this.goodsArr[index].num
+
+            },
+            addNum(val, index, ev) {
+                this.goodsArr[index].num++;
+                this.totalPrice += this.goodsArr[index].price;
+                this.salePrice += this.goodsArr[index].saleprice;
+                this.goodsArr[index].subtotal = this.goodsArr[index].saleprice * this.goodsArr[index].num
+            },
+            changNum(val, index, ev) {
+
+                let s;
+                if (!(/^\d+$/.test(val))) {
+                    console.log(111)
+                    val.replace(/\d+/, function ($0) {
+                        console.log($0)
+                        s = $0;
+                    })
+                    this.goodsArr[index].num = s;
+
+                } 
+                this.goodsArr[index].subtotal = this.goodsArr[index].saleprice * this.goodsArr[index].num
+
+            }
+        },
+    })
+</script>
+
+</html>

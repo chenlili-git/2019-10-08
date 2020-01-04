@@ -1,0 +1,18 @@
+.tree{
+    text-align: center;
+}
+.tree li{
+    cursor: pointer;
+}
+.tree .tit{
+    height:30px;
+    line-height: 30px;
+    font-weight: bold;
+    color: white;
+    background-color: #3366cc;
+}
+.tree li.active{
+    line-height: 28px;
+    color: orange;
+    background-color: white;
+}
