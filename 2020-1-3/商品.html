@@ -100,7 +100,7 @@
                     <td>
                         <div class="numBox">
                             <span class="down" @click="cutNum(val,index,$event)">-</span>
-                            <input type="text" v-model="val.num" @keyup="changNum(val.num,index,$event)">
+                            <input type="text" v-model="val.num" @keyup="changNum(val,index,$event)">
                             <span class="up" @click="addNum(val,index,$event)">+</span>
                         </div>
 
@@ -161,7 +161,8 @@
                 },
             ],
             totalPrice: 0,
-            salePrice: 0
+            salePrice: 0,
+            val:''
         },
         filters: {
             handleNm(val) {
@@ -174,7 +175,7 @@
             handleSub(val) {
                 return val > 0 ? '¥' + val : '' + val
 
-            }
+            },
 
         },
         methods: {
@@ -196,9 +197,9 @@
                 this.goodsArr[index].subtotal = this.goodsArr[index].saleprice * this.goodsArr[index].num
             },
             changNum(val, index, ev) {
-
                 let s;
-                if (!(/^\d+$/.test(val))) {
+                console.log(val)
+                if (!/\d+/.test(ev.target.val)) {
                     console.log(111)
                     val.replace(/\d+/, function ($0) {
                         console.log($0)
@@ -206,7 +207,9 @@
                     })
                     this.goodsArr[index].num = s;
 
-                } 
+                } else{
+                    this.goodsArr[index].num =0;
+                }
                 this.goodsArr[index].subtotal = this.goodsArr[index].saleprice * this.goodsArr[index].num
 
             }

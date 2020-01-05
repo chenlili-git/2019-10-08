@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body,
+        html,ul {
+            padding: 0;
+            margin: 0;
+
+        }
+
+        ul li {
+            list-style: none;
+        }
+
+        #app {
+            position: relative;
+            height: 100vh;
+        }
+        .btn{
+            position: absolute;
+            z-index: 4;
+        }
+        body #masked_box {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        body #masked_box .mask_cnt {
+            background-color: white;
+            height: fit-content;
+            width: 300px;
+        }
+
+        body #masked_box .mask_cnt ul {
+            padding: 0px 10px 0px 10px;
+            display: flex;
+            justify-content: space-between;
+            height: 30px;
+            line-height: 30px;
+            font-size: 14px;
+            background-color: rgba(42, 195, 138, 0.1);
+            color: #2ac38a;
+        }
+
+        body #masked_box .mask_cnt ul li:last-child {
+            cursor: pointer;
+        }
+
+        body #masked_box .mask_cnt div {
+            padding: 0px 10px 0px 10px;
+            line-height: 50px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        body #masked_box .mask_cnt div p {
+            padding: 20px 10px 0px 10px;
+        }
+
+        body #masked_box .mask_cnt div button {
+            border: none;
+            background-color: #33cc99;
+            width: 70px;
+            line-height: 30px;
+            font-size: 12px;
+            color: white;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .v-enter,.v-leave-to {
+            opacity: 0;
+        }
+
+        .v-enter-active,.v-leave-active {
+            transition: 5s;
+        }
+
+        .v-enter-to,.v-leave {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <button class="btn" @click="onoff=!onoff">显示/隐藏</button>
+        <section id="masked_box">
+            <transition>
+                <temp v-show="onoff">
+                    <ul>
+                        <li>提示</li>
+                        <li class='mask_close'>X</li>
+                    </ul>
+                    <div>
+                        <p>sdadasdadasd</p>
+                        <button class='mask_close'>关闭</button>
+                    </div>
+                </temp>
+            </transition>
+        </section>
+    </div>
+
+    <template id='mask'>
+        <div class="mask_cnt">
+            <slot></slot>
+        </div>
+    </template>
+</body>
+<script src="./vue.js"></script>
+<script>
+    const temp = {
+        template: "#mask",
+    }
+    Vue.component('temp', temp);
+    let v = new Vue({
+        el: "#app",
+        data:{
+            onoff:false
+        }
+    })
+</script>
+
+</html>

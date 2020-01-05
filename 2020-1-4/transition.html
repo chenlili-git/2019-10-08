@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateX(300px);
+        }
+
+        .v-enter-active,
+        .v-leave-active {
+            transition: 1s;
+        }
+
+        .v-enter-to,
+        .v-leave {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+
+
+        .n-enter,
+        .n-leave-to {
+            opacity: 0;
+            transform: translateX(300px);
+        }
+
+        .n-enter-active,
+        .n-leave-active {
+            transition: 1s;
+        }
+
+        .n-enter-to,
+        .n-leave {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="app">
+        <button @click="onoff=!onoff">
+            点击
+        </button>
+        <transition>
+            <ppa v-show="onoff"></ppa>
+        </transition>
+
+
+        <hr>
+        <button @click="onoff2 = !onoff2">
+            点击
+        </button>
+        <transition name="n">
+            <div v-show="onoff2">
+                11111
+            </div>
+        </transition>
+    </div>
+
+    <template id="ppa">
+        <div>
+            nihao
+        </div>
+    </template>
+</body>
+<script src="./vue.js"></script>
+<script>
+    const ppa = {
+        template: '#ppa'
+    }
+    new Vue({
+        el: '#app',
+        data: {
+            onoff: false,
+            onoff2: false
+        },
+        components: {
+            ppa
+        }
+    })
+</script>
+
+</html>

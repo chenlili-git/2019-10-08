@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            width: 30px;
+            height: 30px;
+            background-color: skyblue;
+            border-radius: 50%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="app">
+        <button @click="onoff=!onoff">
+            点击
+        </button>
+        <transition @beforeEnter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+            <ppa v-show="onoff"></ppa>
+        </transition>
+    </div>
+
+    <template id="ppa">
+        <div id="box">
+
+        </div>
+    </template>
+</body>
+<script src="./vue.js"></script>
+<script>
+    const ppa = {
+        template: '#ppa'
+    }
+    new Vue({
+        el: '#app',
+        data: {
+            onoff: false
+        },
+        components: {
+            ppa
+        },
+        methods: {
+            beforeEnter(ele) {
+                ele.style.opacity = '1';
+                ele.style.transform = 'translate(0,0)';
+            },
+            enter(ele, done) {
+                ele.offsetTop;
+                ele.style.transition = '1s';
+                ele.style.transform = 'translate(200px,200px)';
+                done();
+            },
+            afterEnter(ele) {
+                ele.style.opacity = '.2';
+                this.onoff = false;
+
+            }
+
+        },
+    })
+</script>
+
+</html>

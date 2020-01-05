@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <div id="app">  匿名插槽
+        <ppa>
+            <div class="box2">陈丽</div>
+        </ppa>
+    </div>
+    <template id="ppa">
+        <div>
+            <slot>
+                <div class="box">hello</div>
+            </slot>
+        </div>
+    </template> -->
+
+    <!-- <div id="app"> 具名插槽
+        <ppa>
+            <div slot="footer">我的脚</div>
+            <div slot="head">我的头</div>
+            <div slot="body">我的身体</div>
+        </ppa>
+    </div>
+    <template id="ppa">
+        <div>
+            <slot name="head">
+                <div>头部</div>
+            </slot>
+            <slot name="body">
+                <div>身体</div>
+            </slot>
+            <slot name="footer">
+                <div>脚</div>
+            </slot>
+        </div>
+    </template> -->
+
+    <div id="app">
+        <ppa :data="ary">
+            <template #cdata="childrenData">
+                {{childrenData}}
+                <h2>我的名字叫:{{childrenData.nn}}</h2>
+                <p>我的年龄是:{{childrenData.age}}</p>
+                <p>我的编号是:{{childrenData.id}}</p>
+            </template>
+        </ppa>
+    </div>
+    <template id="ppa">
+        <div>
+            <ul>
+                <li v-for="(val,key) in data" :key=key>
+                    <slot 
+                        name="cdata"
+                        :nn='val.name'
+                        :age="val.age"
+                        :id="val.id"
+                    >
+                    {{val.name}}
+                    </slot>
+
+                </li>
+            </ul>
+        </div>
+    </template>
+</body>
+<script src="./vue.js"></script>
+<script>
+    /*
+       插槽：在开发中写什么解构就是什么解构，
+       优点：固定统一
+       缺点：不够灵活
+
+       为了解决不灵活的问题，能够自定义一些组件 能够替换之前默认的配置
+       匿名插槽:
+            子组件中定义了solt
+            父组件中调用的子组件双标签内填入结构
+            这个时候slot就被填入结构覆盖
+       具名插槽：
+            在slot标签中设置一个name属性 值为随意
+            在插入替换内容的时候，在替换标签中定义一个slot的属性值和要替换的name对应
+       作用域插槽：
+            在子级的slot中：
+            1.定义一个name="唯一个标识符"
+            2.通过v-bind去传入使用的数据
+
+            在父级template中
+            1.v-slot:name标识符='自定义的名字'  v-slot可以缩写为#
+            2.使用自定义的名字.xx
+            <solt name="cc" :age="index">
+            <template #cc="cdata">
+                {{cdata}}
+            </template>
+    */
+
+    const ppa = {
+        template: '#ppa',
+        props:['data']
+    }
+    new Vue({
+        el: "#app",
+        data:{
+            ary:[
+                {
+                    name:'chenli',
+                    age:18,
+                    id:0
+                },
+                {
+                    name:'陈丽',
+                    age:8,
+                    id:1
+                },
+                {
+                    name:'陈丽丽',
+                    age:30,
+                    id:2
+                }
+            ]
+        },
+        components: {
+            ppa
+        }
+    })
+
+</script>
+
+</html>
