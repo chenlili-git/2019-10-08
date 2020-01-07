@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div id="box" v-if="destroy">
+            <button @click="add">点击添加</button>
+            <button @click="rm">删除</button>
+            <p v-for="(item,index) in arr" :key="index">
+                {{ item }}
+            </p>
+        </div>
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    let v = new Vue({
+        data: {
+            num: 0,
+            arr: [1, 2, 3, 4, 5],
+            timer: null,
+            destroy: true
+        },
+        methods: {
+            add() {
+                this.arr.push(this.num++);
+            },
+            rm() {
+                this.$destroy();
+                //this.destroy=false;
+            }
+        },
+        beforeCreate() {
+            console.log(this.num, "初始化之前");//undefinde
+        },
+        created() {
+            console.log(this.num, "初始化之后");//0
+        },
+        //没有挂载元素，就没有下面的生命周期了  dom渲染
+        beforeMount() {
+            console.log(box.children, "渲染之前");  //一个button 一个p标签
+        },
+        mounted() {
+            console.log(box.children, "渲染之后"); //一个button 多个p标签
+            this.timer = setInterval(() => {
+                console.log(111111);
+            }, 1000);
+        },
+        // dom更新之前/之后   字面意思虽然是数据更新 但是更新前后都能拿到新数据
+        beforeUpdate() {
+            console.log('数据更新之前', box.children, this.arr)
+        },
+        updated() {
+            console.log('数据更新之后', box.children, this.arr)
+
+        },
+        //销毁组件
+        beforeDestroy() {
+            console.log('销毁之前')
+            clearInterval(this.timer);
+        },
+        //销毁之后，可以把一些事件、定时器等解除
+        destroyed() {
+            console.log('销毁之后');
+            
+        }
+    }).$mount('#app');
+</script>
+
+</html>
