@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/chenlili-git/2019-10-08/issues"
   },
-  "homepage": "https://github.com/chenlili-git/2019-10-08#readme"
+  "homepage": "https://github.com/chenlili-git/2019-10-08#readme",
+  "devDependencies": {
+    "axios": "^0.19.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "vue-axios": "^2.1.5"
+  }
 }
