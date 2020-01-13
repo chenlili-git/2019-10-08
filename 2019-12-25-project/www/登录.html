@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+           /*  background-color:indianred; */
+        }
+        .box{
+            width: 400px;
+            height: 300px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            background-color: white;
+            border: 1px solid grey;
+            border-radius: 5px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content:center;
+            align-items: center;
+        }
+        .cnt{
+            display: flex;
+            flex-direction: column;
+            justify-content:center;
+            align-items: center;
+        }
+        .cnt>div,.cnt>h3{
+            line-height: 30px;
+            height: 50px;
+        }
+        .cnt input{
+            height: 30px;
+            width: 200px;
+        }
+        .cnt button{
+            width: 200px;
+            background-color: blue;
+            height: 30px;
+            border: none;
+            outline: none;
+            color:white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <section class="box">
+        <div class="cnt">
+            <h3>登录</h3>
+            <div><input type="text" placeholder="用户名"></div>
+            <div><input type="password" placeholder="密码"></div>
+            <div><button>登录</button></div>
+        </div>
+    </section>
+</body>
+
+</html>

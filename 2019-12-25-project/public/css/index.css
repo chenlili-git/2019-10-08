@@ -75,6 +75,7 @@ aside{
     flex:1;
     border: 1px solid gray;
 }
+/* 面包屑 */
 .bread{
     height: 30px;
     line-height: 30px;
@@ -83,6 +84,14 @@ aside{
     color: #666;
     padding-left: 20px;
     font-weight: bold;
+}
+.bread span::after{
+    content: '>';
+    margin:0 5px;
+    color:grey;
+}
+.bread span:last-child::after{
+    content: '';
 }
 #imgBox{
     display: flex;  
@@ -98,4 +107,61 @@ aside{
 }
 #imgBox li img{
     display: block;
+}
+
+/* 修改密码 */
+.tip{
+    color:red;
+    line-height: 30px;
+    
+}
+.passwordBox{
+    margin-top: 50px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+   
+}
+.pwCnt div{
+    height:50px;
+}
+.pwCnt input{
+    height: 30px;
+}
+.pwCnt span{
+    width: 60px;
+    display: inline-block;
+    text-align: right;
+}
+.pwCnt button{
+    width: 100px;
+    background-color: blue;
+    height: 30px;
+    border: none;
+    outline: none;
+    color:white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.pwCnt .btn{
+    padding-left: 60px;
+    text-align: center;
+    overflow: hidden;
+}
+
+footer{
+    margin-top: 10px;
+    padding:20px 0;
+    background-color: #333333;
+}
+footer p{
+    padding-top: 10px !important;
+    font-size: 14px;
+    color: white;
+    text-align: center;
+    
+}
+footer p.proname{
+    padding-top: 0px !important;
 }

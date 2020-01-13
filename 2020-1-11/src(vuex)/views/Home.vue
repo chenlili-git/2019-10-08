@@ -1,21 +1,17 @@
 <template>
   <div class="home">
     HOME
-    <aa></aa>
-    <bb></bb>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import aa from "./params/a";
 
-import bb from "./params/b";
 
 export default {
   name: "home",
   comments: {
-    aa,
-    bb
+
   }
 };
 </script>

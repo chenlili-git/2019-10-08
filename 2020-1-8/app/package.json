@@ -19,7 +19,7 @@
     "vue-template-compiler": "^2.6.10"
   },
   "browserslist": [
-    "> 1%",
+    "> 1%", 
     "last 2 versions"
   ]
 }

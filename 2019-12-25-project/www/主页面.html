@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../public/css/index.css">
+    <link rel="stylesheet" href="../public/css/tree.css">
+</head>
+
+<body>
+    <header><span id='user'></span><span id="exitBtn">退出</span></header>
+    <nav>
+        <div class="logo"><img src="../public/img/logo.png" alt=""></div>
+        <ul>
+            <a href="JavaScript:;">
+                <li class="active">
+                    用户管理
+                </li>
+            </a>
+            <a href="JavaScript:;">
+                <li class="">
+                    内容管理
+                </li>
+            </a>
+            <a href="JavaScript:;">
+                <li class="">
+                    订单管理
+                </li>
+            </a>
+            <a href="JavaScript:;">
+                <li class="">
+                    商品管理
+                </li>
+            </a>
+        </ul>
+    </nav>
+    <section class="contentBox">
+        <aside>
+            <div class="tree" id="tree">
+                <ul>
+                    <li>
+                        <div class="tit">用户信息</div>
+                        <ul>
+                            <li class="active">
+                                <div>密码修改</div>
+                            </li>
+                            <li>
+                                <div>个人设置</div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="tit">广告位/友链管理</div>
+                        <ul>
+                            <li class="active">
+                                <div>广告位管理</div>
+                            </li>
+                            <li>
+                                <div>主题设置</div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="tit">内容管理</div>
+                        <ul>
+                            <li class="active">
+                                <div>发布信息</div>
+                            </li>
+                            <li>
+                                <div>系统模板</div>
+                            </li>
+                            <li>
+                                <div>校园风采图片设置</div>
+                            </li>
+
+                            <li>
+                                <div>客户管理</div>
+                            </li>
+                            <li>
+                                <div>主题管理</div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </aside>
+        <section class="cntBox">
+            <div class="bread">
+                <span>发布信息</span>
+                <span>发布内容</span>
+            </div>
+            <div class="cnt">
+                <div class="uploadBox" style="display: none;">
+                    <div>
+                        <input type="file" name="filename" id="file" multiple>
+                        <button id='uploadBtn'>上传</button>
+                    </div>
+                    <ul id="imgBox">
+
+                    </ul>
+                </div>
+                <div class="passwordBox" style="display: none;">
+                    <p class="tip">
+                        为保障您账户的安全，请每间隔3个月更换一次新密码，若3个月后未更换密码，将无法使用旧密码登录!
+                    </p>
+                    <div class="pwCnt">
+                        <div>
+                            <span>旧密码：</span>
+                            <input type="password" id="oldPW">
+                        </div>
+                        <div>
+                            <span>新密码：</span>
+                            <input type="password" id="newPW">
+                        </div>
+                        <div>
+                            <span>确认密码:</span>
+                            <input type="password" id="confirmPW">
+                        </div>
+                        <div class="btn"><button>确认修改</button></div>
+                    </div>
+                </div>
+                <div class="passwordBox userInfo" style="display: none;">
+                    <div class="pwCnt">
+                        <div>
+                            <span>用户名：</span>
+                            <input type="username" value="chenli" disabled>
+                        </div>
+                        <div>
+                            <span>真实姓名：</span>
+                            <input type="text" id="realname">
+                        </div>
+                        <div>
+                            <span>手机号：</span>
+                            <input type="tel" name="" id="iphone">
+                        </div>
+                        <div>
+                            <span>邮箱:</span>
+                            <input type="email" id="email">
+                        </div>
+                        <div class="btn"><button>确认修改</button></div>
+                    </div>
+                </div>
+
+                <div class="info" style="">
+                    <div class="infoCnt">
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </section>
+    </section>
+    <footer>
+        <p class="proname">宁夏学生校服互联网管理服务平台</p>
+        <p class="address">地址：银川市金凤区上海西路127号 客服电话：400 689 6600</p>
+        <p class="card">经营许可证：宁ICP备16000125号-1</p>
+    </footer>
+
+</body>
+<script src="axios.js"></script>
+<script>
+
+
+</script>
+
+</html>

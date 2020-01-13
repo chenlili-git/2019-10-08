@@ -11,6 +11,9 @@
     color: white;
     background-color: #3366cc;
 }
+.tree li{
+    line-height: 28px;
+}
 .tree li.active{
     line-height: 28px;
     color: orange;
